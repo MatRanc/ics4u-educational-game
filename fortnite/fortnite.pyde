@@ -49,7 +49,6 @@ class health_bar(object):
         #health text
         text(self.health_level, self.x_pos - 30, self.y_pos + 30)
         
-        
         #background shield bar
         fill(210, 210, 255)
         rect(self.x_pos, self.y_pos, 200, 10)
@@ -61,7 +60,6 @@ class health_bar(object):
         #shield text
         text(self.shield_level, self.x_pos - 30, self.y_pos + 10)
         
-                
 class question(object):
     def __init__(self, question, correct_answer, answer_2, answer_3, answer_4):
         self.question = question
