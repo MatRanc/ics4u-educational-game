@@ -42,7 +42,7 @@ class question(object):
 ############### class templates end #######################
 
 circle_opp = playerCircle(1025, 350, 1.23)
-circle_main_player = playerCircle(375, 500, 1.50)
+circle_main_player = playerCircle(400, 500, 1.50)
 
 opp_ninja = player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "/assets/characters/ninjablevins.png", 0.8)
 opp_souljaboy = player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "/assets/characters/souljaboy.png", 0.60)
