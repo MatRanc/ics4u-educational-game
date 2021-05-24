@@ -30,6 +30,38 @@ class action_button(object):
     def __init__(self, idk):
         self.idk = idk
         
+class health_bar(object):
+    def __init__(self, x_pos, y_pos, health_level, shield_level):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.health_level = health_level
+        self.shield_level = shield_level
+        
+    def display(self):
+        #background of health bar
+        fill(255, 230, 230)
+        rect(self.x_pos, self.y_pos + 20, 200, 10)
+        
+        #main health bar
+        fill(255, 60, 60)
+        rect(self.x_pos, self.y_pos + 20, 200 * self.health_level / 100, 10)
+        
+        #health text
+        text(self.health_level, self.x_pos - 30, self.y_pos + 30)
+        
+        
+        #background shield bar
+        fill(210, 210, 255)
+        rect(self.x_pos, self.y_pos, 200, 10)
+        
+        #main shield bar
+        fill(60, 60, 255)
+        rect(self.x_pos, self.y_pos, 200 * self.shield_level / 100, 10)
+        
+        #shield text
+        text(self.shield_level, self.x_pos - 30, self.y_pos + 10)
+        
+                
 class question(object):
     def __init__(self, question, correct_answer, answer_2, answer_3, answer_4):
         self.question = question
@@ -46,20 +78,33 @@ circle_main_player = playerCircle(400, 500, 1.50)
 
 opp_ninja = player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/ninjablevins.png", 0.8)
 opp_souljaboy = player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/souljaboy.png", 0.60)
+
+#set current opponent so they can be changed out easier?
+current_opp = opp_souljaboy
+
 main_player = player(circle_main_player.x_pos, circle_main_player.y_pos +50, "ASSIGN NAME", 100, 100, "assets/characters/defaultplayer.png", 0.8)
+
+opp_health_bar = health_bar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level, current_opp.shield_level)
+main_player_health_bar = health_bar(main_player.x_pos-350, main_player.y_pos-200, main_player.health_level, main_player.shield_level)
+
+
 
 def setup():
   size(1280, 720)
   
 def draw():
-  background(255);
-  # Draw the image to the screen at coordinate (0,0)
-  
+  background(245);
+    
   circle_opp.display()
   circle_main_player.display()
+  
   #opp_ninja.display()
   opp_souljaboy.display()
+  
   main_player.display()
+  
+  opp_health_bar.display()
+  main_player_health_bar.display()
   
   #bottom box
   fill(100, 150, 200)
