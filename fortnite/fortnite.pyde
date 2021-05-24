@@ -1,4 +1,4 @@
-class playerCircle(object):
+class PlayerCircle(object):
     def __init__(self, x_pos, y_pos, scale):
         self.x_pos = x_pos
         self.y_pos = y_pos
@@ -10,7 +10,7 @@ class playerCircle(object):
         fill(182, 255, 252)
         ellipse(self.x_pos, self.y_pos, 300 * self.scale, 75 * self.scale)
         
-class player(object):
+class Player(object):
     def __init__(self, x_pos, y_pos, name, shield_level, health_level, model, model_scale):
         self.x_pos = x_pos
         self.y_pos = y_pos
@@ -26,11 +26,11 @@ class player(object):
         img.resize(int(0 * self.model_scale), int(500 * self.model_scale))
         image(img, self.x_pos, self.y_pos - (img.height/2))
         
-class action_button(object):
+class ActionButton(object):
     def __init__(self, idk):
         self.idk = idk
         
-class health_bar(object):
+class HealthBar(object):
     def __init__(self, x_pos, y_pos, health_level, shield_level):
         self.x_pos = x_pos
         self.y_pos = y_pos
@@ -60,7 +60,7 @@ class health_bar(object):
         #shield text
         text(self.shield_level, self.x_pos - 30, self.y_pos + 10)
         
-class question(object):
+class Question(object):
     def __init__(self, question, correct_answer, answer_2, answer_3, answer_4):
         self.question = question
         self.correct_a = correct_answer
@@ -71,19 +71,19 @@ class question(object):
         
 ############### class templates end #######################
 
-circle_opp = playerCircle(1025, 350, 1.23)
-circle_main_player = playerCircle(400, 500, 1.50)
+circle_opp = PlayerCircle(1025, 350, 1.23)
+circle_main_player = PlayerCircle(400, 500, 1.50)
 
-opp_ninja = player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/ninjablevins.png", 0.8)
-opp_souljaboy = player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/souljaboy.png", 0.60)
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/ninjablevins.png", 0.8)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/souljaboy.png", 0.60)
 
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
 
-main_player = player(circle_main_player.x_pos, circle_main_player.y_pos +50, "ASSIGN NAME", 100, 100, "assets/characters/defaultplayer.png", 0.8)
+main_player = Player(circle_main_player.x_pos, circle_main_player.y_pos +50, "ASSIGN NAME", 100, 100, "assets/characters/defaultplayer.png", 0.8)
 
-opp_health_bar = health_bar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level, current_opp.shield_level)
-main_player_health_bar = health_bar(main_player.x_pos-350, main_player.y_pos-200, main_player.health_level, main_player.shield_level)
+opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level, current_opp.shield_level)
+main_player_health_bar = HealthBar(main_player.x_pos-350, main_player.y_pos-200, main_player.health_level, main_player.shield_level)
 
 
 
