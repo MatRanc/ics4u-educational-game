@@ -44,9 +44,9 @@ class question(object):
 circle_opp = playerCircle(1025, 350, 1.23)
 circle_main_player = playerCircle(400, 500, 1.50)
 
-opp_ninja = player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "/assets/characters/ninjablevins.png", 0.8)
-opp_souljaboy = player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "/assets/characters/souljaboy.png", 0.60)
-main_player = player(circle_main_player.x_pos, circle_main_player.y_pos +50, "ASSIGN NAME", 100, 100, "/assets/characters/defaultplayer.png", 0.8)
+opp_ninja = player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/ninjablevins.png", 0.8)
+opp_souljaboy = player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/souljaboy.png", 0.60)
+main_player = player(circle_main_player.x_pos, circle_main_player.y_pos +50, "ASSIGN NAME", 100, 100, "assets/characters/defaultplayer.png", 0.8)
 
 def setup():
   size(1280, 720)
