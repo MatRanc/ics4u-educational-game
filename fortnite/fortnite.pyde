@@ -68,7 +68,6 @@ class Question(object):
         self.answer_3 = answer_3
         self.answer_4 = answer_4
         
-        
 ############### class templates end #######################
 
 circle_opp = PlayerCircle(1025, 350, 1.23)
