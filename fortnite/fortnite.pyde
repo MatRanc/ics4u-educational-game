@@ -1,3 +1,5 @@
+import os
+
 class PlayerCircle(object):
     def __init__(self, x_pos, y_pos, scale):
         self.x_pos = x_pos
@@ -68,41 +70,133 @@ class Question(object):
         self.answer_3 = answer_3
         self.answer_4 = answer_4
         
+class GalleryButton(object):
+    def __init__(self, x_pos, y_pos, scale, x_dir):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.scale = scale
+        self.x_dir = x_dir
+        self.counter = 0
+        
+        self.circle_x = (self.x_pos + (12/2 * self.x_dir)) * self.scale
+        self.circle_y = (15/2 + self.y_pos) * self.scale
+        
+    def display(self):
+        fill(255)
+        circle(self.circle_x, self.circle_y, 30 * self.scale)
+        
+        fill(255, 255, 20)
+        triangle(self.x_pos * self.scale, self.y_pos * self.scale, self.x_pos * self.scale, (15 + self.y_pos) * self.scale, (self.x_pos + (15 * self.x_dir))* self.scale, (15/2 + self.y_pos) * self.scale)
+        
+    def over_circle(self):
+        if mouseX in range(self.circle_x - 15, self.circle_x + 15) and mouseY in range(self.circle_y - 15, self.circle_y + 15):
+            return True
+        else:
+            return False
+        
+        
 ############### class templates end #######################
+game_state = 1
 
+main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
+
+main_player_character_selection = 0
+main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
+                              
 circle_opp = PlayerCircle(1025, 350, 1.23)
 circle_main_player = PlayerCircle(400, 500, 1.50)
 
-opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/ninjablevins.png", 0.8)
-opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/souljaboy.png", 0.60)
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.8)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/opponents/souljaboy.png", 0.60)
 
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
 
-main_player = Player(circle_main_player.x_pos, circle_main_player.y_pos +50, "ASSIGN NAME", 100, 100, "assets/characters/defaultplayer.png", 0.8)
+main_player = Player(circle_main_player.x_pos, circle_main_player.y_pos + 50, "Please enter a name", 100, 100, main_player_character_selection_fullpath, 0.8)
 
 opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level, current_opp.shield_level)
 main_player_health_bar = HealthBar(main_player.x_pos-350, main_player.y_pos-200, main_player.health_level, main_player.shield_level)
 
+next_character_button = GalleryButton(50+140, 500, 1, 1)
+back_character_button = GalleryButton(25+140, 500, 1, -1)
 
-
+def battle_ui():
+    circle_opp.display()
+    circle_main_player.display()
+    
+    current_opp.display()
+    main_player.display()
+    
+    opp_health_bar.display()
+    main_player_health_bar.display()
+    
+    #bottom box
+    fill(100, 150, 200)
+    rect(0, 720-226, 1279, 225)
+    
+def main_menu():
+    game_state = 1
+    background(100, 100, 255)
+    
+    #title on screen
+    title = "Canadian History Fortnite Pokemon Education Game (placeholder)"
+    fill(255)
+    textAlign(CENTER)
+    textSize(20)
+    text(title, 640-(250/2), 150, 250, 100)
+    #text(string, x pos, y pos, container width, container height)
+    
+    next_character_button.display()
+    back_character_button.display()
+    
+    #character selection
+    full_counter = next_character_button.counter + back_character_button.counter
+        
+    if full_counter < 0:
+            full_counter = len(main_player_character_list) - 1
+            back_character_button.counter = len(main_player_character_list) - 1
+            next_character_button.counter = 0
+            
+    if full_counter > len(main_player_character_list) - 1:
+        full_counter = 0
+        next_character_button.counter = 0
+        back_character_button.counter = 0
+    
+    main_player_character_selection = full_counter
+    main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
+    
+    img = loadImage(main_player_character_selection_fullpath)
+    imageMode(CENTER)
+    img.resize(0, 250)
+    image(img, 180, 350)
+    
+    main_player.model = main_player_character_selection_fullpath
+    
+    #username box
+    #needs to be a box, when clicked allow text, display as typing, save to main_player.name
+    
+    
+    
+    
+    
+    
+    
+    
 def setup():
-  size(1280, 720)
+    size(1280, 720)
   
 def draw():
-  background(245);
+    background(245)
     
-  circle_opp.display()
-  circle_main_player.display()
+    if game_state == 1:
+        main_menu()
+    elif game_state == 2:
+        battle_ui()
   
-  #opp_ninja.display()
-  opp_souljaboy.display()
-  
-  main_player.display()
-  
-  opp_health_bar.display()
-  main_player_health_bar.display()
-  
-  #bottom box
-  fill(100, 150, 200)
-  rect(0, 720-226, 1279, 225)
+def mouseClicked():
+    if game_state == 1:
+        if next_character_button.over_circle() == True:
+            next_character_button.counter += 1
+        if back_character_button.over_circle() == True:
+            back_character_button.counter -= 1
+            
