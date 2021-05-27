@@ -153,9 +153,9 @@ def main_menu():
     full_counter = next_character_button.counter + back_character_button.counter
         
     if full_counter < 0:
-            full_counter = len(main_player_character_list) - 1
-            back_character_button.counter = len(main_player_character_list) - 1
-            next_character_button.counter = 0
+        full_counter = len(main_player_character_list) - 1
+        back_character_button.counter = len(main_player_character_list) - 1
+        next_character_button.counter = 0
             
     if full_counter > len(main_player_character_list) - 1:
         full_counter = 0
