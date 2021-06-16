@@ -102,7 +102,7 @@ main_player_character_list = os.listdir("assets/characters/playable/")  #gets al
 
 main_player_character_selection = 0
 main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
-                              
+
 circle_opp = PlayerCircle(1025, 350, 1.23)
 circle_main_player = PlayerCircle(400, 500, 1.50)
 
