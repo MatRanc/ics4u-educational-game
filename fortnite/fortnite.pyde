@@ -28,9 +28,28 @@ class Player(object):
         img.resize(int(0 * self.model_scale), int(500 * self.model_scale))
         image(img, self.x_pos, self.y_pos - (img.height/2))
         
-class ActionButton(object):
-    def __init__(self, idk):
-        self.idk = idk
+class RectButton(object):
+    def __init__(self, x_pos, y_pos, x_size, y_size, words, txt_size):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.x_size = x_size
+        self.y_size = y_size
+        self.words = words
+        self.txt_size = txt_size
+    def display(self):
+        fill(255)
+        rect(self.x_pos, self.y_pos, self.x_size,self.y_size)
+        fill(0)
+        textSize(self.txt_size)
+        text(self.words,self.x_pos,self.y_pos, self.x_size, self.y_size)
+    
+    def over_but(self):
+         if mouseX in range(self.x_pos, self.x_pos + self.x_size) and mouseY in range(self.y_pos, self.y_pos + self.y_size):
+             return True
+         else:
+             return False
+        
+        
         
 class HealthBar(object):
     def __init__(self, x_pos, y_pos, health_level, shield_level):
@@ -49,6 +68,7 @@ class HealthBar(object):
         rect(self.x_pos, self.y_pos + 20, 200 * self.health_level / 100, 10)
         
         #health text
+        textSize(20)
         text(self.health_level, self.x_pos - 30, self.y_pos + 30)
         
         #background shield bar
@@ -60,6 +80,7 @@ class HealthBar(object):
         rect(self.x_pos, self.y_pos, 200 * self.shield_level / 100, 10)
         
         #shield text
+        textSize(20)
         text(self.shield_level, self.x_pos - 30, self.y_pos + 10)
         
 class Question(object):
@@ -95,6 +116,7 @@ class GalleryButton(object):
             return False
         
         
+        
 ############### class templates end #######################
 game_state = 1
 
@@ -112,13 +134,14 @@ opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 10
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
 
-main_player = Player(circle_main_player.x_pos, circle_main_player.y_pos + 50, "Please enter a name", 100, 100, main_player_character_selection_fullpath, 0.8)
+main_player = Player(400, 550, "Please enter a name", 100, 100, main_player_character_selection_fullpath, 0.8)
 
 opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level, current_opp.shield_level)
-main_player_health_bar = HealthBar(main_player.x_pos-350, main_player.y_pos-200, main_player.health_level, main_player.shield_level)
+main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 200, main_player.health_level, main_player.shield_level)
 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
+start_button = RectButton(540,300,200,100, "Ready up", 40)
 
 def battle_ui():
     circle_opp.display()
@@ -148,7 +171,7 @@ def main_menu():
     
     next_character_button.display()
     back_character_button.display()
-    
+    start_button.display()
     #character selection
     full_counter = next_character_button.counter + back_character_button.counter
         
@@ -181,7 +204,6 @@ def main_menu():
     
     
     
-    
 def setup():
     size(1280, 720)
   
@@ -194,9 +216,13 @@ def draw():
         battle_ui()
   
 def mouseClicked():
+    global game_state
     if game_state == 1:
+        start_button.over_but()
         if next_character_button.over_circle() == True:
             next_character_button.counter += 1
         if back_character_button.over_circle() == True:
             back_character_button.counter -= 1
+        if start_button.over_but() == True:
+            game_state = 2
             
