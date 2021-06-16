@@ -177,7 +177,7 @@ def questions_ui(questions_list):
 questions_list = read_file_to_list_questions("questions_test.txt")
 print(questions_list)
 
-game_state = 2
+game_state = 1
 
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
 
