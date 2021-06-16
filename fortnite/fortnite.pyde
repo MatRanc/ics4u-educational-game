@@ -180,7 +180,7 @@ def questions_ui(questions_list):
 ###### FUNCTIONS END #########
 
 
-questions_list = read_file_to_list_questions("questions_test.txt")
+questions_list = read_file_to_list_questions("questions.txt")
 print(questions_list)
 
 game_state = 1
