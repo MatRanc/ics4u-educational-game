@@ -128,6 +128,7 @@ class QuestionButton(object):
         fill(250, 250, 10)
         rect(self.x_pos, self.y_pos, 200, 50)
         fill(0)
+        textSize(15)
         text(self.question, self.x_pos+100, self.y_pos+25)
         textAlign(CENTER, CENTER)
 
@@ -156,12 +157,17 @@ def questions_ui(questions_list):
     rand_int = random.randrange(0, len(questions_list))
 
     question_boxes = []
+    
+    fill(0)
+    textAlign(CENTER, CENTER)
+    textSize(15)
+    text(questions_list[rand_int][0], 510, 290)
 
     for x in range(0, 4):
         if x < 2:
-            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[rand_int][x]))
+            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[rand_int][x+1]))
         else:
-            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[rand_int][x]))
+            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[rand_int][x+1]))
 
     for x in question_boxes:
         x.display()
@@ -177,7 +183,7 @@ def questions_ui(questions_list):
 questions_list = read_file_to_list_questions("questions_test.txt")
 print(questions_list)
 
-game_state = 2
+game_state = 1
 
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
 
@@ -215,9 +221,6 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
-
-    test_question_button = QuestionButton(100, 100, 1, questions_list[0][0])
-    test_question_button.display()
 
     questions_ui(questions_list)
 
