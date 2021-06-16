@@ -1,4 +1,5 @@
 import os
+import random
 
 class PlayerCircle(object):
     def __init__(self, x_pos, y_pos, scale):
@@ -95,8 +96,67 @@ class GalleryButton(object):
             return False
         
         
+class QuestionButton(object):
+    def __init__(self, x_pos, y_pos, scale, question):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.scale = scale
+        self.question = question
+        
+    def display(self):
+        fill(250, 250, 10)
+        rect(self.x_pos, self.y_pos, 200, 50)
+        fill(0)
+        text(self.question, self.x_pos+100, self.y_pos+25)
+        textAlign(CENTER, CENTER)
+        
+        
 ############### class templates end #######################
-game_state = 1
+
+#functions
+
+def read_file_to_list_questions(file_name):
+    file = open(file_name, "r")
+    file_list = file.read().splitlines()
+    file.close()
+    questions_list = []
+    
+    print(len(file_list))
+  
+    for x in range(0, len(file_list), 6):
+        sub_list = []
+        for y in range(0, 6):
+            sub_list.append(file_list[x+y])
+        questions_list.append(sub_list)
+
+    return questions_list
+
+def questions_ui(questions_list):
+    rand_int = random.randrange(0, len(questions_list))
+    
+    question_boxes = []
+    
+    for x in range(0, 4):
+        if x < 2:
+            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[rand_int][x]))
+        else:
+            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[rand_int][x]))
+            
+    for x in question_boxes:
+        x.display()
+        
+        
+
+
+
+
+###### FUNCTIONS END #########
+
+
+questions_list = read_file_to_list_questions("questions_test.txt")
+print(questions_list)
+
+game_state = 2
 
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
 
@@ -133,6 +193,11 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
+    
+    test_question_button = QuestionButton(100, 100, 1, questions_list[0][0])
+    test_question_button.display()
+    
+    questions_ui(questions_list)
     
 def main_menu():
     game_state = 1
