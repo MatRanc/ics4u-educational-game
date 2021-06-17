@@ -16,11 +16,10 @@ class PlayerCircle(object): # during battle_ui, what png's "stand" on
 
 
 class Player(object): 
-    def __init__(self, x_pos, y_pos, name, shield_level, health_level, model, model_scale):
+    def __init__(self, x_pos, y_pos, name, health_level, model, model_scale):
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.name = name
-        self.shield_level = shield_level
         self.health_level = health_level
         self.model = model
         self.model_scale = model_scale
@@ -55,11 +54,10 @@ class RectButton(object):
 
 
 class HealthBar(object):
-    def __init__(self, x_pos, y_pos, health_level, shield_level):
+    def __init__(self, x_pos, y_pos, health_level):
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.health_level = health_level
-        self.shield_level = shield_level
 
     def display(self):
         #background of health bar
@@ -74,17 +72,6 @@ class HealthBar(object):
         textSize(15)
         text(self.health_level, self.x_pos - 30, self.y_pos + 22)
 
-        #background shield bar
-        fill(210, 210, 255)
-        rect(self.x_pos, self.y_pos, 200, 10)
-
-        #main shield bar
-        fill(60, 60, 255)
-        rect(self.x_pos, self.y_pos, 200 * self.shield_level / 100, 10)
-
-        #shield text
-        textSize(15)
-        text(self.shield_level, self.x_pos - 30, self.y_pos + 2)
 
 
 class Question(object):
@@ -214,18 +201,18 @@ main_player_character_selection_fullpath = "assets/characters/playable/" + main_
 circle_opp = PlayerCircle(1025, 350, 1.23)
 circle_main_player = PlayerCircle(400, 500, 1.50)
 
-opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.6)
-opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/opponents/souljaboy.png", 0.60)
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, "assets/characters/opponents/ninjablevins.png", 0.6)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, "assets/characters/opponents/souljaboy.png", 0.60)
 
 opp_list  = [[opp_ninja, opp_souljaboy]]
 
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
 
-main_player = Player(400, 550, "Please enter a name", 100, 100, main_player_character_selection_fullpath, 0.8)
+main_player = Player(400, 550, "Please enter a name", 100, main_player_character_selection_fullpath, 0.8)
 
-opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level, current_opp.shield_level)
-main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 200, main_player.health_level, main_player.shield_level)
+opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level)
+main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 200, main_player.health_level)
 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
