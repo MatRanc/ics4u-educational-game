@@ -133,6 +133,7 @@ class QuestionButton(object):
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos+620, self.y_pos+25)
 
+
 class QuestionDisplay(object):
     def __init__(self, x_pos, y_pos, question):
         self.x_pos = x_pos
