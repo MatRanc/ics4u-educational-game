@@ -104,22 +104,18 @@ class GalleryButton(object):
 
 
 class QuestionButton(object):
-    def __init__(self, x_pos, y_pos, scale, show, question):
+    def __init__(self, x_pos, y_pos, scale, question):
         self.x_pos = x_pos
         self.y_pos = y_pos
-        self.scale = scale
         self.question = question
-        self.chosen = False
-        self.show = True
 
     def display(self):
-        if self.show == True:
-            fill(250, 250, 10)
-            rect(self.x_pos, self.y_pos, 1239, 40)
-            fill(0)
-            textSize(15)
-            textAlign(CENTER, CENTER)
-            text(self.question, self.x_pos+620, self.y_pos+25)
+        fill(250, 250, 10)
+        rect(self.x_pos, self.y_pos, 1239, 40)
+        fill(0)
+        textSize(15)
+        textAlign(CENTER, CENTER)
+        text(self.question, self.x_pos+620, self.y_pos+25)
         
     def over_button(self):
         if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
@@ -160,6 +156,16 @@ class Notification(object):
         self.counter += 0.1
         if self.counter > self.show_time:
             enemy_noti.show = False
+        
+class Action_Box(object):
+    def __init__(self, words):
+        self.words = words
+        
+    def display(self):
+        fill(255,255,10)
+        rect(500,550,100,200)
+        textSize(30)
+        text(self.words,500,550)
         
 ############### class templates end #######################
 
@@ -214,7 +220,7 @@ def questions_ui():
     
     for x in range(0, 4):
         global question_boxes
-        question_boxes.append(QuestionButton(20, 535 + (x*45), 1, True, questions_list[current_question][x+1]))
+        question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
 
     
     fill(0)
@@ -265,6 +271,7 @@ current_opp = opp_list[0][random.randrange(0,2)]
 print(current_opp.name)
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
 
+action_buttons = Action_Box("Health")
 ##### Global Variables End ###########
 
 
@@ -281,7 +288,7 @@ def main_menu():
     background(100, 100, 255)
 
     #title on screen
-    title = "Canadian History Fortnite Pokemon Education Game (placeholder)"
+    title = "Canadian Geography Fortnite Pokemon Education Game (placeholder)"
     fill(255)
     textAlign(CENTER)
     textSize(20)
@@ -341,10 +348,13 @@ def battle_ui():
             if remaining_guesses > 0:
                 x.display()
             else:
-                if selected_answer.question == questions_list[current_question][5]:
-                    user_correct = True
-                else:
-                    user_correct = False
+                action_buttons.display()
+                
+                
+               # if selected_answer.question == questions_list[current_question][5]:
+                 #   user_correct = True
+               # else:
+                #    user_correct = False
     
                 
 
