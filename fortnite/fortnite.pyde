@@ -358,22 +358,22 @@ def mouseClicked():
     if game_state == 2:
         try:
             if question_boxes[0].over_button() == True:
-                if question_boxes[0].question == question_boxes[4].question:
+                if question_boxes[0].question == questions_list[current_question][5]:
                     print (True)
                 else:
                     print (False)
             elif question_boxes[1].over_button() == True:
-                if question_boxes[1].question == question_boxes[4].question:
+                if question_boxes[1].question == questions_list[current_question][5]:
                     print (True)
                 else:
                     print (False)
             elif question_boxes[2].over_button() == True:
-                if question_boxes[2].question == question_boxes[4].question:
+                if question_boxes[2].question == questions_list[current_question][5]:
                     print (True)
                 else:
                     print (False)
             elif question_boxes[3].over_button() == True:
-                if question_boxes[3].question == question_boxes[4].question:
+                if question_boxes[3].question == questions_list[current_question][5]:
                     print (True)
                 else:
                     print (False)
