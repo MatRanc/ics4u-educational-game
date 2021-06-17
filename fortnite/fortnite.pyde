@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 class PlayerCircle(object):
     def __init__(self, x_pos, y_pos, scale):
@@ -171,16 +172,20 @@ def questions_ui(questions_list):
     fill(0)
     textAlign(CENTER, CENTER)
     textSize(15)
-    text(questions_list[current_question][0], 510, 290)
+
+    text(questions_list[rand_int][0], 660, 515)
 
     for x in range(0, 4):
         if x < 2:
-            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[current_question][x+1]))
+            question_boxes.append(QuestionButton(450 + (225*x), 550, 1, questions_list[rand_int][x+1]))
         else:
-            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[current_question][x+1]))
+            question_boxes.append(QuestionButton(450 + (225*(x-2)), 625, 1, questions_list[rand_int][x+1]))
+
 
     for x in question_boxes:
         x.display()
+        
+    return question_boxes
 
 
 
@@ -191,7 +196,7 @@ def questions_ui(questions_list):
 
 
 questions_list = read_file_to_list_questions("questions.txt")
-print(questions_list)
+#print(questions_list)
 
 game_state = 1
 
@@ -203,8 +208,10 @@ main_player_character_selection_fullpath = "assets/characters/playable/" + main_
 circle_opp = PlayerCircle(1025, 350, 1.23)
 circle_main_player = PlayerCircle(400, 500, 1.50)
 
-opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.8)
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.6)
 opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/opponents/souljaboy.png", 0.60)
+
+opp_list  = [[opp_ninja, opp_souljaboy]]
 
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
@@ -219,22 +226,6 @@ back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
 need_question = True
 current_question = 0
-
-def battle_ui():
-    circle_opp.display()
-    circle_main_player.display()
-
-    current_opp.display()
-    main_player.display()
-
-    opp_health_bar.display()
-    main_player_health_bar.display()
-
-    #bottom box
-    fill(100, 150, 200)
-    rect(0, 720-226, 1279, 225)
-
-    questions_ui(questions_list)
 
 def main_menu():
     game_state = 1
@@ -274,14 +265,63 @@ def main_menu():
 
     main_player.model = main_player_character_selection_fullpath
 
-    #username box
-    #needs to be a box, when clicked allow text, display as typing, save to main_player.name
+current_round = 0
+
+def battle_ui():
+    global current_opp
+    circle_opp.display()
+    circle_main_player.display()
+
+    current_opp.display()
+    main_player.display()
+
+    opp_health_bar.display()
+    main_player_health_bar.display()
+
+    #bottom box
+    fill(100, 150, 200)
+    rect(0, 720-226, 1279, 225)
 
 
 
+class Notification(object):
+    def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.show = show
+        self.input_text = input_text
+        self.counter = 0
+        self.show_time = show_time_seconds
+        
+    def display(self):
+        if self.show == True and self.counter < self.show_time:
+            fill(255, 255, 10)
+            rect(400, 25, 500, 100)
+            fill(0)
+            textSize(20)
+            text(self.input_text, 400, 50, 500, 100)
+        self.counter += 0.1
 
 
-
+if current_round != 4:
+    if current_round in [0,1]:
+        current_opp = opp_list[0][random.randrange(0,1)]
+    
+    
+    hit_or_get_hit = [0,0,1]
+    
+    enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
+    if random.choice(hit_or_get_hit) == 0:
+        enemy_noti.show = True
+    else:
+        enemy_noti.input_text = "You have been hit by " + current_opp.name + " for DAMAGE"
+        enemy_noti.show_time = 10
+        enemy_noti.show = True
+        
+        
+        
+        
+        
 
 def setup():
     size(1280, 720)
@@ -293,6 +333,8 @@ def draw():
         main_menu()
     elif game_state == 2:
         battle_ui()
+        enemy_noti.display()
+
 
 def mouseClicked():
     global game_state
