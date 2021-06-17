@@ -240,39 +240,6 @@ def questions_ui():
     for x in question_boxes:
         x.display()
 
-'''
-def questions_ui(questions_list):
-    global need_question
-    global current_question
-    if need_question == True:
-        current_question = random.randrange(0, len(questions_list))
-        need_question = False
-
-    question_asked = QuestionDisplay(750, 50, questions_list[current_question][0]) #displays question in ellipse
-    question_asked.display()
-    
-    fill(0)
-    textAlign(CENTER, CENTER)
-    textSize(15)
-
-    text(questions_list[current_question][0], 660, 515)
-
-    for x in question_boxes:
-        x.display()
-        
-    return question_boxes
-
-def fill_questions():
-    global question_boxes
-    print(current_question)
-    for x in range(0, 4):
-        question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
-'''
-
-
-
-
-
 
 ###### FUNCTIONS END #########
 
@@ -392,34 +359,6 @@ class Notification(object):
             textSize(20)
             text(self.input_text, 400, 50, 500, 100)
         self.counter += 0.1
-
-
-'''
-if current_round != 4:
-    if current_round in [0,1]:
-        current_opp = opp_list[0][random.randrange(0,1)]
-    
-    hit_or_get_hit = [0,0,1]
-    
-    enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
-    if random.choice(hit_or_get_hit) == 0:
-        enemy_noti.show = True
-    else:
-        enemy_noti.input_text = "You have been hit by " + current_opp.name + " for DAMAGE"
-        enemy_noti.show_time = 10
-        enemy_noti.show = True
-        
-    if main_player.health_level >= 100 and current_opp.health_level >= 100:
-        slurp_juice = random.randrange(5,45,5)
-        user_damage = random.choice([50])
-        cpu_damage = random.choice([50])
-        
-        for x in question_boxes:
-            if x.chosen == True:
-                print(x.question)
-'''
-            
-        
         
         
         
