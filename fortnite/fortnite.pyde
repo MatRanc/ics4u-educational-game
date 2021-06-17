@@ -126,18 +126,25 @@ class QuestionButton(object):
 
     def display(self):
         fill(250, 250, 10)
-        rect(self.x_pos, self.y_pos, 200, 50)
+        rect(self.x_pos, self.y_pos, 1239, 40)
         fill(0)
         textSize(15)
-        text(self.question, self.x_pos+100, self.y_pos+25)
         textAlign(CENTER, CENTER)
-        
-    def over_qbut(self):
-         if mouseX in range(self.x_pos, self.x_pos + self.x_size) and mouseY in range(self.y_pos, self.y_pos + self.y_size):
-             return True
-         else:
-             return False
+        text(self.question, self.x_pos+620, self.y_pos+25)
 
+class QuestionDisplay(object):
+    def __init__(self, x_pos, y_pos, question):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.question = question
+        
+    def display(self):
+        fill(250, 250, 10)
+        ellipse(self.x_pos, self.y_pos, 500, 60)
+        fill(0)
+        textSize(15)
+        textAlign(CENTER, CENTER)
+        text(self.question, self.x_pos, self.y_pos)
 
 ############### class templates end #######################
 
@@ -167,17 +174,13 @@ def questions_ui(questions_list):
         need_question = False
 
     question_boxes = []
-    
-    fill(0)
-    textAlign(CENTER, CENTER)
-    textSize(15)
-    text(questions_list[current_question][0], 510, 290)
+    question_asked = QuestionDisplay(750, 50, questions_list[current_question][0]) #displays question in ellipse
+    question_asked.display()
 
     for x in range(0, 4):
-        if x < 2:
-            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[current_question][x+1]))
-        else:
-            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[current_question][x+1]))
+        
+        question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
+
 
     for x in question_boxes:
         x.display()
@@ -232,8 +235,7 @@ def battle_ui():
 
     #bottom box
     fill(100, 150, 200)
-    rect(0, 720-226, 1279, 225)
-
+    rect(0, 494, 1279, 225)
     questions_ui(questions_list)
 
 def main_menu():
