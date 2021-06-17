@@ -154,20 +154,24 @@ def read_file_to_list_questions(file_name):
     return questions_list
 
 def questions_ui(questions_list):
-    rand_int = random.randrange(0, len(questions_list))
+    global need_question
+    global current_question
+    if (need_question == True):
+        current_question = random.randrange(0, len(questions_list))
+        need_question = False
 
     question_boxes = []
     
     fill(0)
     textAlign(CENTER, CENTER)
     textSize(15)
-    text(questions_list[rand_int][0], 510, 290)
+    text(questions_list[current_question][0], 510, 290)
 
     for x in range(0, 4):
         if x < 2:
-            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[rand_int][x+1]))
+            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[current_question][x+1]))
         else:
-            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[rand_int][x+1]))
+            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[current_question][x+1]))
 
     for x in question_boxes:
         x.display()
@@ -207,6 +211,8 @@ main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
+need_question = True
+current_question = 0
 
 def battle_ui():
     circle_opp.display()
