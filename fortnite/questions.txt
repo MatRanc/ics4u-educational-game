@@ -6,8 +6,8 @@ Montreal
 Ottawa
 What is the capital of Ontario?
 Ottawa
-Toronto
 Niagra
+Toronto
 Kingston
 Toronto
 What is the capital of Manitoba?
@@ -82,27 +82,3 @@ Baker Lake
 Cambrige Bay
 Iqaluit
 Iqaluit
-Which city has the highest population in Canada?
-Which province recently went bankrupt?
-Which province/territory has the largest landmass?
-Which province/territory has the smallest landmass?
-Which province/territory contains the Niagara falls?
-Which province/territory does not border any other provinces/territories?
-Which province has the most capital cities in it?
-Which province/territory has the 2nd highest population?
-Which province/territory has the smoothest looking borders?
-What is the name of the longest river in Canada?
-Which of the four oceans does Canada NOT border?
-What is the name of the largest lake in Canada?
-What is the name of the largest lake entirely within the boundaries of Canada?
-Which Ocean is located on the eastern borders of Canada?
-Which Ocean is located on the western borders of Canada?
-What is the name of the largest waterfall in Canada?
-What is the name of the deepest lake in Canada?
-How many provinces does Canada have?
-How many territories does Canada have?
-How big is Canada (1,000,000km^2)?
-How many of the great lakes border Canada?
-What is the population of Toronto including the GTA (1,000,000s of people)?
-PLACEHOLDER
-PLACEHOLDER
