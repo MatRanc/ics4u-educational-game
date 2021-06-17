@@ -268,8 +268,6 @@ def battle_ui():
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
 
-    #questions_ui(questions_list)
-
 
 
 class Notification(object):
@@ -286,11 +284,9 @@ class Notification(object):
             fill(255, 255, 10)
             rect(400, 25, 500, 100)
             fill(0)
-            textSize(25)
+            textSize(20)
             text(self.input_text, 400, 50, 500, 100)
         self.counter += 0.1
-
-enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
 
 
 if current_round != 4:
@@ -300,6 +296,7 @@ if current_round != 4:
     
     hit_or_get_hit = [0,0,1]
     
+    enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
     if random.choice(hit_or_get_hit) == 0:
         enemy_noti.show = True
     else:
