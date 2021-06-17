@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 class PlayerCircle(object):
     def __init__(self, x_pos, y_pos, scale):
@@ -161,16 +162,18 @@ def questions_ui(questions_list):
     fill(0)
     textAlign(CENTER, CENTER)
     textSize(15)
-    text(questions_list[rand_int][0], 510, 290)
+    text(questions_list[rand_int][0], 660, 515)
 
     for x in range(0, 4):
         if x < 2:
-            question_boxes.append(QuestionButton(300 + (225*x), 325, 1, questions_list[rand_int][x+1]))
+            question_boxes.append(QuestionButton(450 + (225*x), 550, 1, questions_list[rand_int][x+1]))
         else:
-            question_boxes.append(QuestionButton(300 + (225*(x-2)), 400, 1, questions_list[rand_int][x+1]))
+            question_boxes.append(QuestionButton(450 + (225*(x-2)), 625, 1, questions_list[rand_int][x+1]))
 
     for x in question_boxes:
         x.display()
+        
+    return question_boxes
 
 
 
@@ -181,7 +184,7 @@ def questions_ui(questions_list):
 
 
 questions_list = read_file_to_list_questions("questions.txt")
-print(questions_list)
+#print(questions_list)
 
 game_state = 1
 
@@ -196,6 +199,8 @@ circle_main_player = PlayerCircle(400, 500, 1.50)
 opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.8)
 opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/opponents/souljaboy.png", 0.60)
 
+opp_list  = [[opp_ninja, opp_souljaboy]]
+
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
 
@@ -207,22 +212,6 @@ main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
-
-def battle_ui():
-    circle_opp.display()
-    circle_main_player.display()
-
-    current_opp.display()
-    main_player.display()
-
-    opp_health_bar.display()
-    main_player_health_bar.display()
-
-    #bottom box
-    fill(100, 150, 200)
-    rect(0, 720-226, 1279, 225)
-
-    questions_ui(questions_list)
 
 def main_menu():
     game_state = 1
@@ -266,8 +255,47 @@ def main_menu():
     #needs to be a box, when clicked allow text, display as typing, save to main_player.name
 
 
+current_round = 0
+
+def battle_ui():
+    global current_opp
+    circle_opp.display()
+    circle_main_player.display()
+
+    current_opp.display()
+    main_player.display()
+
+    opp_health_bar.display()
+    main_player_health_bar.display()
+
+    #bottom box
+    fill(100, 150, 200)
+    rect(0, 720-226, 1279, 225)
+
+    #questions_ui(questions_list)
 
 
+
+    while current_round != 4:
+        if current_round in [0,1]:
+            current_opp = opp_list[0][random.randrange(0,1)]
+        
+        
+        hit_or_get_hit = [0,0,1]
+        
+        if random.choice(hit_or_get_hit) == 0:
+            display_notification == True
+            display_notification("bungus")
+            #time.sleep(2)
+            display_notification == False
+
+
+def display_notification(input_text):
+    fill(100, 100, 10)
+    rect(400, 100, 100, 200)
+    fill(0)
+    text(input_text, 200, 100)
+    
 
 
 
@@ -281,6 +309,9 @@ def draw():
         main_menu()
     elif game_state == 2:
         battle_ui()
+        
+        if display_notification == True:
+            display_notification()
 
 def mouseClicked():
     global game_state
