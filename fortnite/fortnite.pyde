@@ -132,6 +132,12 @@ class QuestionButton(object):
         textSize(15)
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos+620, self.y_pos+25)
+        
+        def over_button(self):
+            if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
+                return True
+            else:
+                return False
 
 
 class QuestionDisplay(object):
@@ -191,7 +197,6 @@ def questions_ui(questions_list):
 
     for x in question_boxes:
         x.display()
-        
     return question_boxes
 
 
@@ -338,13 +343,11 @@ def setup():
 
 def draw():
     background(245)
-    global uni_counter
     
     if game_state == 1:
         main_menu()
     elif game_state == 2:
         battle_ui()
-        #enemy_noti.display()
 
 
 def mouseClicked():
