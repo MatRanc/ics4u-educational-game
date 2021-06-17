@@ -2,6 +2,7 @@ import os
 import random
 import time
 
+# during battle_ui, what png's "stand" on
 class PlayerCircle(object):
     def __init__(self, x_pos, y_pos, scale):
         self.x_pos = x_pos
@@ -15,11 +16,10 @@ class PlayerCircle(object):
         ellipse(self.x_pos, self.y_pos, 300 * self.scale, 75 * self.scale)
 
 class Player(object):
-    def __init__(self, x_pos, y_pos, name, shield_level, health_level, model, model_scale):
+    def __init__(self, x_pos, y_pos, name, health_level, model, model_scale):
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.name = name
-        self.shield_level = shield_level
         self.health_level = health_level
         self.model = model
         self.model_scale = model_scale
@@ -51,14 +51,11 @@ class RectButton(object):
          else:
              return False
 
-
-
 class HealthBar(object):
-    def __init__(self, x_pos, y_pos, health_level, shield_level):
+    def __init__(self, x_pos, y_pos, health_level):
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.health_level = health_level
-        self.shield_level = shield_level
 
     def display(self):
         #background of health bar
@@ -72,18 +69,6 @@ class HealthBar(object):
         #health text
         textSize(15)
         text(self.health_level, self.x_pos - 30, self.y_pos + 22)
-
-        #background shield bar
-        fill(210, 210, 255)
-        rect(self.x_pos, self.y_pos, 200, 10)
-
-        #main shield bar
-        fill(60, 60, 255)
-        rect(self.x_pos, self.y_pos, 200 * self.shield_level / 100, 10)
-
-        #shield text
-        textSize(15)
-        text(self.shield_level, self.x_pos - 30, self.y_pos + 2)
 
 class Question(object):
     def __init__(self, question, correct_answer, answer_2, answer_3, answer_4):
@@ -202,16 +187,6 @@ remaining_guesses = 1
 
 chosen_button = 0
 
-class QuestionsMain(object):
-    def __init__(self, q1, q2, q3, q4, selected):
-        self.q1 = q1
-        self.q2 = q2
-        self.q3 = q3
-        self.q4 = q4
-        self.selected = selected
-        
-    
-
 def questions_ui():
     global need_question
     global current_question
@@ -257,18 +232,18 @@ main_player_character_selection_fullpath = "assets/characters/playable/" + main_
 circle_opp = PlayerCircle(1025, 350, 1.23)
 circle_main_player = PlayerCircle(400, 500, 1.50)
 
-opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.6)
-opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/opponents/souljaboy.png", 0.60)
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, "assets/characters/opponents/ninjablevins.png", 0.6)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, "assets/characters/opponents/souljaboy.png", 0.60)
 
 opp_list  = [[opp_ninja, opp_souljaboy]]
 
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
 
-main_player = Player(400, 550, "Please enter a name", 100, 100, main_player_character_selection_fullpath, 0.8)
+main_player = Player(400, 550, "Please enter a name", 100, main_player_character_selection_fullpath, 0.8)
 
-opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level, current_opp.shield_level)
-main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 200, main_player.health_level, main_player.shield_level)
+opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level)
+main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 200, main_player.health_level)
 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
@@ -277,6 +252,9 @@ start_button = RectButton(540,300,200,100, "Ready up", 40)
 
 global remaining_choices
 remaining_choices = 1
+global selected_answer
+selected_answer = None
+
 
 def main_menu():
     game_state = 1
@@ -317,6 +295,7 @@ def main_menu():
     main_player.model = main_player_character_selection_fullpath
 
 current_round = 0
+user_correct = False
 
 def battle_ui():
     global current_opp
@@ -339,6 +318,12 @@ def battle_ui():
     for x in question_boxes:
         if remaining_guesses > 0:
             x.display()
+        else:
+            if selected_answer.question == questions_list[current_question][5]:
+                user_correct = True
+            else:
+                user_correct = False
+                
 
 
 
@@ -385,6 +370,15 @@ def draw():
     elif game_state == 2:
         battle_ui()
         #enemy_noti.display()
+        
+        
+def user_is_right():
+    is_right = False
+    
+    if selected_answer.question == questions_list[current_question][5]:
+        is_right = True
+        
+    return is_right
 
 
 def mouseClicked():
@@ -399,6 +393,7 @@ def mouseClicked():
             game_state = 2
     if game_state == 2:
         global remaining_guesses
+        global selected_answer
         if remaining_guesses > 0:
             for x in question_boxes:
                 if x.over_button() == True:
@@ -406,5 +401,9 @@ def mouseClicked():
                         print("BOX SELECTED")
                     else:
                         print("wrong")
+                    selected_answer = x
                     remaining_guesses -= 1
+        if remaining_guesses == 0:
+            if user_is_right() == True:
+                print("SHOOT OR HEAL")
             
