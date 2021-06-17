@@ -196,7 +196,7 @@ main_player_character_selection_fullpath = "assets/characters/playable/" + main_
 circle_opp = PlayerCircle(1025, 350, 1.23)
 circle_main_player = PlayerCircle(400, 500, 1.50)
 
-opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.8)
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, 100, "assets/characters/opponents/ninjablevins.png", 0.6)
 opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, 100, "assets/characters/opponents/souljaboy.png", 0.60)
 
 opp_list  = [[opp_ninja, opp_souljaboy]]
@@ -251,10 +251,6 @@ def main_menu():
 
     main_player.model = main_player_character_selection_fullpath
 
-    #username box
-    #needs to be a box, when clicked allow text, display as typing, save to main_player.name
-
-
 current_round = 0
 
 def battle_ui():
@@ -276,26 +272,43 @@ def battle_ui():
 
 
 
-    while current_round != 4:
-        if current_round in [0,1]:
-            current_opp = opp_list[0][random.randrange(0,1)]
+class Notification(object):
+    def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.show = show
+        self.input_text = input_text
+        self.counter = 0
+        self.show_time = show_time_seconds
         
-        
-        hit_or_get_hit = [0,0,1]
-        
-        if random.choice(hit_or_get_hit) == 0:
-            display_notification == True
-            display_notification("bungus")
-            #time.sleep(2)
-            display_notification == False
+    def display(self):
+        if self.show == True and self.counter < self.show_time:
+            fill(255, 255, 10)
+            rect(400, 25, 500, 100)
+            fill(0)
+            textSize(25)
+            text(self.input_text, 400, 50, 500, 100)
+        self.counter += 0.1
+
+enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
 
 
-def display_notification(input_text):
-    fill(100, 100, 10)
-    rect(400, 100, 100, 200)
-    fill(0)
-    text(input_text, 200, 100)
+if current_round != 4:
+    if current_round in [0,1]:
+        current_opp = opp_list[0][random.randrange(0,1)]
     
+    
+    hit_or_get_hit = [0,0,1]
+    
+    if random.choice(hit_or_get_hit) == 0:
+        enemy_noti.show = True
+    else:
+        enemy_noti.input_text = "You have been hit by " + current_opp.name + " for DAMAGE"
+        enemy_noti.show_time = 10
+        enemy_noti.show = True
+        
+    
+
 
 
 
@@ -309,9 +322,8 @@ def draw():
         main_menu()
     elif game_state == 2:
         battle_ui()
-        
-        if display_notification == True:
-            display_notification()
+        enemy_noti.display()
+
 
 def mouseClicked():
     global game_state
