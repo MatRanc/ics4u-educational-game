@@ -304,10 +304,10 @@ if current_round != 4:
         enemy_noti.show_time = 10
         enemy_noti.show = True
         
-    
-
-
-
+        
+        
+        
+        
 
 def setup():
     size(1280, 720)
