@@ -220,6 +220,7 @@ start_button = RectButton(540,300,200,100, "Ready up", 40)
 need_question = True
 current_question = 0
 question_boxes = []
+answer_pressed = 0
 
 def main_menu():
     game_state = 1
@@ -263,6 +264,7 @@ current_round = 0
 
 def battle_ui():
     global current_opp
+    global answer_pressed
     circle_opp.display()
     circle_main_player.display()
 
@@ -278,7 +280,10 @@ def battle_ui():
     
     enemy_noti.display()
     if enemy_noti.show == False:
-        questions_ui(questions_list)
+        if answer_pressed == 0:
+            questions_ui(questions_list)
+            
+    
 
 
 
@@ -334,6 +339,7 @@ def draw():
 
 def mouseClicked():
     global game_state
+    global answer_pressed
     if game_state == 1:
         start_button.over_but()
         if next_character_button.over_circle() == True:
@@ -343,26 +349,22 @@ def mouseClicked():
         if start_button.over_but() == True:
             game_state = 2
     if game_state == 2:
-        try:
-            if question_boxes[0].over_button() == True:
-                if question_boxes[0].question == questions_list[current_question][5]:
-                    print (True)
-                else:
-                    print (False)
-            elif question_boxes[1].over_button() == True:
-                if question_boxes[1].question == questions_list[current_question][5]:
-                    print (True)
-                else:
-                    print (False)
-            elif question_boxes[2].over_button() == True:
-                if question_boxes[2].question == questions_list[current_question][5]:
-                    print (True)
-                else:
-                    print (False)
-            elif question_boxes[3].over_button() == True:
-                if question_boxes[3].question == questions_list[current_question][5]:
-                    print (True)
-                else:
-                    print (False)
-        except:
-            print("")
+        if (len(question_boxes) == 0):
+            return
+        selected_button = -1
+        if question_boxes[0].over_button() == True:
+            selected_button = 0
+        elif question_boxes[1].over_button() == True:
+            selected_button = 1
+        elif question_boxes[2].over_button() == True:
+            selected_button = 2
+        elif question_boxes[3].over_button() == True:
+            selected_button = 3
+        if (selected_button != -1):
+            if question_boxes[selected_button].question == questions_list[current_question][5]:
+                answer_pressed = 2
+                print (answer_pressed)
+            else:
+                answer_pressed = 1
+                print (answer_pressed)
+        return
