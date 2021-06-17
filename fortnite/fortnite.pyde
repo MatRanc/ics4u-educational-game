@@ -158,6 +158,25 @@ class QuestionDisplay(object):
 
 ############### class templates end #######################
 
+
+
+
+weapons_list  = [["Pickaxe", 10],
+                 ["Pistol", [10, 15]],
+                 ["Tac Shotgun", [5, 15, 20]],
+                 ["Assault Rifle", [15, 20]],
+                 ["Supressed Pistol", [15, 20]],
+                 ["Hand Cannon", [0, 0, 50, 50, 50]],
+                 ["Heavy Shotgun", [15, 30, 35, 40]],
+                 ["Bolt Action Sniper", [0, 90]],
+                 ["Tac Smg", [15, 20, 25]],
+                 ["Minigun", [10, 15, 20]],
+                 ["Gold Scar", [35, 40, 45, 50, 55]],
+                 ["19 Dollar Fortnite Card", [30, 35, 70]]
+                 ]
+
+
+
 #functions
 
 def read_file_to_list_questions(file_name):
@@ -349,8 +368,7 @@ def battle_ui():
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
     
-    
-    
+    #display boxes when availible guesses
     for x in question_boxes:
         if remaining_guesses > 0:
             x.display()
