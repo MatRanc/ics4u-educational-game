@@ -131,6 +131,12 @@ class QuestionButton(object):
         textSize(15)
         text(self.question, self.x_pos+100, self.y_pos+25)
         textAlign(CENTER, CENTER)
+        
+    def over_qbut(self):
+         if mouseX in range(self.x_pos, self.x_pos + self.x_size) and mouseY in range(self.y_pos, self.y_pos + self.y_size):
+             return True
+         else:
+             return False
 
 
 ############### class templates end #######################
