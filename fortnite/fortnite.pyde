@@ -124,6 +124,7 @@ class QuestionButton(object):
         self.y_pos = y_pos
         self.scale = scale
         self.question = question
+        self.chosen = False
 
     def display(self):
         fill(250, 250, 10)
@@ -132,6 +133,12 @@ class QuestionButton(object):
         textSize(15)
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos+620, self.y_pos+25)
+        
+    def over_button(self):
+        if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
+            return True
+        else:
+            return False
 
 class QuestionDisplay(object):
     def __init__(self, x_pos, y_pos, question):
@@ -167,6 +174,10 @@ def read_file_to_list_questions(file_name):
 
     return questions_list
 
+question_boxes = []
+need_question = True
+current_question = 0
+
 def questions_ui(questions_list):
     global need_question
     global current_question
@@ -180,7 +191,7 @@ def questions_ui(questions_list):
     question_asked.display()
 
     for x in range(0, 4):
-        
+        global question_boxes
         question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
 
     
@@ -188,15 +199,41 @@ def questions_ui(questions_list):
     textAlign(CENTER, CENTER)
     textSize(15)
 
-    text(questions_list[rand_int][0], 660, 515)
 
+    #idk if we should display here or in draw....
+    for x in question_boxes:
+        x.display()
+        
+    return question_boxes
 
+'''
+def questions_ui(questions_list):
+    global need_question
+    global current_question
+    if need_question == True:
+        current_question = random.randrange(0, len(questions_list))
+        need_question = False
 
+    question_asked = QuestionDisplay(750, 50, questions_list[current_question][0]) #displays question in ellipse
+    question_asked.display()
+    
+    fill(0)
+    textAlign(CENTER, CENTER)
+    textSize(15)
+
+    text(questions_list[current_question][0], 660, 515)
 
     for x in question_boxes:
         x.display()
         
     return question_boxes
+
+def fill_questions():
+    global question_boxes
+    print(current_question)
+    for x in range(0, 4):
+        question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
+'''
 
 
 
@@ -235,10 +272,10 @@ main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
-need_question = True
-current_question = 0
 
 
+global remaining_choices
+remaining_choices = 1
 
 def main_menu():
     game_state = 1
@@ -294,6 +331,8 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
+    
+    questions_ui(questions_list)
 
 
 
@@ -320,7 +359,6 @@ if current_round != 4:
     if current_round in [0,1]:
         current_opp = opp_list[0][random.randrange(0,1)]
     
-    
     hit_or_get_hit = [0,0,1]
     
     enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
@@ -331,6 +369,15 @@ if current_round != 4:
         enemy_noti.show_time = 10
         enemy_noti.show = True
         
+    if main_player.health_level >= 100 and current_opp.health_level >= 100:
+        slurp_juice = random.randrange(5,45,5)
+        user_damage = random.choice([50])
+        cpu_damage = random.choice([50])
+        
+        for x in question_boxes:
+            if x.chosen == True:
+                print(x.question)
+            
         
         
         
@@ -345,8 +392,32 @@ def draw():
     if game_state == 1:
         main_menu()
     elif game_state == 2:
-        battle_ui()
-        enemy_noti.display()
+        
+        if current_round != 4:
+            if current_round in [0,1]:
+                current_opp = opp_list[0][random.randrange(0,2)]
+            
+            hit_or_get_hit = [0,0,1]
+            
+            enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
+            if random.choice(hit_or_get_hit) == 0:
+                enemy_noti.show = True
+            else:
+                enemy_noti.input_text = "You have been hit by " + current_opp.name + " for DAMAGE"
+                enemy_noti.show_time = 10
+                enemy_noti.show = True
+                
+            if main_player.health_level >= 100 and current_opp.health_level >= 100:
+                slurp_juice = random.randrange(5,45,5)
+                user_damage = random.choice([50])
+                cpu_damage = random.choice([50])
+                
+                for x in question_boxes:
+                    if x.chosen == True:
+                        print(x.question)
+                        
+            battle_ui()
+            enemy_noti.display()
 
 
 def mouseClicked():
@@ -359,3 +430,10 @@ def mouseClicked():
             back_character_button.counter -= 1
         if start_button.over_but() == True:
             game_state = 2
+    if game_state == 2:
+        if remaining_choices > 0:
+            for x in question_boxes:
+                if x.over_button() == True:
+                    print("BOX SELECTED")
+                    x.chosen = True
+                    print(x.chosen)
