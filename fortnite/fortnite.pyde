@@ -378,12 +378,13 @@ enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_
 def draw():
     #global question_boxes
     background(245)
-
+    global uni_counter
+    
     if game_state == 1:
         main_menu()
     elif game_state == 2:
         battle_ui()
-        enemy_noti.display()
+        #enemy_noti.display()
 
 
 def mouseClicked():
