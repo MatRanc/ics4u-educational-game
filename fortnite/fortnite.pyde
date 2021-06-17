@@ -269,13 +269,6 @@ enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_o
 
 
 
-
-
-
-
-
-
-
 def main_menu():
     game_state = 1
     background(100, 100, 255)
