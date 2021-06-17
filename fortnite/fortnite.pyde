@@ -14,6 +14,7 @@ class PlayerCircle(object): # during battle_ui, what png's "stand" on
         fill(182, 255, 252)
         ellipse(self.x_pos, self.y_pos, 300 * self.scale, 75 * self.scale)
 
+
 class Player(object): 
     def __init__(self, x_pos, y_pos, name, shield_level, health_level, model, model_scale):
         self.x_pos = x_pos
@@ -29,6 +30,7 @@ class Player(object):
         imageMode(CENTER)
         img.resize(int(0 * self.model_scale), int(500 * self.model_scale))
         image(img, self.x_pos, self.y_pos - (img.height/2))
+
 
 class RectButton(object):
     def __init__(self, x_pos, y_pos, x_size, y_size, words, txt_size):
@@ -50,7 +52,6 @@ class RectButton(object):
              return True
          else:
              return False
-
 
 
 class HealthBar(object):
@@ -85,6 +86,7 @@ class HealthBar(object):
         textSize(15)
         text(self.shield_level, self.x_pos - 30, self.y_pos + 2)
 
+
 class Question(object):
     def __init__(self, question, correct_answer, answer_2, answer_3, answer_4):
         self.question = question
@@ -92,6 +94,7 @@ class Question(object):
         self.answer_2 = answer_2
         self.answer_3 = answer_3
         self.answer_4 = answer_4
+
 
 class GalleryButton(object):
     def __init__(self, x_pos, y_pos, scale, x_dir):
@@ -133,11 +136,11 @@ class QuestionButton(object):
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos+620, self.y_pos+25)
         
-        def over_button(self):
-            if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
-                return True
-            else:
-                return False
+    def over_button(self):
+        if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
+            return True
+        else:
+            return False
 
 
 class QuestionDisplay(object):
@@ -176,11 +179,12 @@ def read_file_to_list_questions(file_name):
 def questions_ui(questions_list):
     global need_question
     global current_question
+    global question_boxes
     if (need_question == True):
         current_question = random.randrange(0, len(questions_list))
+        question_boxes = []
         need_question = False
 
-    question_boxes = []
 
     question_asked = QuestionDisplay(750, 50, questions_list[current_question][0]) #displays question in ellipse
     question_asked.display()
@@ -189,19 +193,9 @@ def questions_ui(questions_list):
         
         question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
 
-    
-    fill(0)
-    textAlign(CENTER, CENTER)
-    textSize(15)
-
 
     for x in question_boxes:
         x.display()
-    return question_boxes
-
-
-
-
 
 
 ###### FUNCTIONS END #########
@@ -238,6 +232,7 @@ back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
 need_question = True
 current_question = 0
+question_boxes = []
 
 def main_menu():
     game_state = 1
@@ -360,3 +355,27 @@ def mouseClicked():
             back_character_button.counter -= 1
         if start_button.over_but() == True:
             game_state = 2
+    if game_state == 2:
+        try:
+            if question_boxes[0].over_button() == True:
+                if question_boxes[0].question == question_boxes[4].question:
+                    print (True)
+                else:
+                    print (False)
+            elif question_boxes[1].over_button() == True:
+                if question_boxes[1].question == question_boxes[4].question:
+                    print (True)
+                else:
+                    print (False)
+            elif question_boxes[2].over_button() == True:
+                if question_boxes[2].question == question_boxes[4].question:
+                    print (True)
+                else:
+                    print (False)
+            elif question_boxes[3].over_button() == True:
+                if question_boxes[3].question == question_boxes[4].question:
+                    print (True)
+                else:
+                    print (False)
+        except:
+            print("")
