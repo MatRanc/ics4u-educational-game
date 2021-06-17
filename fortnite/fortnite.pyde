@@ -260,6 +260,11 @@ next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
 
+
+current_opp = opp_list[0][random.randrange(0,2)]
+print(current_opp.name)
+enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
+
 ##### Global Variables End ###########
 
 
@@ -355,10 +360,9 @@ def setup():
     
     
     
-current_opp = opp_list[0][random.randrange(0,2)]
-print(current_opp.name)
 
-enemy_noti = Notification(400, 100, True, 5, "You have encountered " + current_opp.name)
+
+
 
 def draw():
     #global question_boxes
