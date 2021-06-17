@@ -234,20 +234,6 @@ start_button = RectButton(540,300,200,100, "Ready up", 40)
 need_question = True
 current_question = 0
 
-
-
-    current_opp.display()
-    main_player.display()
-
-    opp_health_bar.display()
-    main_player_health_bar.display()
-
-    #bottom box
-    fill(100, 150, 200)
-    rect(0, 494, 1279, 225)
-    
-
-
 def main_menu():
     game_state = 1
     background(100, 100, 255)
