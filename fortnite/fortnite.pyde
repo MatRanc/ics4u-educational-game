@@ -179,6 +179,7 @@ def read_file_to_list_questions(file_name):
 question_boxes = []
 need_question = True
 current_question = 0
+remaining_guesses = 1
 
 chosen_button = 0
 
@@ -351,14 +352,8 @@ def battle_ui():
     
     
     for x in question_boxes:
-        if x.show == True:
+        if remaining_guesses > 0:
             x.display()
-        
-        if x.chosen == True and chosen_button.question == questions_list[current_question][4]:
-            print("66")
-            print(x.question)
-            
-            x.show = False
 
 
 
@@ -445,8 +440,13 @@ def mouseClicked():
         if start_button.over_but() == True:
             game_state = 2
     if game_state == 2:
-        for x in question_boxes:
-            if x.over_button() == True and x.question == questions_list[current_question][5]:
-                print("BOX SELECTED")
-            else:
-                print("nope")
+        global remaining_guesses
+        if remaining_guesses > 0:
+            for x in question_boxes:
+                if x.over_button() == True:
+                    if x.question == questions_list[current_question][5]:
+                        print("BOX SELECTED")
+                    else:
+                        print("wrong")
+                    remaining_guesses -= 1
+            
