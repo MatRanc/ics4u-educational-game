@@ -2,7 +2,7 @@ import os
 import random
 import time
 
-class PlayerCircle(object):
+class PlayerCircle(object): # during battle_ui, what png's "stand" on
     def __init__(self, x_pos, y_pos, scale):
         self.x_pos = x_pos
         self.y_pos = y_pos
@@ -14,7 +14,7 @@ class PlayerCircle(object):
         fill(182, 255, 252)
         ellipse(self.x_pos, self.y_pos, 300 * self.scale, 75 * self.scale)
 
-class Player(object):
+class Player(object): 
     def __init__(self, x_pos, y_pos, name, shield_level, health_level, model, model_scale):
         self.x_pos = x_pos
         self.y_pos = y_pos
@@ -318,7 +318,7 @@ class Notification(object):
 
 if current_round != 4:
     if current_round in [0,1]:
-        current_opp = opp_list[0][random.randrange(0,1)]
+        current_opp = opp_list[0][random.randint(0,1)]
     
     
     hit_or_get_hit = [0,0,1]
