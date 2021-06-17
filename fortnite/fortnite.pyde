@@ -157,7 +157,6 @@ def read_file_to_list_questions(file_name):
     file.close()
     questions_list = []
 
-    print(len(file_list))
 
     for x in range(0, len(file_list), 6):
         sub_list = []
