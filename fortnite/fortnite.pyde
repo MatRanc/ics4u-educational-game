@@ -236,6 +236,7 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 494, 1279, 225)
+    
     questions_ui(questions_list)
 
 def main_menu():
