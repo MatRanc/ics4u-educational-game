@@ -193,8 +193,6 @@ def questions_ui():
     global questions_list
     if need_question == True:
         current_question = random.randrange(0, len(questions_list))
-        
-        
         need_question = False
 
     question_asked = QuestionDisplay(750, 50, questions_list[current_question][0]) #displays question in ellipse
@@ -308,11 +306,15 @@ def battle_ui():
     opp_health_bar.display()
     main_player_health_bar.display()
     
-    questions_ui()
+    #questions_ui()
 
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
+    
+    enemy_noti.display()
+    if enemy_noti.show == False:
+        questions_ui()
     
     #display boxes when availible guesses
     for x in question_boxes:
@@ -344,6 +346,8 @@ class Notification(object):
             textSize(20)
             text(self.input_text, 400, 50, 500, 100)
         self.counter += 0.1
+        if self.counter > self.show_time:
+            enemy_noti.show = False
         
         
         
@@ -357,8 +361,7 @@ def setup():
 current_opp = opp_list[0][random.randrange(0,2)]
 print(current_opp.name)
 
-hit_or_get_hit = [0,0,1]
-enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
+enemy_noti = Notification(400, 100, True, 5, "You have encountered " + current_opp.name)
 
 def draw():
     #global question_boxes
