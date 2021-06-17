@@ -132,6 +132,12 @@ class QuestionButton(object):
         textSize(15)
         text(self.question, self.x_pos+100, self.y_pos+25)
         textAlign(CENTER, CENTER)
+        
+    def over_qbut(self):
+         if mouseX in range(self.x_pos, self.x_pos + self.x_size) and mouseY in range(self.y_pos, self.y_pos + self.y_size):
+             return True
+         else:
+             return False
 
 
 ############### class templates end #######################
@@ -155,13 +161,18 @@ def read_file_to_list_questions(file_name):
     return questions_list
 
 def questions_ui(questions_list):
-    rand_int = random.randrange(0, len(questions_list))
+    global need_question
+    global current_question
+    if (need_question == True):
+        current_question = random.randrange(0, len(questions_list))
+        need_question = False
 
     question_boxes = []
     
     fill(0)
     textAlign(CENTER, CENTER)
     textSize(15)
+
     text(questions_list[rand_int][0], 660, 515)
 
     for x in range(0, 4):
@@ -169,6 +180,7 @@ def questions_ui(questions_list):
             question_boxes.append(QuestionButton(450 + (225*x), 550, 1, questions_list[rand_int][x+1]))
         else:
             question_boxes.append(QuestionButton(450 + (225*(x-2)), 625, 1, questions_list[rand_int][x+1]))
+
 
     for x in question_boxes:
         x.display()
@@ -212,6 +224,8 @@ main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
+need_question = True
+current_question = 0
 
 def main_menu():
     game_state = 1
