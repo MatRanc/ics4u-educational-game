@@ -188,10 +188,6 @@ def questions_ui(questions_list):
     textAlign(CENTER, CENTER)
     textSize(15)
 
-    text(questions_list[rand_int][0], 660, 515)
-
-
-
 
     for x in question_boxes:
         x.display()
@@ -294,6 +290,10 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
+    
+    enemy_noti.display()
+    if enemy_noti.show == False:
+        questions_ui(questions_list)
 
 
 
@@ -314,6 +314,8 @@ class Notification(object):
             textSize(20)
             text(self.input_text, 400, 50, 500, 100)
         self.counter += 0.1
+        if self.counter > self.show_time:
+            enemy_noti.show = False
 
 
 if current_round != 4:
@@ -330,23 +332,21 @@ if current_round != 4:
         enemy_noti.input_text = "You have been hit by " + current_opp.name + " for DAMAGE"
         enemy_noti.show_time = 10
         enemy_noti.show = True
-        
-        
-        
-        
-        
+
+
 
 def setup():
     size(1280, 720)
 
 def draw():
     background(245)
-
+    global uni_counter
+    
     if game_state == 1:
         main_menu()
     elif game_state == 2:
         battle_ui()
-        enemy_noti.display()
+        #enemy_noti.display()
 
 
 def mouseClicked():
