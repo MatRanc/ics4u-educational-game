@@ -141,9 +141,27 @@ class QuestionDisplay(object):
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos, self.y_pos)
 
+class Notification(object):
+    def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.show = show
+        self.input_text = input_text
+        self.counter = 0
+        self.show_time = show_time_seconds
+        
+    def display(self):
+        if self.show == True and self.counter < self.show_time:
+            fill(255, 255, 10)
+            rect(400, 25, 500, 100)
+            fill(0)
+            textSize(20)
+            text(self.input_text, 400, 50, 500, 100)
+        self.counter += 0.1
+        if self.counter > self.show_time:
+            enemy_noti.show = False
+        
 ############### class templates end #######################
-
-
 
 
 weapons_list  = [["Pickaxe", 10],
@@ -180,12 +198,6 @@ def read_file_to_list_questions(file_name):
 
     return questions_list
 
-question_boxes = []
-need_question = True
-current_question = 0
-remaining_guesses = 1
-
-chosen_button = 0
 
 def questions_ui():
     global need_question
@@ -193,8 +205,6 @@ def questions_ui():
     global questions_list
     if need_question == True:
         current_question = random.randrange(0, len(questions_list))
-        
-        
         need_question = False
 
     question_asked = QuestionDisplay(750, 50, questions_list[current_question][0]) #displays question in ellipse
@@ -211,36 +221,37 @@ def questions_ui():
     textAlign(CENTER, CENTER)
     textSize(15)
 
-    #idk if we should display here or in draw....
-    for x in question_boxes:
-        x.display()
-
-
 ###### FUNCTIONS END #########
 
+###### Global Variables ########
+
+question_boxes = []
+need_question = True
+current_question = 0
+remaining_guesses = 1
+chosen_button = 0
+game_state = 1
+main_player_character_selection = 0
+remaining_choices = 1
+selected_answer = None
+current_round = 0
+user_correct = False
 
 questions_list = read_file_to_list_questions("questions.txt")
-#print(questions_list)
-
-game_state = 1
-
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
-
-main_player_character_selection = 0
 main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
-circle_opp = PlayerCircle(1025, 350, 1.23)
-circle_main_player = PlayerCircle(400, 500, 1.50)
+circle_opp = PlayerCircle(1025, 350, 1.23) #Circle under opponent
+circle_main_player = PlayerCircle(400, 500, 1.50) #Circle under main player
 
 opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, "assets/characters/opponents/ninjablevins.png", 0.6)
 opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, "assets/characters/opponents/souljaboy.png", 0.60)
-
 opp_list  = [[opp_ninja, opp_souljaboy]]
 
 #set current opponent so they can be changed out easier?
 current_opp = opp_souljaboy
 
-main_player = Player(400, 550, "Please enter a name", 100, main_player_character_selection_fullpath, 0.8)
+main_player = Player(400, 550, "You", 100, main_player_character_selection_fullpath, 0.8)
 
 opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level)
 main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 200, main_player.health_level)
@@ -250,10 +261,12 @@ back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
 
 
-global remaining_choices
-remaining_choices = 1
-global selected_answer
-selected_answer = None
+current_opp = opp_list[0][random.randrange(0,2)]
+print(current_opp.name)
+enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
+
+##### Global Variables End ###########
+
 
 
 def main_menu():
@@ -294,8 +307,7 @@ def main_menu():
 
     main_player.model = main_player_character_selection_fullpath
 
-current_round = 0
-user_correct = False
+
 
 def battle_ui():
     global current_opp
@@ -308,43 +320,30 @@ def battle_ui():
     opp_health_bar.display()
     main_player_health_bar.display()
     
-    questions_ui()
+    #questions_ui()
 
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
     
-    #display boxes when availible guesses
-    for x in question_boxes:
-        if remaining_guesses > 0:
-            x.display()
-        else:
-            if selected_answer.question == questions_list[current_question][5]:
-                user_correct = True
+    enemy_noti.display()
+    if enemy_noti.show == False:
+        questions_ui()
+        #display boxes when availible guesses
+        for x in question_boxes:
+            if remaining_guesses > 0:
+                x.display()
             else:
-                user_correct = False
+                if selected_answer.question == questions_list[current_question][5]:
+                    user_correct = True
+                else:
+                    user_correct = False
+    
                 
 
 
 
-class Notification(object):
-    def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text):
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.show = show
-        self.input_text = input_text
-        self.counter = 0
-        self.show_time = show_time_seconds
-        
-    def display(self):
-        if self.show == True and self.counter < self.show_time:
-            fill(255, 255, 10)
-            rect(400, 25, 500, 100)
-            fill(0)
-            textSize(20)
-            text(self.input_text, 400, 50, 500, 100)
-        self.counter += 0.1
-        
+
         
         
 
@@ -354,11 +353,9 @@ def setup():
     
     
     
-current_opp = opp_list[0][random.randrange(0,2)]
-print(current_opp.name)
 
-hit_or_get_hit = [0,0,1]
-enemy_noti = Notification(400, 100, False, 5, "You have encountered " + current_opp.name)
+
+
 
 def draw():
     #global question_boxes
@@ -369,7 +366,6 @@ def draw():
         main_menu()
     elif game_state == 2:
         battle_ui()
-        #enemy_noti.display()
         
         
 def user_is_right():
