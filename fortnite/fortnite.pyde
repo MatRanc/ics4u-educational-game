@@ -333,6 +333,7 @@ def main_menu():
 def battle_ui():
     global current_opp
     global remaining_guesses
+    
     circle_opp.display()
     circle_main_player.display()
 
