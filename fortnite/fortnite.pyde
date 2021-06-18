@@ -162,14 +162,23 @@ class Notification(object):
             enemy_noti.show = False
         
 class Action_Box(object):
-    def __init__(self, words):
+    def __init__(self, x_pos, words):
         self.words = words
+        self.x_pos = x_pos
         
     def display(self):
         fill(255,255,10)
-        rect(500,550,100,200)
+        rect(self.x_pos,550,150,150)
         textSize(30)
-        text(self.words,500,550)
+        fill(0,0,0)
+        textAlign(CENTER,CENTER)
+        text(self.words, self.x_pos + 75, 620)
+        
+    def over_but(self):
+        if mouseX in range(self.x_pos, self.x_pos+150) and mouseY in range(550, 700):
+            return True
+        else:
+            return False
         
 ############### class templates end #######################
 
@@ -273,7 +282,7 @@ print(current_opp.name)
 
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
 
-action_buttons = Action_Box("Health")
+action_buttons = [Action_Box(660, "Heal"), Action_Box(470, "Attack")]
 ##### Global Variables End ###########
 
 
@@ -338,7 +347,8 @@ def battle_ui():
             if remaining_guesses > 0:
                 x.display()
             else:
-                action_buttons.display()
+                for x in action_buttons:
+                    x.display()
                 
                 
                # if selected_answer.question == questions_list[current_question][5]:
@@ -403,4 +413,7 @@ def mouseClicked():
                 main_player.health_level -= test_hit_value
                 #noti saying how much hit for
             remaining_guesses -= 1 #stops from allowing any click to take away health
+            
+             if action_buttons[0].over_but == True:
+                print("unga bunga")
             
