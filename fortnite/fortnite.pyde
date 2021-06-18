@@ -45,7 +45,7 @@ class RectButton(object):
         rect(self.x_pos, self.y_pos, self.x_size,self.y_size)
         fill(0)
         textSize(self.txt_size)
-        text(self.words,self.x_pos,self.y_pos, self.x_size, self.y_size)
+        text(self.words, self.x_pos, self.y_pos + (self.y_size/4), self.x_size, self.y_size)
 
     def over_but(self):
          if mouseX in range(self.x_pos, self.x_pos + self.x_size) and mouseY in range(self.y_pos, self.y_pos + self.y_size):
@@ -275,7 +275,7 @@ main_player = Player(400, 550, "You", 100, main_player_character_selection_fullp
 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
-start_button = RectButton(540,300,200,100, "Ready up", 40)
+start_button = RectButton(540, 300, 200, 100, "Ready Up", 40)
 action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
 current_opp = opp_list[0][random.randrange(0,2)]
