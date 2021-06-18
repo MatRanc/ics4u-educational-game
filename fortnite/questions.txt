@@ -6,8 +6,8 @@ Montreal
 Ottawa
 What is the capital of Ontario?
 Ottawa
-Niagra
 Toronto
+Niagra
 Kingston
 Toronto
 What is the capital of Manitoba?
@@ -82,3 +82,135 @@ Baker Lake
 Cambrige Bay
 Iqaluit
 Iqaluit
+Which city has the highest population in Canada?
+Regina
+Toronto
+Vancouver
+Montreal
+Toronto
+Which province recently went bankrupt?
+Ontario
+Prince Edward Island
+Nova Scotia
+Newfoundland
+Newfoundland
+Which province/territory has the largest landmass?
+Nunavut
+Northwest Territories
+Quebec
+British Columbia
+Nunavut
+Which province/territory has the smallest landmass?
+Nova Scotia
+Prince Edward Island
+New Brunswick
+Saskatchewan
+Prince Edward Island
+Which province/territory contains the Niagara falls?
+Manitoba
+Quebec
+Florida
+Ontario
+Ontario
+Which province/territory does not border any other provinces/territories?
+Newfoundland
+Prince Edward Island
+Nova Scotia
+Yukon
+Prince Edward Island
+Which province has the most capital cities in it?
+British Columbia
+Ontario
+Quebec
+Mongolia
+Ontario
+Which province/territory has the 2nd highest population?
+Ontario
+British Columbia
+Alberta
+Quebec
+Quebec
+Which province/territory has the smoothest looking borders?
+Nunavut
+Northwest Territories
+Saskatchewan
+Manitoba
+Saskatchewan
+What is the name of the longest river in Canada?
+Makenzie River
+Mississipi River
+The Nile River
+Misouri River
+Makenzie River
+Which of the four oceans does Canada NOT border?
+Arctic Ocean
+Indian Ocean
+Atlantic Ocean
+Pacific Ocean
+Indian Ocean
+What is the name of the largest lake in Canada?
+Lake Huron
+Lake Superior
+Lake Ontario
+Lake Athabasca
+Lake Superior
+What is the name of the largest lake entirely within the boundaries of Canada?
+Lake Superior
+Great Slave Lake
+Lake Ontario
+Great Bear Lake
+Great Bear Lake
+Which Ocean is located on the eastern borders of Canada?
+Indian Ocean
+Arctic Ocean
+Atlantic Ocean
+Pacific Ocean
+Atlantic Ocean
+Which Ocean is located on the western borders of Canada?
+Pacific Ocean
+Arctic Ocean
+Atlantic Ocean
+Indian Ocean
+Pacific Ocean
+What is the name of the largest waterfall in Canada?
+Niagara Falls
+Angel Falls
+Waterfall
+Bond Falls
+Niagara Falls
+What is the name of the deepest lake in Canada?
+Great Slave Lake
+Great Bear Lake
+Great Deep Lake
+Lake Ontario
+Great Slave Lake
+How many provinces does Canada have?
+8
+9
+10
+11
+10
+How many territories does Canada have?
+3
+4
+5
+6
+3
+How big is Canada?
+95km^2
+9.98 million km^2
+3
+857 thousand km^2
+9.98 million km^2
+How many of the great lakes border Canada?
+4
+5
+2
+3
+4
+What is the population of Toronto including the GTA?
+6.4 million
+5.3 million
+900 thousand
+5.95 million
+6.4 million
