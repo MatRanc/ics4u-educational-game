@@ -282,7 +282,7 @@ opp_damage = 15
 print(current_opp.name)
 
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
-damage_noti = Notification(400,100, True, 3, "You have been hit for " + str(opp_damage))
+damage_noti = Notification(400,100, True, 5, "You have been hit for " + str(opp_damage))
 
 action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
@@ -348,9 +348,11 @@ def battle_ui():
         for x in question_boxes:
             if remaining_guesses > 0:
                 x.display()
-            elif can_choose_action == True:
+            elif can_choose_action == True and remaining_guesses < 0:
                 for x in action_buttons:
                     x.display()
+            elif user_is_correct == False:
+                damage_noti.display()
 
 def setup():
     size(1280, 720)
