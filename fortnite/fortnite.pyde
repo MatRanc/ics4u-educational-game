@@ -275,7 +275,7 @@ main_player = Player(400, 550, "You", 100, main_player_character_selection_fullp
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
-action_buttons = [Action_Box(470, "Attack"), Action_Box(660, "Heal")]
+action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
 current_opp = opp_list[0][random.randrange(0,2)]
 opp_damage = 15
