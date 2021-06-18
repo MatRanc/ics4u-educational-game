@@ -117,7 +117,7 @@ class QuestionButton(object):
         fill(0)
         textSize(15)
         textAlign(CENTER, CENTER)
-        text(self.question, self.x_pos+620, self.y_pos+25)
+        text(self.question, self.x_pos+620, self.y_pos+20)
         
     def over_button(self):
         if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
