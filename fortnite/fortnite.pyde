@@ -282,7 +282,7 @@ print(current_opp.name)
 
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
 
-action_buttons = [Action_Box(660, "Heal"), Action_Box(470, "Attack")]
+action_buttons = [Action_Box(470, "Attack"), Action_Box(660, "Heal")]
 ##### Global Variables End ###########
 
 
@@ -349,13 +349,7 @@ def battle_ui():
             else:
                 for x in action_buttons:
                     x.display()
-                
-                
-               # if selected_answer.question == questions_list[current_question][5]:
-                 #   user_correct = True
-               # else:
-                #    user_correct = False
-    
+
                 
 
 def setup():
@@ -413,7 +407,11 @@ def mouseClicked():
                 main_player.health_level -= test_hit_value
                 #noti saying how much hit for
             remaining_guesses -= 1 #stops from allowing any click to take away health
+        if remaining_guesses < 0:
+            if action_buttons[0].over_but() == True:
+                print("Attack")
+            elif action_buttons[1].over_but() == True:
+                print ("Heal")
             
-             if action_buttons[0].over_but == True:
-                print("unga bunga")
+        
             
