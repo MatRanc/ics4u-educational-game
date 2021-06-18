@@ -331,6 +331,7 @@ def main_menu():
 
 def battle_ui():
     global current_opp
+    global remaining_guesses
     circle_opp.display()
     circle_main_player.display()
 
@@ -351,6 +352,7 @@ def battle_ui():
             elif can_choose_action == True and remaining_guesses < 0:
                 for x in action_buttons:
                     x.display()
+                remaining_guesses -= 1
             elif user_is_correct == False:
                 damage_noti.display()
 
@@ -420,10 +422,10 @@ def mouseClicked():
             remaining_guesses -= 1 #stops from allowing any click to take away health
 
         #if can choose attack or heal, do it
-        if action_buttons[0].over_but() == True and can_choose_action == True:
+        if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
             print("Attack")
             can_choose_action = False
-        elif action_buttons[1].over_but() == True and can_choose_action == True:
+        elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
             print ("Heal")
             can_choose_action = False
             
