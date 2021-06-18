@@ -29,6 +29,8 @@ class Player(object):
         imageMode(CENTER)
         img.resize(int(0 * self.model_scale), int(500 * self.model_scale))
         image(img, self.x_pos, self.y_pos - (img.height/2))
+        
+        HealthBar(self.x_pos - 350, self.y_pos - 200, self.health_level).display()
 
 class RectButton(object):
     def __init__(self, x_pos, y_pos, x_size, y_size, words, txt_size):
@@ -248,13 +250,10 @@ opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins"
 opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, "assets/characters/opponents/souljaboy.png", 0.60)
 opp_list  = [[opp_ninja, opp_souljaboy]]
 
-#set current opponent so they can be changed out easier?
+#set current opponent so they can be changed out easier? // yes.
 current_opp = opp_souljaboy
 
 main_player = Player(400, 550, "You", 100, main_player_character_selection_fullpath, 0.8)
-
-opp_health_bar = HealthBar(current_opp.x_pos-350, current_opp.y_pos-200, current_opp.health_level)
-main_player_health_bar = HealthBar(main_player.x_pos - 350, main_player.y_pos - 200, main_player.health_level)
 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
@@ -317,11 +316,6 @@ def battle_ui():
     current_opp.display()
     main_player.display()
 
-    opp_health_bar.display()
-    main_player_health_bar.display()
-    
-    #questions_ui()
-
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
@@ -341,22 +335,11 @@ def battle_ui():
     
                 
 
-
-
-
-        
-        
-
 def setup():
     size(1280, 720)
     
     
     
-    
-
-
-
-
 def draw():
     #global question_boxes
     background(245)
@@ -401,5 +384,7 @@ def mouseClicked():
                     remaining_guesses -= 1
         if remaining_guesses == 0:
             if user_is_right() == True:
-                print("SHOOT OR HEAL")
+                print("DO SOMETHING")
+            else:
+                main_player.health_level -= 10
             
