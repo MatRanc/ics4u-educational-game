@@ -141,7 +141,9 @@ class QuestionDisplay(object):
         fill(0)
         textSize(15)
         textAlign(CENTER, CENTER)
-        text(self.question, self.x_pos, self.y_pos)
+        text(self.question, self.x_pos -(500/2), self.y_pos - (60/2), 500, 60)
+        
+        #rect(750, 0, 1, 2000) #just to display where the center of the elipse is
 
 class Notification(object):
     def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text):
@@ -181,7 +183,6 @@ weapons_list  = [["Pickaxe", 10],
                  ]
 
 
-
 #functions
 
 def read_file_to_list_questions(file_name):
@@ -205,6 +206,7 @@ def questions_ui():
     global need_question
     global current_question
     global questions_list
+    
     if need_question == True:
         current_question = random.randrange(0, len(questions_list))
         need_question = False
@@ -262,6 +264,7 @@ start_button = RectButton(540,300,200,100, "Ready up", 40)
 
 current_opp = opp_list[0][random.randrange(0,2)]
 print(current_opp.name)
+
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
 
 ##### Global Variables End ###########
@@ -386,6 +389,8 @@ def mouseClicked():
             if user_is_right() == True:
                 print("DO SOMETHING")
             else:
-                main_player.health_level -= 10
+                test_hit_value = 10
+                main_player.health_level -= test_hit_value
+                #noti saying how much hit for
             remaining_guesses -= 1 #stops from allowing any click to take away health
             
