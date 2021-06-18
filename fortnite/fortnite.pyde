@@ -133,7 +133,7 @@ class QuestionDisplay(object):
         
     def display(self):
         fill(250, 250, 10)
-        ellipse(self.x_pos, self.y_pos, 500, 60)
+        ellipse(self.x_pos, self.y_pos, 550, 70)
         fill(0)
         textSize(15)
         textAlign(CENTER, CENTER)
@@ -227,7 +227,7 @@ def questions_ui():
         current_question = random.randrange(0, len(questions_list))
         need_question = False
 
-    question_asked = QuestionDisplay(750, 50, questions_list[current_question][0]) #displays question in ellipse
+    question_asked = QuestionDisplay(700, 50, questions_list[current_question][0]) #displays question in ellipse
     question_asked.display()
 
     question_boxes = []
@@ -346,7 +346,8 @@ def battle_ui():
     
     enemy_noti.display()
     if enemy_noti.show == False:
-        questions_ui()
+        if remaining_guesses > 0:
+            questions_ui() #displays question
         #display boxes when availible guesses
         for x in question_boxes:
             if remaining_guesses > 0:
