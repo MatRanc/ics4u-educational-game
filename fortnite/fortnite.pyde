@@ -41,7 +41,7 @@ class RectButton(object):
         self.words = words
         self.txt_size = txt_size
     def display(self):
-        fill(255)
+        fill(255,255,10)
         rect(self.x_pos, self.y_pos, self.x_size,self.y_size)
         fill(0)
         textSize(self.txt_size)
@@ -153,10 +153,11 @@ class Notification(object):
     def display(self):
         if self.show == True and self.counter < self.show_time:
             fill(255, 255, 10)
-            rect(400, 25, 500, 100)
+            rect(self.x_pos, self.y_pos, 500, 100)
             fill(0)
             textSize(20)
-            text(self.input_text, 400, 50, 500, 100)
+            textAlign(CENTER,CENTER)
+            text(self.input_text, self.x_pos, self.y_pos, 500, 100)
         self.counter += 0.1
         if self.counter > self.show_time:
             self.show = False
@@ -281,8 +282,8 @@ current_opp = opp_list[0][random.randrange(0,2)]
 opp_damage = 15
 print(current_opp.name)
 
-enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
-damage_noti = Notification(400,100, True, 5, "You have been hit for " + str(opp_damage))
+enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name)
+damage_noti = Notification(450, 280, True, 10, "You have been hit for " + str(opp_damage))
 
 action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
@@ -416,8 +417,7 @@ def mouseClicked():
                 can_choose_action = True
                 user_is_correct = True
             else:
-                test_hit_value = 10
-                main_player.health_level -= test_hit_value
+                main_player.health_level -= opp_damage
                 #noti saying how much hit for
             remaining_guesses -= 1 #stops from allowing any click to take away health
 
