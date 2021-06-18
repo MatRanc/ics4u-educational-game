@@ -159,7 +159,7 @@ class Notification(object):
             text(self.input_text, 400, 50, 500, 100)
         self.counter += 0.1
         if self.counter > self.show_time:
-            enemy_noti.show = False
+            self.show = False
         
 class Action_Box(object):
     def __init__(self, x_pos, words):
@@ -275,14 +275,15 @@ main_player = Player(400, 550, "You", 100, main_player_character_selection_fullp
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 start_button = RectButton(540,300,200,100, "Ready up", 40)
-
+action_buttons = [Action_Box(470, "Attack"), Action_Box(660, "Heal")]
 
 current_opp = opp_list[0][random.randrange(0,2)]
+opp_damage = 15
 print(current_opp.name)
 
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
+damage_noti = Notification(400,100, True, 3, "You have been hit for " + str(opp_damage))
 
-action_buttons = [Action_Box(470, "Attack"), Action_Box(660, "Heal")]
 ##### Global Variables End ###########
 
 
@@ -347,8 +348,10 @@ def battle_ui():
             if remaining_guesses > 0:
                 x.display()
             else:
-                for x in action_buttons:
-                    x.display()
+                damage_noti.display()
+                if damage_noti.show == False:
+                    for x in action_buttons:
+                        x.display()
 
                 
 
