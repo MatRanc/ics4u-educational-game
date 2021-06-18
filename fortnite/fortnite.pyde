@@ -161,7 +161,7 @@ class Notification(object):
         if self.counter > self.show_time:
             enemy_noti.show = False
         
-class Action_Box(object):
+class ActionBox(object):
     def __init__(self, x_pos, words):
         self.words = words
         self.x_pos = x_pos
@@ -282,9 +282,9 @@ print(current_opp.name)
 
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
 
-action_buttons = [Action_Box(470, "Attack"), Action_Box(660, "Heal")]
-##### Global Variables End ###########
+action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
+##### Global Variables End ###########
 
 
 def main_menu():
