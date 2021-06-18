@@ -346,15 +346,12 @@ def battle_ui():
         for x in question_boxes:
             if remaining_guesses > 0:
                 x.display()
-            else:
+            elif can_choose_action == True:
                 for x in action_buttons:
                     x.display()
 
-                
-
 def setup():
     size(1280, 720)
-    
     
     
 def draw():
@@ -377,8 +374,12 @@ def user_is_right():
     return is_right
 
 
+user_is_correct = False
+can_choose_action = False
+
 def mouseClicked():
     global game_state
+    
     if game_state == 1:
         start_button.over_but()
         if next_character_button.over_circle() == True:
@@ -387,9 +388,13 @@ def mouseClicked():
             back_character_button.counter -= 1
         if start_button.over_but() == True:
             game_state = 2
+            
     if game_state == 2:
         global remaining_guesses
         global selected_answer
+        global user_is_correct
+        global can_choose_action
+        
         if remaining_guesses > 0:
             for x in question_boxes:
                 if x.over_button() == True:
@@ -401,17 +406,22 @@ def mouseClicked():
                     remaining_guesses -= 1
         if remaining_guesses == 0:
             if user_is_right() == True:
-                print("DO SOMETHING")
+                print("34")
+                can_choose_action = True
+                user_is_correct = True
             else:
                 test_hit_value = 10
                 main_player.health_level -= test_hit_value
                 #noti saying how much hit for
             remaining_guesses -= 1 #stops from allowing any click to take away health
-        if remaining_guesses < 0:
-            if action_buttons[0].over_but() == True:
-                print("Attack")
-            elif action_buttons[1].over_but() == True:
-                print ("Heal")
+
+        #if can choose attack or heal, do it
+        if action_buttons[0].over_but() == True and can_choose_action == True:
+            print("Attack")
+            can_choose_action = False
+        elif action_buttons[1].over_but() == True and can_choose_action == True:
+            print ("Heal")
+            can_choose_action = False
             
         
             
