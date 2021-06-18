@@ -282,7 +282,7 @@ opp_damage = 15
 print(current_opp.name)
 
 enemy_noti = Notification(400, 100, True, 3, "You have encountered " + current_opp.name)
-damage_noti = Notification(400,100, True, 5, "You have been hit for " + str(opp_damage))
+damage_noti = Notification(400, 100, True, 5, "You have been hit for " + str(opp_damage))
 
 action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
@@ -332,6 +332,7 @@ def main_menu():
 def battle_ui():
     global current_opp
     global remaining_guesses
+    
     circle_opp.display()
     circle_main_player.display()
 
