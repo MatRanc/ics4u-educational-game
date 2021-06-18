@@ -387,4 +387,5 @@ def mouseClicked():
                 print("DO SOMETHING")
             else:
                 main_player.health_level -= 10
+            remaining_guesses -= 1 #stops from allowing any click to take away health
             
