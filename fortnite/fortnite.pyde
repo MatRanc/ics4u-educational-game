@@ -333,6 +333,7 @@ def main_menu():
 def battle_ui():
     global current_opp
     global remaining_guesses
+    global need_question
     
     circle_opp.display()
     circle_main_player.display()
@@ -357,7 +358,12 @@ def battle_ui():
                     x.display()
                 remaining_guesses -= 1
             elif user_is_correct == False:
-                damage_noti.display()
+                damage_noti.display() 
+                if damage_noti.show == False:
+                    need_question = True
+                    remaining_guesses = 1
+
+                
 
 def setup():
     size(1280, 720)
@@ -403,6 +409,7 @@ def mouseClicked():
         global selected_answer
         global user_is_correct
         global can_choose_action
+        global need_question
         
         if remaining_guesses > 0:
             for x in question_boxes:
@@ -411,8 +418,11 @@ def mouseClicked():
                         print("BOX SELECTED")
                     else:
                         print("wrong")
+                        damage_noti.show = True #resets damage_noti to have show = True and counter restart
+                        damage_noti.counter = 0
                     selected_answer = x
                     remaining_guesses -= 1
+                    user_is_correct = False
         if remaining_guesses == 0:
             if user_is_right() == True:
                 print("34")
@@ -420,16 +430,22 @@ def mouseClicked():
                 user_is_correct = True
             else:
                 main_player.health_level -= opp_damage
-                #noti saying how much hit for
+                
             remaining_guesses -= 1 #stops from allowing any click to take away health
-
+                
+                
+                
         #if can choose attack or heal, do it
         if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
             print("Attack")
             can_choose_action = False
+            remaining_guesses = 1
+            need_question = True
         elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
             print ("Heal")
             can_choose_action = False
+            remaining_guesses = 1
+            need_question = True
             
         
             
