@@ -406,7 +406,6 @@ def win_ui():
     play_gif("assets/win_screen/vic_roy_folder/", gif_counter)
     gif_counter.count() #used to count time/frames for gif
     
-    
 
 def setup():
     size(1280, 720)
