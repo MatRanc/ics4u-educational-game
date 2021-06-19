@@ -209,8 +209,6 @@ def read_file_to_list_questions(file_name):
     file.close()
     questions_list = []
 
-    print(len(file_list))
-
     for x in range(0, len(file_list), 6):
         sub_list = []
         for y in range(0, 6):
@@ -276,12 +274,12 @@ circle_main_player = PlayerCircle(400, 500, 1.50) #Circle under main player
 main_player = Player(400, 550, "You", 100, (20, 30), main_player_character_selection_fullpath, 0.8) #x_pos, y_pos, name, health_level, damage_range, model, model_scale
 
 opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 40), "assets/characters/opponents/ninjablevins.png", 0.6)
-opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (20,30), "assets/characters/opponents/souljaboy.png", 0.60)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (20, 30), "assets/characters/opponents/souljaboy.png", 0.60)
 
 opp_list  = [[opp_ninja, opp_souljaboy]]
 
 #set current opponent so they can be changed out easier
-current_opp = opp_list[0][random.randrange(0,2)]
+current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
 damage = enemy_damage(current_opp.damage_range)
 
 enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
