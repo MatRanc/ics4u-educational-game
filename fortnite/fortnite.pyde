@@ -154,7 +154,7 @@ weapons_list  = [["Pickaxe", [10, 10]],
                  ["Pistol", [10, 16]],
                  ["Tac Shotgun", [6, 20]],
                  ["Supressed Pistol", [14, 20]],
-                 ["Tac Smg", [12,18]],
+                 ["Tac SMG", [12,18]],
                  ["Gold Scar", [18, 24]],
                  ["19 Dollar Fortnite Card", [2, 30]]
                  ]
