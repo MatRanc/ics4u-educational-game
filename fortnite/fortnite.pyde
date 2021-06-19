@@ -258,18 +258,10 @@ action_buttons = [RectButton(470,550,150,150, "Attack", 30), RectButton(660,550,
 
 ##### Global Variables End ###########
 
-
 def main_menu():
     game_state = 1
-    background(100, 100, 255)
-
-    #title on screen
-    title = "Canadian Geography Fortnite Pokemon Education Game (placeholder)"
-    fill(255)
-    textAlign(CENTER)
-    textSize(20)
-    text(title, 640-(250/2), 150, 250, 100)
-    #text(string, x pos, y pos, container width, container height)
+    main_menu_background = loadImage("assets/main_menu/menubg.png")
+    image(main_menu_background, 640, 360)
 
     next_character_button.display()
     back_character_button.display()
