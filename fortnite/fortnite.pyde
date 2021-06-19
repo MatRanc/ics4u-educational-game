@@ -339,8 +339,8 @@ def main_menu():
     image(img, 180, 350)
 
     main_player.model = main_player_character_selection_fullpath
-
-
+    main_player.health_level = 100
+    current_opp.health_level = 100
 
 def battle_ui():
     global current_opp
@@ -489,7 +489,7 @@ def mouseClicked():
                     
                     
             #if can choose attack or heal, do it
-            if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
+            if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print("Attack")
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
                 current_opp.health_level -= weapon_damage
@@ -505,7 +505,7 @@ def mouseClicked():
                     current_round = 2
                 if (current_opp.health_level < 1) and current_round == 2:
                     game_state = 4 #go to win screen
-            elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
+            elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print ("Heal")
                 heal_amount = random.randrange(10, 31, 5)
                 if main_player.health_level == 100:
