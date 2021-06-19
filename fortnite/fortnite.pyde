@@ -1,6 +1,5 @@
 import os
 import random
-import time
 
 # during battle_ui, what png's "stand" on
 class PlayerCircle(object):
@@ -163,6 +162,15 @@ class Notification(object):
         self.counter += 0.1
         if self.counter > self.show_time:
             self.show = False
+            
+class Counter(object):
+    def __init__(self):
+        self.counter = 0
+        self.stop_counting = False
+        
+    def count(self):
+        if self.stop_counting == False:
+            self.counter += 0.1
         
 class ActionBox(object):
     def __init__(self, x_pos, words):
@@ -377,17 +385,28 @@ def user_is_right():
     return is_right
 
 
+def play_gif(folder, counter):
+    
+    all_files = os.listdir(folder)
+    
+    if int(counter.counter * 10) <= len(all_files)-1:
+        current_frame = loadImage(folder + all_files[int(counter.counter * 10)])
+        current_frame.resize(1280, 720)
+        image(current_frame, 0, 0)
+    else:
+        current_frame = loadImage(folder + all_files[len(all_files)-1])
+        current_frame.resize(1280, 720)
+        image(current_frame, 0, 0)
+        counter.stop_counting = True
+        
+        
+gif_counter = Counter()
+
 def win_ui():
-    
-    #victory royale gif
-    img = loadImage("assets/win_screen/vic_roy_gif_nobg_noloop.gif")
-    imageMode(CENTER)
-    #img.resize(0, 250)
-    image(img, 0, 0)
+    play_gif("assets/win_screen/vic_roy_folder/", gif_counter)
+    gif_counter.count() #used to count time/frames for gif
     
     
-
-
 
 def setup():
     size(1280, 720)
@@ -405,7 +424,7 @@ def draw():
         fill(255)
         text("You died hahaahhaha L", 720/2, 1280/2)
     elif game_state == 4:
-        background(0,0,0)
+        win_ui()
 
 def mouseClicked():
     global game_state
