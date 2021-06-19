@@ -97,27 +97,6 @@ class GalleryButton(object):
         else:
             return False
 
-
-class QuestionButton(object):
-    def __init__(self, x_pos, y_pos, scale, question):
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.question = question
-
-    def display(self):
-        fill(250, 250, 10)
-        rect(self.x_pos, self.y_pos, 1239, 40)
-        fill(0)
-        textSize(15)
-        textAlign(CENTER, CENTER)
-        text(self.question, self.x_pos+620, self.y_pos+20)
-        
-    def over_but(self):
-        if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
-            return True
-        else:
-            return False
-
 class QuestionDisplay(object):
     def __init__(self, x_pos, y_pos, question):
         self.x_pos = x_pos
@@ -213,7 +192,7 @@ def questions_ui():
     
     for x in range(0, 4):
 
-        question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
+        question_boxes.append(RectButton(20, 535 + (x*45), 1239, 40, questions_list[current_question][x+1], 15))
 
 def enemy_damage(input_tuple):
     damage = random.randrange(input_tuple[0] , input_tuple[1], 5) #min val (inclusive), max val (exclusive), step of 5
@@ -361,7 +340,7 @@ def battle_ui():
 def user_is_right():
     is_right = False
     
-    if selected_answer.question == questions_list[current_question][5]:
+    if selected_answer.words == questions_list[current_question][5]:
         is_right = True
         
     return is_right
@@ -439,7 +418,7 @@ def mouseClicked():
             if remaining_guesses > 0:
                 for x in question_boxes:
                     if x.over_but() == True:
-                        if x.question == questions_list[current_question][5]:
+                        if x.words == questions_list[current_question][5]:
                             print("BOX SELECTED")
                         else:
                             print("wrong")
