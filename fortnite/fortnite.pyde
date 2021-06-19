@@ -440,7 +440,7 @@ def mouseClicked():
                         user_is_correct = False
             if remaining_guesses == 0:
                 if user_is_right() == True:
-                    print("34")
+                    print("correct")
                     can_choose_action = True
                     user_is_correct = True
                 else:
