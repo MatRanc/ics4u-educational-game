@@ -461,7 +461,7 @@ def mouseClicked():
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
                 current_opp.health_level -= weapon_damage
                 print(weapon_found[0], weapon_damage)
-                hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage)
+                hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
                 hit_noti.show = True
                 can_choose_action = False
                 remaining_guesses = 1
@@ -472,14 +472,17 @@ def mouseClicked():
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print ("Heal")
                 heal_amount = random.randrange(10, 31, 5)
+                
                 if main_player.health_level == 100:
                     heal_noti.input_text = "You are already max health"
                     heal_noti.show = True
                 else:
                     if main_player.health_level + heal_amount > 100:
-                        heal_amount = 100 - main_player.health_level
+                        heal_amount = 100 - main_player.health_level #if heal would've brought player health over 100, change heal value to heal to 100
+                    
                     main_player.health_level += heal_amount
-                    heal_noti.input_text = "You healed for " + str(heal_amount)
+                    heal_noti.input_text = "You healed for " + str(heal_amount) + " points"
+                    
                     heal_noti.show = True
                     can_choose_action = False
                     remaining_guesses = 1
