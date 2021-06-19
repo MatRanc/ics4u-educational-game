@@ -350,8 +350,7 @@ def battle_ui():
             enemy_noti.show = True
             current_round = 2
             round_tick = 0
-                    
-                                                    
+                                                        
 def user_is_right():
     is_right = False
     
