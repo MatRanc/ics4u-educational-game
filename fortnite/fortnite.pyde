@@ -45,7 +45,8 @@ class RectButton(object):
         rect(self.x_pos, self.y_pos, self.x_size,self.y_size)
         fill(0)
         textSize(self.txt_size)
-        text(self.words, self.x_pos, self.y_pos + (self.y_size/4), self.x_size, self.y_size)
+        textAlign(CENTER,CENTER)
+        text(self.words, self.x_pos, self.y_pos, self.x_size, self.y_size)
 
     def over_but(self):
          if mouseX in range(self.x_pos, self.x_pos + self.x_size) and mouseY in range(self.y_pos, self.y_pos + self.y_size):
@@ -173,25 +174,6 @@ class Counter(object):
         if self.stop_counting == False:
             self.counter += 0.1
         
-class ActionBox(object):
-    def __init__(self, x_pos, words):
-        self.words = words
-        self.x_pos = x_pos
-        
-    def display(self):
-        fill(255,255,10)
-        rect(self.x_pos,550,150,150)
-        textSize(30)
-        fill(0,0,0)
-        textAlign(CENTER,CENTER)
-        text(self.words, self.x_pos + 75, 620)
-        
-    def over_but(self):
-        if mouseX in range(self.x_pos, self.x_pos+150) and mouseY in range(550, 700):
-            return True
-        else:
-            return False
-        
 ############### class templates end #######################
 
 
@@ -272,6 +254,7 @@ main_player_character_selection_fullpath = "assets/characters/playable/" + main_
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
 game_start_button = RectButton(540, 300, 200, 100, "Ready Up", 40)
+menu_button = RectButton(20, 20, 70, 30, "Menu", 20)
 
 #player circles
 circle_opp = PlayerCircle(1025, 350, 1.23) #Circle under opponent
@@ -297,7 +280,7 @@ damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage
 hit_noti = Notification(450, 280, False, 5, "you hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
 heal_noti = Notification(450, 280, False, 5, "you healed for " + str(heal_amount), "")
 
-action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
+action_buttons = [RectButton(470,550,150,150, "Attack", 30), RectButton(660,550,150,150, "Heal", 30)]
 
 ##### Global Variables End ###########
 
@@ -431,6 +414,8 @@ def draw():
         text("You died hahaahhaha L", 720/2, 1280/2)
     elif game_state == 4:
         win_ui()
+    if game_state > 1:
+        menu_button.display()
 
 def mouseClicked():
     global game_state
