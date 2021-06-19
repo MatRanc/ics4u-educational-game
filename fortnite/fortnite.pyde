@@ -302,10 +302,12 @@ def battle_ui():
     global current_opp
     global remaining_guesses
     global need_question
+    global current_round
     
     circle_opp.display()
     circle_main_player.display()
 
+    
     current_opp.display()
     main_player.display()
 
@@ -317,7 +319,7 @@ def battle_ui():
         hit_noti.display()
     if hit_noti.show == False:
         weapon_noti.display()
-    if weapon_noti.show == False:
+    if weapon_noti.show == False and hit_noti.show == False:
         enemy_noti.display()
     if enemy_noti.show == False and hit_noti.show == False and heal_noti.show == False and weapon_noti.show == False:
         if remaining_guesses > 0:
@@ -336,7 +338,12 @@ def battle_ui():
                 if damaged_noti.show == False:
                     need_question = True
                     remaining_guesses = 1
-    
+    if (current_opp.health_level < 1) and current_round == 1:
+        current_opp.health_level = 0
+        current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
+        enemy_noti.input_text = "You have encountered " + current_opp.name
+        enemy_noti.show = True
+        current_round = 2
                     
                                                     
 def user_is_right():
@@ -402,6 +409,7 @@ def mouseClicked():
     global current_opp
     global weapons_list
     global weapon_found
+    global opp_list
 
     if game_state == 1:
         if next_character_button.over_circle() == True:
@@ -457,18 +465,14 @@ def mouseClicked():
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print("Attack")
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
-                current_opp.health_level -= weapon_damage
+   #             current_opp.health_level -= weapon_damage
+                current_opp.health_level = 0                                                                      ##############################################################################################################
                 print(weapon_found[0], weapon_damage)
                 hit_noti.input_text = "you hit " + str(current_opp.name) + " for " + str(weapon_damage)
                 hit_noti.show = True
                 can_choose_action = False
                 remaining_guesses = 1
                 need_question = True
-                if (current_opp.health_level < 1) and current_round == 1:
-                    current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
-                    current_round = 2
-                    enemy_noti.input_text = "You have encountered " + current_opp.name
-                    enemy_noti.show = True
                 if (current_opp.health_level < 1) and current_round == 2:
                     game_state = 4 #go to win screen
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
@@ -491,5 +495,8 @@ def mouseClicked():
     if game_state > 1:
         if menu_button.over_but() == True:
             game_state = 1
+            for x in opp_list:
+                x[0].health_level = 100
+                x[1].health_level = 100
         
             
