@@ -186,18 +186,13 @@ class ActionBox(object):
 ############### class templates end #######################
 
 
-weapons_list  = [["Pickaxe", 10],
-                 ["Pistol", [10, 15]],
-                 ["Tac Shotgun", [5, 15, 20]],
-                 ["Assault Rifle", [15, 20]],
-                 ["Supressed Pistol", [15, 20]],
-                 ["Hand Cannon", [0, 0, 50, 50, 50]],
-                 ["Heavy Shotgun", [15, 30, 35, 40]],
-                 ["Bolt Action Sniper", [0, 90]],
-                 ["Tac Smg", [15, 20, 25]],
-                 ["Minigun", [10, 15, 20]],
-                 ["Gold Scar", [35, 40, 45, 50, 55]],
-                 ["19 Dollar Fortnite Card", [30, 35, 70]]
+weapons_list  = [["Pickaxe", [10, 10]],
+                 ["Pistol", [10, 16]],
+                 ["Tac Shotgun", [6, 20]],
+                 ["Supressed Pistol", [14, 20]],
+                 ["Tac Smg", [12,18]],
+                 ["Gold Scar", [18, 24]],
+                 ["19 Dollar Fortnite Card", [2, 30]]
                  ]
 
 
@@ -423,7 +418,7 @@ def mouseClicked():
     global current_round
     global current_opp
     global weapons_list
-    
+    global weapon_found
 
     if game_state == 1:
         game_start_button.over_but()
@@ -434,7 +429,7 @@ def mouseClicked():
         if game_start_button.over_but() == True:
             current_round = 1
             game_state = 2
-            weapon_number = random.randint(0,12)
+            weapon_number = random.randint(0,len(weapons_list))
             weapon_found = weapons_list[weapon_number]
             weapon_noti.input_text = "You found a " + str(weapon_found[0])
     if game_state == 2:
@@ -471,7 +466,7 @@ def mouseClicked():
             #if can choose attack or heal, do it
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print("Attack")
-                current_opp.health_level = 0
+                current_opp.health_level -= random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
                 can_choose_action = False
                 remaining_guesses = 1
                 need_question = True
