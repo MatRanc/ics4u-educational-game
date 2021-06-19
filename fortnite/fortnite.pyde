@@ -393,6 +393,8 @@ def draw():
         background(10, 0, 0)
         fill(255)
         text("You died hahaahhaha L", 720/2, 1280/2)
+    elif game_state == 4:
+        background(0,0,0)
 
 def mouseClicked():
     global game_state
@@ -404,6 +406,8 @@ def mouseClicked():
     global damage
     global current_round
     global current_opp
+    global weapons_list
+    
 
     if game_state == 1:
         game_start_button.over_but()
@@ -414,7 +418,9 @@ def mouseClicked():
         if game_start_button.over_but() == True:
             current_round = 1
             game_state = 2
-            
+            weapon_number = random.randint(0,10)
+            weapon_found = weapons_list[weapon_number]
+            print(weapon_found)
     if game_state == 2:
         if main_player.health_level > 0:
             if remaining_guesses > 0:
@@ -456,6 +462,8 @@ def mouseClicked():
                 if (current_opp.health_level < 1) and current_round == 1:
                     current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
                     current_round = 2
+                if (current_opp.health_level < 1) and current_round == 2:
+                    game_state = 4 # "win" screen
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print ("Heal")
                 can_choose_action = False
