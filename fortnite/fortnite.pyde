@@ -507,6 +507,8 @@ def mouseClicked():
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print ("Heal")
                 heal_amount = random.randrange(10, 31, 5)
+                if main_player.health_level + heal_amount > 100:
+                    heal_amount = 100 - main_player.health_level
                 main_player.health_level += heal_amount
                 heal_noti.input_text = "you healed for " + str(heal_amount)
                 heal_noti.counter = 0
