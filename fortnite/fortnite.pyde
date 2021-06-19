@@ -253,7 +253,7 @@ user_is_correct = False
 can_choose_action = False
 questions_list = read_file_to_list_questions("questions.txt")
 weapon_found = 0
-
+weapon_damage = 0
 
 #for main menu
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
@@ -283,7 +283,8 @@ damage = enemy_damage(current_opp.damage_range)
 
 weapon_noti = Notification(400,25, True, 3, "", "")
 enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
-damage_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
+damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
+hit_noti = Notification(450, 280, False, 5, "you hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
 
 action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
@@ -344,7 +345,9 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
-    weapon_noti.display()
+    hit_noti.display()
+    if hit_noti.show == False:
+        weapon_noti.display()
     if weapon_noti.show == False:
         enemy_noti.display()
     if enemy_noti.show == False:
@@ -360,9 +363,8 @@ def battle_ui():
                 if remaining_guesses == -1:
                     remaining_guesses -= 1
             elif user_is_correct == False:
-                damage_noti.display()
-                print(damage_noti.counter) 
-                if damage_noti.show == False:
+                damaged_noti.display() 
+                if damaged_noti.show == False:
                     need_question = True
                     remaining_guesses = 1
     
@@ -429,7 +431,7 @@ def mouseClicked():
         if game_start_button.over_but() == True:
             current_round = 1
             game_state = 2
-            weapon_number = random.randint(0,len(weapons_list))
+            weapon_number = random.randint(0,6)
             weapon_found = weapons_list[weapon_number]
             weapon_noti.input_text = "You found a " + str(weapon_found[0])
     if game_state == 2:
@@ -441,8 +443,8 @@ def mouseClicked():
                             print("BOX SELECTED")
                         else:
                             print("wrong")
-                            damage_noti.show = True #resets damage_noti to have show = True and counter restart
-                            damage_noti.counter = 0
+                            damaged_noti.show = True #resets damaged_noti to have show = True and counter restart
+                            damaged_noti.counter = 0
                         selected_answer = x
                         remaining_guesses -= 1
                         user_is_correct = False
@@ -452,7 +454,7 @@ def mouseClicked():
                     can_choose_action = True
                     user_is_correct = True
                 else:
-                    damage_noti.damage = damage
+                    damaged_noti.damage = damage
                     main_player.health_level -= damage
                     damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
                     
@@ -466,7 +468,12 @@ def mouseClicked():
             #if can choose attack or heal, do it
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print("Attack")
-                current_opp.health_level -= random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
+                weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
+                current_opp.health_level -= weapon_damage
+                print(weapon_found[0], weapon_damage)
+                hit_noti.input_text = "you hit " + str(current_opp.name) + " for " + str(weapon_damage)
+                hit_noti.counter = 0
+                hit_noti.show = True
                 can_choose_action = False
                 remaining_guesses = 1
                 need_question = True
