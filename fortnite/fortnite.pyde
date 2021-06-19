@@ -386,6 +386,10 @@ def draw():
         main_menu()
     elif game_state == 2:
         battle_ui()
+    elif game_state == 3:
+        background(10, 0, 0)
+        fill(255)
+        text("You died hahaahhaha L", 720/2, 1280/2)
 
 def mouseClicked():
     global game_state
@@ -407,43 +411,49 @@ def mouseClicked():
         global need_question
         global damage
         
-        if remaining_guesses > 0:
-            for x in question_boxes:
-                if x.over_button() == True:
-                    if x.question == questions_list[current_question][5]:
-                        print("BOX SELECTED")
-                    else:
-                        print("wrong")
-                        damage_noti.show = True #resets damage_noti to have show = True and counter restart
-                        damage_noti.counter = 0
-                    selected_answer = x
-                    remaining_guesses -= 1
-                    user_is_correct = False
-        if remaining_guesses == 0:
-            if user_is_right() == True:
-                print("34")
-                can_choose_action = True
-                user_is_correct = True
-            else:
-                damage_noti.damage = damage
-                main_player.health_level -= damage
-                damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
-                
-            remaining_guesses -= 1 #stops from allowing any click to take away health
-                
-                
-                
-        #if can choose attack or heal, do it
-        if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
-            print("Attack")
-            can_choose_action = False
-            remaining_guesses = 1
-            need_question = True
-        elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
-            print ("Heal")
-            can_choose_action = False
-            remaining_guesses = 1
-            need_question = True
+        if main_player.health_level > 0:
+            if remaining_guesses > 0:
+                for x in question_boxes:
+                    if x.over_button() == True:
+                        if x.question == questions_list[current_question][5]:
+                            print("BOX SELECTED")
+                        else:
+                            print("wrong")
+                            damage_noti.show = True #resets damage_noti to have show = True and counter restart
+                            damage_noti.counter = 0
+                        selected_answer = x
+                        remaining_guesses -= 1
+                        user_is_correct = False
+            if remaining_guesses == 0:
+                if user_is_right() == True:
+                    print("34")
+                    can_choose_action = True
+                    user_is_correct = True
+                else:
+                    damage_noti.damage = damage
+                    main_player.health_level -= damage
+                    damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
+                    
+                    if main_player.health_level <= 0:
+                        game_state = 3 # "died" screen
+                    
+                remaining_guesses -= 1 #stops from allowing any click to take away health
+                    
+                    
+                    
+            #if can choose attack or heal, do it
+            if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
+                print("Attack")
+                can_choose_action = False
+                remaining_guesses = 1
+                need_question = True
+            elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
+                print ("Heal")
+                can_choose_action = False
+                remaining_guesses = 1
+                need_question = True
+        else:
+            print("35") #idk what the point of this is really...
             
         
             
