@@ -111,8 +111,6 @@ class QuestionDisplay(object):
         textSize(15)
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos -(500/2), self.y_pos - (60/2), 500, 60)
-        
-        #rect(750, 0, 1, 2000) #just to display where the center of the elipse is
 
 class Notification(object):
     def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text, damage):
@@ -149,16 +147,13 @@ class Counter(object):
         
 ############### class templates end #######################
 
-
 weapons_list  = [["Pickaxe", [10, 10]],
                  ["Pistol", [10, 16]],
                  ["Tac Shotgun", [6, 20]],
                  ["Supressed Pistol", [14, 20]],
                  ["Tac SMG", [12,18]],
                  ["Gold Scar", [18, 24]],
-                 ["19 Dollar Fortnite Card", [2, 30]]
-                 ]
-
+                 ["19 Dollar Fortnite Card", [2, 30]]]
 
 #functions
 
@@ -192,12 +187,12 @@ def questions_ui():
     question_boxes = []
     
     for x in range(0, 4):
-
         question_boxes.append(RectButton(20, 535 + (x*45), 1239, 40, questions_list[current_question][x+1], 15))
 
 def enemy_damage(input_tuple):
     damage = random.randrange(input_tuple[0] , input_tuple[1], 5) #min val (inclusive), max val (exclusive), step of 5
     return damage
+
 ###### FUNCTIONS END #########
 
 ###### Global Variables ########
@@ -281,6 +276,7 @@ def main_menu():
     main_player_character_selection = full_counter
     main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
+    #display currently selected character
     img = loadImage(main_player_character_selection_fullpath)
     imageMode(CENTER)
     img.resize(0, 250)
@@ -307,13 +303,18 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
+    
     heal_noti.display()
+    
     if heal_noti.show == False:
         hit_noti.display()
+    
     if hit_noti.show == False:
         weapon_noti.display()
+    
     if weapon_noti.show == False and hit_noti.show == False:
         enemy_noti.display()
+    
     if enemy_noti.show == False and hit_noti.show == False and heal_noti.show == False and weapon_noti.show == False:
         if remaining_guesses > 0:
             questions_ui() #displays question
@@ -331,6 +332,7 @@ def battle_ui():
                 if damaged_noti.show == False:
                     need_question = True
                     remaining_guesses = 1
+    
     if (current_opp.health_level < 1) and current_round == 1:
         current_opp.health_level = 0
         if round_tick < 4.5:
@@ -372,14 +374,12 @@ def win_ui():
     play_gif("assets/win_screen/vic_roy_folder/", gif_counter)
     gif_counter.count() #used to count time/frames for gif
     
-
+    
 def setup():
     size(1280, 720)
     
 def draw():
-    #global question_boxes
     background(245)
-    global uni_counter
     if game_state == 1:
         main_menu()
     elif game_state == 2:
@@ -390,6 +390,7 @@ def draw():
         text("You died hahaahhaha L", 720/2, 1280/2)
     elif game_state == 4:
         win_ui()
+    
     if game_state > 2:
         menu_button.display()
 
@@ -407,6 +408,7 @@ def mouseClicked():
     global weapon_found
     global opp_list
 
+    #main menu
     if game_state == 1:
         if next_character_button.over_circle() == True:
             next_character_button.counter += 1
@@ -427,6 +429,8 @@ def mouseClicked():
             enemy_noti.input_text = "You have encountered " + current_opp.name
             remaining_guesses = 1
             need_question = True
+    
+    #battle ui
     if game_state == 2:
         if main_player.health_level > 0:
             if remaining_guesses > 0:
@@ -487,6 +491,8 @@ def mouseClicked():
                     need_question = True
         else:
             print("35") #idk what the point of this is really...
+    
+    #only allow menu button to be pressed when game is won or lost
     if game_state > 2:
         if menu_button.over_but() == True:
             game_state = 1
@@ -494,5 +500,3 @@ def mouseClicked():
             for x in opp_list:
                 x[0].health_level = 100
                 x[1].health_level = 100
-        
-            
