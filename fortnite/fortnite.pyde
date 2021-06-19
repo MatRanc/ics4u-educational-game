@@ -274,9 +274,11 @@ circle_main_player = PlayerCircle(400, 500, 1.50) #Circle under main player
 main_player = Player(400, 550, "You", 100, (20, 30), main_player_character_selection_fullpath, 0.8) #x_pos, y_pos, name, health_level, damage_range, model, model_scale
 
 opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 40), "assets/characters/opponents/ninjablevins.png", 0.6)
-opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (20, 30), "assets/characters/opponents/souljaboy.png", 0.60)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (20, 30), "assets/characters/opponents/souljaboy.png", 0.6)
+opp_steveharvey = Player(circle_opp.x_pos, circle_opp.y_pos, "Steve Harvey", 100, (20, 30), "assets/characters/opponents/steveharvey.png", 0.7)
+opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos+20, "Reddit Mafia", 100, (20, 30), "assets/characters/opponents/redditmafia.png", 0.4)
 
-opp_list  = [[opp_ninja, opp_souljaboy]]
+opp_list  = [[opp_ninja, opp_souljaboy, opp_steveharvey, opp_redditmafia]]
 
 #set current opponent so they can be changed out easier
 current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
