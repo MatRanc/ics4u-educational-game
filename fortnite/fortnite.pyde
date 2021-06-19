@@ -424,7 +424,7 @@ def mouseClicked():
         if game_start_button.over_but() == True:
             current_round = 1
             game_state = 2
-            weapon_number = random.randint(0,6)
+            weapon_number = random.randint(0,len(weapons_list) - 1)
             weapon_found = weapons_list[weapon_number]
             weapon_noti.input_text = "You found a " + str(weapon_found[0])
             weapon_noti.show = True
@@ -470,8 +470,7 @@ def mouseClicked():
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print("Attack")
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
-   #             current_opp.health_level -= weapon_damage
-                current_opp.health_level = 0                                                                      ##############################################################################################################
+                current_opp.health_level -= weapon_damage
                 print(weapon_found[0], weapon_damage)
                 hit_noti.input_text = "you hit " + str(current_opp.name) + " for " + str(weapon_damage)
                 hit_noti.show = True
