@@ -16,13 +16,14 @@ class PlayerCircle(object):
         ellipse(self.x_pos, self.y_pos, 300 * self.scale, 75 * self.scale)
 
 class Player(object):
-    def __init__(self, x_pos, y_pos, name, health_level, model, model_scale):
+    def __init__(self, x_pos, y_pos, name, health_level, damage_range, model, model_scale):
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.name = name
         self.health_level = health_level
         self.model = model
         self.model_scale = model_scale
+        self.damage_range = damage_range
 
     def display(self):
         img = loadImage(self.model)
@@ -237,8 +238,8 @@ def questions_ui():
         global question_boxes
         question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
 
-def enemy_damage(low,high):
-    damage = random.randint(low,high)
+def enemy_damage(input_tuple):
+    damage = random.randrange(input_tuple[0] , input_tuple[1], 5) #min val (inclusive), max val (exclusive), step of 5
     return damage
 ###### FUNCTIONS END #########
 
@@ -254,33 +255,34 @@ main_player_character_selection = 0
 remaining_choices = 1
 selected_answer = None
 current_round = 0
-user_correct = False
-damage = enemy_damage(10,20)
-
+user_is_correct = False
+can_choose_action = False
 questions_list = read_file_to_list_questions("questions.txt")
+
+
+#for main menu
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
 main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
+next_character_button = GalleryButton(50+140, 500, 1, 1)
+back_character_button = GalleryButton(25+140, 500, 1, -1)
+game_start_button = RectButton(540, 300, 200, 100, "Ready Up", 40)
+
+#player circles
 circle_opp = PlayerCircle(1025, 350, 1.23) #Circle under opponent
 circle_main_player = PlayerCircle(400, 500, 1.50) #Circle under main player
 
-opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, "assets/characters/opponents/ninjablevins.png", 0.6)
-opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, "assets/characters/opponents/souljaboy.png", 0.60)
+#player initializations
+main_player = Player(400, 550, "You", 100, (20, 30), main_player_character_selection_fullpath, 0.8) #x_pos, y_pos, name, health_level, damage_range, model, model_scale
+
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 40), "assets/characters/opponents/ninjablevins.png", 0.6)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (20,30), "assets/characters/opponents/souljaboy.png", 0.60)
+
 opp_list  = [[opp_ninja, opp_souljaboy]]
 
-#set current opponent so they can be changed out easier? // yes.
-current_opp = opp_souljaboy
-
-main_player = Player(400, 550, "You", 100, main_player_character_selection_fullpath, 0.8)
-
-next_character_button = GalleryButton(50+140, 500, 1, 1)
-back_character_button = GalleryButton(25+140, 500, 1, -1)
-start_button = RectButton(540, 300, 200, 100, "Ready Up", 40)
-action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
-
+#set current opponent so they can be changed out easier
 current_opp = opp_list[0][random.randrange(0,2)]
-opp_damage = 15
-print(current_opp.name)
+damage = enemy_damage(current_opp.damage_range)
 
 enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
 damage_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
@@ -304,7 +306,7 @@ def main_menu():
 
     next_character_button.display()
     back_character_button.display()
-    start_button.display()
+    game_start_button.display()
     #character selection
     full_counter = next_character_button.counter + back_character_button.counter
 
@@ -359,28 +361,12 @@ def battle_ui():
                 if remaining_guesses == -1:
                     remaining_guesses -= 1
             elif user_is_correct == False:
-                
                 damage_noti.display() 
                 if damage_noti.show == False:
                     need_question = True
                     remaining_guesses = 1
-
-                
-
-def setup():
-    size(1280, 720)
-    
-    
-def draw():
-    #global question_boxes
-    background(245)
-    global uni_counter
-    if game_state == 1:
-        main_menu()
-    elif game_state == 2:
-        battle_ui()
-        
-        
+                    
+                                                    
 def user_is_right():
     is_right = False
     
@@ -390,19 +376,29 @@ def user_is_right():
     return is_right
 
 
-user_is_correct = False
-can_choose_action = False
+
+def setup():
+    size(1280, 720)
+    
+def draw():
+    #global question_boxes
+    background(245)
+    global uni_counter
+    if game_state == 1:
+        main_menu()
+    elif game_state == 2:
+        battle_ui()
 
 def mouseClicked():
     global game_state
     
     if game_state == 1:
-        start_button.over_but()
+        game_start_button.over_but()
         if next_character_button.over_circle() == True:
             next_character_button.counter += 1
         if back_character_button.over_circle() == True:
             back_character_button.counter -= 1
-        if start_button.over_but() == True:
+        if game_start_button.over_but() == True:
             game_state = 2
             
     if game_state == 2:
@@ -431,9 +427,9 @@ def mouseClicked():
                 can_choose_action = True
                 user_is_correct = True
             else:
-                damage = enemy_damage(10,20)
                 damage_noti.damage = damage
                 main_player.health_level -= damage
+                damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
                 
             remaining_guesses -= 1 #stops from allowing any click to take away health
                 
