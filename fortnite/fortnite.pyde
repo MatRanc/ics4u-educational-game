@@ -377,6 +377,17 @@ def user_is_right():
     return is_right
 
 
+def win_ui():
+    
+    #victory royale gif
+    img = loadImage("assets/win_screen/vic_roy_gif_nobg_noloop.gif")
+    imageMode(CENTER)
+    #img.resize(0, 250)
+    image(img, 0, 0)
+    
+    
+
+
 
 def setup():
     size(1280, 720)
