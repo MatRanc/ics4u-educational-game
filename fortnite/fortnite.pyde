@@ -226,7 +226,7 @@ main_player_character_selection_fullpath = "assets/characters/playable/" + main_
 
 next_character_button = GalleryButton(50+140, 500, 1, 1)
 back_character_button = GalleryButton(25+140, 500, 1, -1)
-game_start_button = RectButton(540, 300, 200, 100, "Ready Up", 40)
+game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40)
 menu_button = RectButton(20, 20, 70, 30, "Menu", 20)
 
 #player circles
