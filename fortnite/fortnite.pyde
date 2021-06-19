@@ -142,13 +142,14 @@ class QuestionDisplay(object):
         #rect(750, 0, 1, 2000) #just to display where the center of the elipse is
 
 class Notification(object):
-    def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text):
+    def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text, damage):
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.show = show
         self.input_text = input_text
         self.counter = 0
         self.show_time = show_time_seconds
+        self.damage = damage
         
     def display(self):
         if self.show == True and self.counter < self.show_time:
@@ -157,7 +158,7 @@ class Notification(object):
             fill(0)
             textSize(20)
             textAlign(CENTER,CENTER)
-            text(self.input_text, self.x_pos, self.y_pos, 500, 100)
+            text(self.input_text + str(self.damage), self.x_pos, self.y_pos, 500, 100)
         self.counter += 0.1
         if self.counter > self.show_time:
             self.show = False
@@ -236,11 +237,9 @@ def questions_ui():
         global question_boxes
         question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
 
-    
-    fill(0)
-    textAlign(CENTER, CENTER)
-    textSize(15)
-
+def enemy_damage(low,high):
+    damage = random.randint(low,high)
+    return damage
 ###### FUNCTIONS END #########
 
 ###### Global Variables ########
@@ -256,6 +255,7 @@ remaining_choices = 1
 selected_answer = None
 current_round = 0
 user_correct = False
+damage = enemy_damage(10,20)
 
 questions_list = read_file_to_list_questions("questions.txt")
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
@@ -282,8 +282,8 @@ current_opp = opp_list[0][random.randrange(0,2)]
 opp_damage = 15
 print(current_opp.name)
 
-enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name)
-damage_noti = Notification(450, 280, True, 10, "You have been hit for " + str(opp_damage))
+enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
+damage_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
 
 action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
@@ -356,8 +356,10 @@ def battle_ui():
             elif can_choose_action == True and remaining_guesses < 0:
                 for x in action_buttons:
                     x.display()
-                remaining_guesses -= 1
+                if remaining_guesses == -1:
+                    remaining_guesses -= 1
             elif user_is_correct == False:
+                
                 damage_noti.display() 
                 if damage_noti.show == False:
                     need_question = True
@@ -373,7 +375,6 @@ def draw():
     #global question_boxes
     background(245)
     global uni_counter
-    
     if game_state == 1:
         main_menu()
     elif game_state == 2:
@@ -410,6 +411,7 @@ def mouseClicked():
         global user_is_correct
         global can_choose_action
         global need_question
+        global damage
         
         if remaining_guesses > 0:
             for x in question_boxes:
@@ -429,7 +431,9 @@ def mouseClicked():
                 can_choose_action = True
                 user_is_correct = True
             else:
-                main_player.health_level -= opp_damage
+                damage = enemy_damage(10,20)
+                damage_noti.damage = damage
+                main_player.health_level -= damage
                 
             remaining_guesses -= 1 #stops from allowing any click to take away health
                 
