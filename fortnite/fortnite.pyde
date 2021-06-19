@@ -217,7 +217,6 @@ remaining_guesses = 1
 chosen_button = 0
 game_state = 1
 main_player_character_selection = 0
-remaining_choices = 1
 selected_answer = None
 current_round = 0
 user_is_correct = False
