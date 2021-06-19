@@ -133,6 +133,7 @@ class QuestionDisplay(object):
         
     def display(self):
         fill(250, 250, 10)
+        triangle(912,70,930,50,980,90)
         ellipse(self.x_pos, self.y_pos, 550, 70)
         fill(0)
         textSize(15)
@@ -507,15 +508,20 @@ def mouseClicked():
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print ("Heal")
                 heal_amount = random.randrange(10, 31, 5)
-                if main_player.health_level + heal_amount > 100:
-                    heal_amount = 100 - main_player.health_level
-                main_player.health_level += heal_amount
-                heal_noti.input_text = "you healed for " + str(heal_amount)
-                heal_noti.counter = 0
-                heal_noti.show = True
-                can_choose_action = False
-                remaining_guesses = 1
-                need_question = True
+                if main_player.health_level == 100:
+                    heal_noti.input_text = "You are already max health"
+                    heal_noti.counter = 0
+                    heal_noti.show = True
+                else:
+                    if main_player.health_level + heal_amount > 100:
+                        heal_amount = 100 - main_player.health_level
+                    main_player.health_level += heal_amount
+                    heal_noti.input_text = "You healed for " + str(heal_amount)
+                    heal_noti.counter = 0
+                    heal_noti.show = True
+                    can_choose_action = False
+                    remaining_guesses = 1
+                    need_question = True
         else:
             print("35") #idk what the point of this is really...
             
