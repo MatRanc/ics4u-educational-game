@@ -136,13 +136,26 @@ class Notification(object):
         if self.show == False:
             self.counter = 0
             
-class Counter(object):
-    def __init__(self):
+class GifPlayer(object):
+    def __init__(self, folder):
+        self.folder = folder
         self.counter = 0
         self.stop_counting = False
-        
-    def count(self):
-        if self.stop_counting == False:
+        self.all_files = os.listdir(self.folder)
+          
+    def display(self):
+        if int(self.counter * 10) <= len(self.all_files)-1:
+            current_frame = loadImage(self.folder + self.all_files[int(self.counter * 10)])
+            current_frame.resize(1280, 720)
+            image(current_frame, 1280/2, 720/2)
+            self.stop_counting = False
+        else:
+            current_frame = loadImage(self.folder + self.all_files[len(self.all_files)-1])
+            current_frame.resize(1280, 720)
+            image(current_frame, 1280/2, 720/2)
+            self.stop_counting = True
+            
+        if self.stop_counting != True:
             self.counter += 0.1
         
 ############### class templates end #######################
@@ -296,7 +309,6 @@ def battle_ui():
     circle_opp.display()
     circle_main_player.display()
 
-    
     current_opp.display()
     main_player.display()
 
@@ -352,28 +364,10 @@ def user_is_right():
         
     return is_right
 
-
-def play_gif(folder, counter):
-    
-    all_files = os.listdir(folder)
-    
-    if int(counter.counter * 10) <= len(all_files)-1:
-        current_frame = loadImage(folder + all_files[int(counter.counter * 10)])
-        current_frame.resize(1280, 720)
-        image(current_frame, 1280/2, 720/2)
-    else:
-        current_frame = loadImage(folder + all_files[len(all_files)-1])
-        current_frame.resize(1280, 720)
-        image(current_frame, 1280/2, 720/2)
-        counter.stop_counting = True
-        
-
-gif_counter = Counter() #used to play gif iteratively
+win_gif = GifPlayer("assets/win_screen/vic_roy_folder/")
 
 def win_ui():
-    play_gif("assets/win_screen/vic_roy_folder/", gif_counter)
-    gif_counter.count() #used to count time/frames for gif
-    
+    win_gif.display()
     
 def setup():
     size(1280, 720)
@@ -474,6 +468,7 @@ def mouseClicked():
                 need_question = True
                 if (current_opp.health_level < 1) and current_round == 2:
                     game_state = 4 #go to win screen
+                    win_gif.counter = 0
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print ("Heal")
                 heal_amount = random.randrange(10, 31, 5)
