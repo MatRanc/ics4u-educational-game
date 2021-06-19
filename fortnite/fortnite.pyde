@@ -135,6 +135,8 @@ class Notification(object):
         self.counter += 0.1
         if self.counter > self.show_time:
             self.show = False
+        if self.show == False:
+            self.counter = 0
             
 class Counter(object):
     def __init__(self):
@@ -317,7 +319,7 @@ def battle_ui():
         weapon_noti.display()
     if weapon_noti.show == False:
         enemy_noti.display()
-    if enemy_noti.show == False and hit_noti.show == False and heal_noti.show == False:
+    if enemy_noti.show == False and hit_noti.show == False and heal_noti.show == False and weapon_noti.show == False:
         if remaining_guesses > 0:
             questions_ui() #displays question
         #display boxes when availible guesses
@@ -402,7 +404,6 @@ def mouseClicked():
     global weapon_found
 
     if game_state == 1:
-        game_start_button.over_but()
         if next_character_button.over_circle() == True:
             next_character_button.counter += 1
         if back_character_button.over_circle() == True:
@@ -413,6 +414,15 @@ def mouseClicked():
             weapon_number = random.randint(0,6)
             weapon_found = weapons_list[weapon_number]
             weapon_noti.input_text = "You found a " + str(weapon_found[0])
+            weapon_noti.show = True
+            enemy_noti.show = True
+            damaged_noti.show = False
+            hit_noti.show = False
+            heal_noti.show = False
+            current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
+            enemy_noti.input_text = "You have encountered " + current_opp.name
+            remaining_guesses = 1
+            need_question = True
     if game_state == 2:
         if main_player.health_level > 0:
             if remaining_guesses > 0:
@@ -423,7 +433,6 @@ def mouseClicked():
                         else:
                             print("wrong")
                             damaged_noti.show = True #resets damaged_noti to have show = True and counter restart
-                            damaged_noti.counter = 0
                         selected_answer = x
                         remaining_guesses -= 1
                         user_is_correct = False
@@ -441,7 +450,7 @@ def mouseClicked():
                         game_state = 3 # "died" screen
                     
                 remaining_guesses -= 1 #stops from allowing any click to take away health
-                    
+
                     
                     
             #if can choose attack or heal, do it
@@ -451,7 +460,6 @@ def mouseClicked():
                 current_opp.health_level -= weapon_damage
                 print(weapon_found[0], weapon_damage)
                 hit_noti.input_text = "you hit " + str(current_opp.name) + " for " + str(weapon_damage)
-                hit_noti.counter = 0
                 hit_noti.show = True
                 can_choose_action = False
                 remaining_guesses = 1
@@ -459,6 +467,8 @@ def mouseClicked():
                 if (current_opp.health_level < 1) and current_round == 1:
                     current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
                     current_round = 2
+                    enemy_noti.input_text = "You have encountered " + current_opp.name
+                    enemy_noti.show = True
                 if (current_opp.health_level < 1) and current_round == 2:
                     game_state = 4 #go to win screen
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
@@ -466,20 +476,20 @@ def mouseClicked():
                 heal_amount = random.randrange(10, 31, 5)
                 if main_player.health_level == 100:
                     heal_noti.input_text = "You are already max health"
-                    heal_noti.counter = 0
                     heal_noti.show = True
                 else:
                     if main_player.health_level + heal_amount > 100:
                         heal_amount = 100 - main_player.health_level
                     main_player.health_level += heal_amount
                     heal_noti.input_text = "You healed for " + str(heal_amount)
-                    heal_noti.counter = 0
                     heal_noti.show = True
                     can_choose_action = False
                     remaining_guesses = 1
                     need_question = True
         else:
             print("35") #idk what the point of this is really...
-            
+    if game_state > 1:
+        if menu_button.over_but() == True:
+            game_state = 1
         
             
