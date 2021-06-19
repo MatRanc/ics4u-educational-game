@@ -393,7 +393,14 @@ def draw():
 
 def mouseClicked():
     global game_state
-    
+    global remaining_guesses
+    global selected_answer
+    global user_is_correct
+    global can_choose_action
+    global need_question
+    global damage
+    global current_round
+
     if game_state == 1:
         game_start_button.over_but()
         if next_character_button.over_circle() == True:
@@ -401,16 +408,10 @@ def mouseClicked():
         if back_character_button.over_circle() == True:
             back_character_button.counter -= 1
         if game_start_button.over_but() == True:
+            current_round = 1
             game_state = 2
             
     if game_state == 2:
-        global remaining_guesses
-        global selected_answer
-        global user_is_correct
-        global can_choose_action
-        global need_question
-        global damage
-        
         if main_player.health_level > 0:
             if remaining_guesses > 0:
                 for x in question_boxes:
@@ -447,6 +448,9 @@ def mouseClicked():
                 can_choose_action = False
                 remaining_guesses = 1
                 need_question = True
+                if (current_opp.health_level < 1) and current_round == 1:
+                    current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
+                    current_round = 2
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print ("Heal")
                 can_choose_action = False
