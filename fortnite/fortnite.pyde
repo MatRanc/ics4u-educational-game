@@ -154,7 +154,7 @@ weapons_list  = [["Pickaxe", [10, 10]],
                  ["Pistol", [10, 16]],
                  ["Tac Shotgun", [6, 20]],
                  ["Supressed Pistol", [14, 20]],
-                 ["Tac Smg", [12,18]],
+                 ["Tac SMG", [12,18]],
                  ["Gold Scar", [18, 24]],
                  ["19 Dollar Fortnite Card", [2, 30]]
                  ]
@@ -250,8 +250,8 @@ damage = enemy_damage(current_opp.damage_range)
 weapon_noti = Notification(400,25, True, 3, "", "")
 enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
 damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
-hit_noti = Notification(450, 280, False, 5, "you hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
-heal_noti = Notification(450, 280, False, 5, "you healed for " + str(heal_amount), "")
+hit_noti = Notification(450, 280, False, 5, "You hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
+heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount), "")
 
 action_buttons = [RectButton(470,550,150,150, "Attack", 30), RectButton(660,550,150,150, "Heal", 30)]
 
@@ -471,7 +471,7 @@ def mouseClicked():
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
                 current_opp.health_level -= weapon_damage
                 print(weapon_found[0], weapon_damage)
-                hit_noti.input_text = "you hit " + str(current_opp.name) + " for " + str(weapon_damage)
+                hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage)
                 hit_noti.show = True
                 can_choose_action = False
                 remaining_guesses = 1
