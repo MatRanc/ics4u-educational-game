@@ -254,6 +254,7 @@ can_choose_action = False
 questions_list = read_file_to_list_questions("questions.txt")
 weapon_found = 0
 weapon_damage = 0
+heal_amount = 0
 
 #for main menu
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
@@ -285,6 +286,7 @@ weapon_noti = Notification(400,25, True, 3, "", "")
 enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
 damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
 hit_noti = Notification(450, 280, False, 5, "you hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
+heal_noti = Notification(450, 280, False, 5, "you healed for " + str(heal_amount), "")
 
 action_buttons = [ActionBox(470, "Attack"), ActionBox(660, "Heal")]
 
@@ -345,12 +347,14 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
-    hit_noti.display()
+    heal_noti.display()
+    if heal_noti.show == False:
+        hit_noti.display()
     if hit_noti.show == False:
         weapon_noti.display()
     if weapon_noti.show == False:
         enemy_noti.display()
-    if enemy_noti.show == False:
+    if enemy_noti.show == False and hit_noti.show == False and heal_noti.show == False:
         if remaining_guesses > 0:
             questions_ui() #displays question
         #display boxes when availible guesses
@@ -363,7 +367,7 @@ def battle_ui():
                 if remaining_guesses == -1:
                     remaining_guesses -= 1
             elif user_is_correct == False:
-                damaged_noti.display() 
+                damaged_noti.display()
                 if damaged_noti.show == False:
                     need_question = True
                     remaining_guesses = 1
@@ -484,6 +488,11 @@ def mouseClicked():
                     game_state = 4 # "win" screen
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print ("Heal")
+                heal_amount = random.randrange(10, 31, 5)
+                main_player.health_level += heal_amount
+                heal_noti.input_text = "you healed for " + str(heal_amount)
+                heal_noti.counter = 0
+                heal_noti.show = True
                 can_choose_action = False
                 remaining_guesses = 1
                 need_question = True
