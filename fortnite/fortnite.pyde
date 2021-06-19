@@ -173,7 +173,6 @@ def read_file_to_list_questions(file_name):
         for y in range(0, 6):
             sub_list.append(file_list[x+y])
         questions_list.append(sub_list)
-
     return questions_list
 
 
@@ -399,7 +398,7 @@ def draw():
         text("You died hahaahhaha L", 720/2, 1280/2)
     elif game_state == 4:
         win_ui()
-    if game_state > 1:
+    if game_state > 2:
         menu_button.display()
 
 def mouseClicked():
@@ -496,9 +495,10 @@ def mouseClicked():
                     need_question = True
         else:
             print("35") #idk what the point of this is really...
-    if game_state > 1:
+    if game_state > 2:
         if menu_button.over_but() == True:
             game_state = 1
+            
             for x in opp_list:
                 x[0].health_level = 100
                 x[1].health_level = 100
