@@ -392,15 +392,15 @@ def play_gif(folder, counter):
     if int(counter.counter * 10) <= len(all_files)-1:
         current_frame = loadImage(folder + all_files[int(counter.counter * 10)])
         current_frame.resize(1280, 720)
-        image(current_frame, 0, 0)
+        image(current_frame, 1280/2, 720/2)
     else:
         current_frame = loadImage(folder + all_files[len(all_files)-1])
         current_frame.resize(1280, 720)
-        image(current_frame, 0, 0)
+        image(current_frame, 1280/2, 720/2)
         counter.stop_counting = True
         
-        
-gif_counter = Counter()
+
+gif_counter = Counter() #used to play gif iteratively
 
 def win_ui():
     play_gif("assets/win_screen/vic_roy_folder/", gif_counter)
@@ -493,7 +493,7 @@ def mouseClicked():
                     current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
                     current_round = 2
                 if (current_opp.health_level < 1) and current_round == 2:
-                    game_state = 4 # "win" screen
+                    game_state = 4 #go to win screen
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print ("Heal")
                 can_choose_action = False
