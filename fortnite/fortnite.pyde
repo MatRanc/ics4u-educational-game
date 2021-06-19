@@ -257,6 +257,7 @@ current_round = 0
 user_is_correct = False
 can_choose_action = False
 questions_list = read_file_to_list_questions("questions.txt")
+weapon_found = 0
 
 
 #for main menu
@@ -285,6 +286,7 @@ opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
 damage = enemy_damage(current_opp.damage_range)
 
+weapon_noti = Notification(400,25, True, 3, "", "")
 enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
 damage_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
 
@@ -347,8 +349,9 @@ def battle_ui():
     #bottom box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
-    
-    enemy_noti.display()
+    weapon_noti.display()
+    if weapon_noti.show == False:
+        enemy_noti.display()
     if enemy_noti.show == False:
         if remaining_guesses > 0:
             questions_ui() #displays question
@@ -362,10 +365,12 @@ def battle_ui():
                 if remaining_guesses == -1:
                     remaining_guesses -= 1
             elif user_is_correct == False:
-                damage_noti.display() 
+                damage_noti.display()
+                print(damage_noti.counter) 
                 if damage_noti.show == False:
                     need_question = True
                     remaining_guesses = 1
+    
                     
                                                     
 def user_is_right():
@@ -418,9 +423,9 @@ def mouseClicked():
         if game_start_button.over_but() == True:
             current_round = 1
             game_state = 2
-            weapon_number = random.randint(0,10)
+            weapon_number = random.randint(0,12)
             weapon_found = weapons_list[weapon_number]
-            print(weapon_found)
+            weapon_noti.input_text = "You found a " + str(weapon_found[0])
     if game_state == 2:
         if main_player.health_level > 0:
             if remaining_guesses > 0:
