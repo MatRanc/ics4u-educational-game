@@ -219,6 +219,7 @@ questions_list = read_file_to_list_questions("questions.txt")
 weapon_found = 0
 weapon_damage = 0
 heal_amount = 0
+round_tick = 0
 
 #for main menu
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
@@ -303,6 +304,7 @@ def battle_ui():
     global remaining_guesses
     global need_question
     global current_round
+    global round_tick
     
     circle_opp.display()
     circle_main_player.display()
@@ -340,10 +342,14 @@ def battle_ui():
                     remaining_guesses = 1
     if (current_opp.health_level < 1) and current_round == 1:
         current_opp.health_level = 0
-        current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
-        enemy_noti.input_text = "You have encountered " + current_opp.name
-        enemy_noti.show = True
-        current_round = 2
+        if round_tick < 4.5:
+            round_tick += 0.1
+        else:
+            current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
+            enemy_noti.input_text = "You have encountered " + current_opp.name
+            enemy_noti.show = True
+            current_round = 2
+            round_tick = 0
                     
                                                     
 def user_is_right():
