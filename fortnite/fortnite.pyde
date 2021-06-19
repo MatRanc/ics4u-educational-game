@@ -73,14 +73,6 @@ class HealthBar(object):
         textSize(15)
         text(self.health_level, self.x_pos - 30, self.y_pos + 22)
 
-class Question(object):
-    def __init__(self, question, correct_answer, answer_2, answer_3, answer_4):
-        self.question = question
-        self.correct_a = correct_answer
-        self.answer_2 = answer_2
-        self.answer_3 = answer_3
-        self.answer_4 = answer_4
-
 class GalleryButton(object):
     def __init__(self, x_pos, y_pos, scale, x_dir):
         self.x_pos = x_pos
@@ -120,7 +112,7 @@ class QuestionButton(object):
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos+620, self.y_pos+20)
         
-    def over_button(self):
+    def over_but(self):
         if mouseX in range(self.x_pos, self.x_pos+1239) and mouseY in range(self.y_pos, self.y_pos+40):
             return True
         else:
@@ -446,7 +438,7 @@ def mouseClicked():
         if main_player.health_level > 0:
             if remaining_guesses > 0:
                 for x in question_boxes:
-                    if x.over_button() == True:
+                    if x.over_but() == True:
                         if x.question == questions_list[current_question][5]:
                             print("BOX SELECTED")
                         else:
