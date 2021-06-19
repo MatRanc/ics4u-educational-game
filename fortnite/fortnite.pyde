@@ -222,7 +222,8 @@ def questions_ui():
     global need_question
     global current_question
     global questions_list
-    
+    global question_boxes
+
     if need_question == True:
         current_question = random.randrange(0, len(questions_list))
         need_question = False
@@ -233,7 +234,7 @@ def questions_ui():
     question_boxes = []
     
     for x in range(0, 4):
-        global question_boxes
+
         question_boxes.append(QuestionButton(20, 535 + (x*45), 1, questions_list[current_question][x+1]))
 
 def enemy_damage(input_tuple):
@@ -278,7 +279,7 @@ opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (2
 opp_steveharvey = Player(circle_opp.x_pos, circle_opp.y_pos + 10, "Steve Harvey", 100, (20, 30), "assets/characters/opponents/steveharvey.png", 0.65)
 opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos + 20, "Reddit Mafia", 100, (20, 30), "assets/characters/opponents/redditmafia.png", 0.4)
 
-opp_list  = [[opp_ninja, opp_souljaboy, opp_steveharvey, opp_redditmafia]]
+opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 
 #set current opponent so they can be changed out easier
 current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
@@ -402,6 +403,7 @@ def mouseClicked():
     global need_question
     global damage
     global current_round
+    global current_opp
 
     if game_state == 1:
         game_start_button.over_but()
@@ -447,6 +449,7 @@ def mouseClicked():
             #if can choose attack or heal, do it
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1:
                 print("Attack")
+                current_opp.health_level = 0
                 can_choose_action = False
                 remaining_guesses = 1
                 need_question = True
