@@ -64,15 +64,15 @@ class HealthBar(object):
         self.health_level = health_level
 
     def display(self):
-        #background of health bar
+        # Background of health bar
         fill(255, 230, 230)
         rect(self.x_pos, self.y_pos + 20, 200, 10)
 
-        #main health bar
+        # Main health bar
         fill(255, 60, 60)
         rect(self.x_pos, self.y_pos + 20, 200 * self.health_level / 100, 10)
 
-        #health text
+        # Health text
         textSize(15)
         text(self.health_level, self.x_pos - 30, self.y_pos + 22)
 
@@ -200,7 +200,7 @@ def questions_ui():
         
         need_question = False
 
-    question_asked = QuestionDisplay(700, 50, questions_list[current_question][0]) #displays question in ellipse
+    question_asked = QuestionDisplay(700, 50, questions_list[current_question][0])  # Displays question in ellipse
     question_asked.display()
 
     question_boxes = []
@@ -210,7 +210,7 @@ def questions_ui():
 
 # Function to pick random damage value for enemy between set min and max ranges
 def enemy_damage(input_tuple):
-    damage = random.randrange(input_tuple[0] , input_tuple[1], 5) #min val (inclusive), max val (exclusive), step of 5
+    damage = random.randrange(input_tuple[0] , input_tuple[1], 5)  # Min val (inclusive), max val (exclusive), step of 5
     return damage
 
 ###### FUNCTIONS END #########
@@ -243,15 +243,15 @@ heal_amount = 0
 round_tick = 0
 
 # For main menu
-main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
+main_player_character_list = os.listdir("assets/characters/playable/")  # Gets all pngs for playable characters
 main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
 # Buttons
-next_character_button = GalleryButton(50+140, 500, 1, 1) # Goes to next player model selected in menu
-back_character_button = GalleryButton(25+140, 500, 1, -1) # Goes back one in player model selected in menu
-game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40) # Ready up button on menu screen
-menu_button = RectButton(20, 20, 70, 30, "Menu", 20) # Brings you back to starting screen - only availiable on win or lose screen
-action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)] # Attack and heal buttons
+next_character_button = GalleryButton(50+140, 500, 1, 1)  # Goes to next player model selected in menu
+back_character_button = GalleryButton(25+140, 500, 1, -1)  # Goes back one in player model selected in menu
+game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40)  # Ready up button on menu screen
+menu_button = RectButton(20, 20, 70, 30, "Menu", 20)  # Brings you back to starting screen - only availiable on win or lose screen
+action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)]  # Attack and heal buttons
 
 # Player circles
 circle_opp = PlayerCircle(1025, 350, 1.23)
@@ -374,7 +374,7 @@ def battle_ui():
     if hit_noti.show == False and remaining_guesses < 1 and user_is_correct == True and can_choose_action == False:
         remaining_guesses = 1
         
-    if (current_opp.health_level < 1) and current_round == 1: #waits a little before introducing next opponent
+    if (current_opp.health_level < 1) and current_round == 1:  # Waits a little before introducing next opponent
         current_opp.health_level = 0
         if round_tick < 4.5:
             round_tick += 0.1
@@ -449,14 +449,14 @@ def mouseClicked():
         if game_start_button.over_but() == True:
             current_round = 1
             game_state = 2
-            weapon_found = weapons_list[random.randint(0,len(weapons_list) - 1)] #picks weapon from weapons_list
+            weapon_found = weapons_list[random.randint(0,len(weapons_list) - 1)]  # Picks weapon from weapons_list
             weapon_noti.input_text = "You found a " + str(weapon_found[0])
             weapon_noti.show = True
             enemy_noti.show = True
             damaged_noti.show = False
             hit_noti.show = False
             heal_noti.show = False
-            current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))] #sets current opponent to one of the first 2 choices
+            current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]  # Sets current opponent to one of the first 2 choices
             enemy_noti.input_text = " "*30 + "(Round " + str(current_round) + "/2)" + " "*30 + "You have encountered " + current_opp.name
             remaining_guesses = 1
             need_question = True
@@ -471,7 +471,7 @@ def mouseClicked():
                     user_is_correct = False
         
         if remaining_guesses == 0:
-            if selected_answer.words == questions_list[current_question][5]: #checks if the question box selected contains the correct answer
+            if selected_answer.words == questions_list[current_question][5]:  # Checks if the question box selected contains the correct answer
                 can_choose_action = True
                 user_is_correct = True
             else:
@@ -481,16 +481,16 @@ def mouseClicked():
                 damaged_noti.show = True
                 damaged_noti.damage = damage
                 main_player.health_level -= damage
-                damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
+                damage = enemy_damage(current_opp.damage_range)  # Assign new damage for next time
                 
-            remaining_guesses -= 1 #stops from allowing any click to take away health
+            remaining_guesses -= 1  # Stops from allowing any click to take away health
 
         if can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
             if action_buttons[0].over_but() == True:
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
                 
                 if current_opp.health_level - weapon_damage < 1:
-                    weapon_damage = current_opp.health_level
+                    weapon_damage = current_opp.health_level  # Prevents health from being negative when shot
                 
                 current_opp.health_level -= weapon_damage
                 hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
@@ -510,7 +510,7 @@ def mouseClicked():
                     heal_noti.show = True
                 else:
                     if main_player.health_level + heal_amount > 100:
-                        heal_amount = 100 - main_player.health_level #if heal would've brought player health over 100, change heal value to heal to 100
+                        heal_amount = 100 - main_player.health_level  # If heal would've brought player health over 100, change heal value to heal to 100
                     
                     main_player.health_level += heal_amount
                     heal_noti.input_text = "You healed for " + str(heal_amount) + " points"
