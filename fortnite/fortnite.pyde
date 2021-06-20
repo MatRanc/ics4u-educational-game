@@ -246,7 +246,7 @@ main_player = Player(400, 550, "You", 100, (20, 30), main_player_character_selec
 opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 40), "assets/characters/opponents/ninjablevins.png", 0.6)
 opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (20, 30), "assets/characters/opponents/souljaboy.png", 0.6)
 opp_steveharvey = Player(circle_opp.x_pos, circle_opp.y_pos + 10, "Steve Harvey", 100, (20, 30), "assets/characters/opponents/steveharvey.png", 0.65)
-opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos + 20, "Reddit Mafia", 100, (20, 30), "assets/characters/opponents/redditmafia.png", 0.4)
+opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos + 20, "The Reddit Mafia", 100, (20, 30), "assets/characters/opponents/redditmafia.png", 0.4)
 
 opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 
@@ -329,6 +329,7 @@ def battle_ui():
     if enemy_noti.show == False and hit_noti.show == False and heal_noti.show == False and weapon_noti.show == False:
         if remaining_guesses > 0:
             questions_ui() #displays question
+        
         #display boxes when availible guesses
         for x in question_boxes:
             if remaining_guesses > 0:
@@ -343,6 +344,11 @@ def battle_ui():
                 if damaged_noti.show == False:
                     need_question = True
                     remaining_guesses = 1
+                    
+    if hit_noti.show == False and remaining_guesses < 1 and user_is_correct == True and can_choose_action == False:
+        remaining_guesses = 1
+        
+    
     
     if (current_opp.health_level < 1) and current_round == 1:
         current_opp.health_level = 0
@@ -463,7 +469,6 @@ def mouseClicked():
                 hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
                 hit_noti.show = True
                 can_choose_action = False
-                remaining_guesses = 1
                 need_question = True
                 if (current_opp.health_level < 1) and current_round == 2:
                     game_state = 4 #go to win screen
@@ -484,7 +489,6 @@ def mouseClicked():
                     
                     heal_noti.show = True
                     can_choose_action = False
-                    remaining_guesses = 1
                     need_question = True
         else:
             print("35") #idk what the point of this is really...
@@ -497,3 +501,5 @@ def mouseClicked():
             for x in opp_list:
                 x[0].health_level = 100
                 x[1].health_level = 100
+                
+                
