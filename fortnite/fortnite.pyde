@@ -354,8 +354,6 @@ def battle_ui():
     if hit_noti.show == False and remaining_guesses < 1 and user_is_correct == True and can_choose_action == False:
         remaining_guesses = 1
         
-    
-    
     if (current_opp.health_level < 1) and current_round == 1:
         current_opp.health_level = 0
         if round_tick < 4.5:
