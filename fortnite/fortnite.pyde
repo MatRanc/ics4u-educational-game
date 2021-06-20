@@ -255,7 +255,7 @@ current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
 damage = enemy_damage(current_opp.damage_range)
 
 weapon_noti = Notification(400,25, True, 3, "", "")
-enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name, "")
+enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name + " for round " + str(current_round) + " of 2", "")
 damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
 hit_noti = Notification(450, 280, False, 5, "You hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
 heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount), "")
@@ -356,9 +356,9 @@ def battle_ui():
             round_tick += 0.1
         else:
             current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
-            enemy_noti.input_text = "You have encountered " + current_opp.name
-            enemy_noti.show = True
             current_round = 2
+            enemy_noti.input_text = "You have encountered " + current_opp.name + " for round " + str(current_round) + " of 2"
+            enemy_noti.show = True
             round_tick = 0
                                                         
 def user_is_right():
@@ -431,7 +431,7 @@ def mouseClicked():
             hit_noti.show = False
             heal_noti.show = False
             current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
-            enemy_noti.input_text = "You have encountered " + current_opp.name
+            enemy_noti.input_text = "You have encountered " + current_opp.name + " for round " + str(current_round) + " of 2"
             remaining_guesses = 1
             need_question = True
     
