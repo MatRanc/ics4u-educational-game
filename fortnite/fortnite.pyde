@@ -477,8 +477,6 @@ def mouseClicked():
                     
                 remaining_guesses -= 1 #stops from allowing any click to take away health
 
-                    
-                    
             #if can choose attack or heal, do it
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print("Attack")
