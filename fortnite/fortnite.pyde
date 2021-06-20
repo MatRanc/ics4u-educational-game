@@ -203,7 +203,7 @@ def questions_ui():
     question_boxes = []
     
     for x in range(0, 4):
-        question_boxes.append(RectButton(20, 535 + (x*45), 1239, 40, questions_list[current_question][x+1], 15))
+        question_boxes.append(RectButton(20, 517 + (x*45), 1239, 40, questions_list[current_question][x+1], 15))
 
 def enemy_damage(input_tuple):
     damage = random.randrange(input_tuple[0] , input_tuple[1], 5) #min val (inclusive), max val (exclusive), step of 5
@@ -265,7 +265,7 @@ hit_noti = Notification(450, 280, False, 5, "You hit " + str(current_opp.name) +
 heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount), "")
 
 #attack and heal buttons
-action_buttons = [RectButton(470,550,150,150, "Attack", 30), RectButton(660,550,150,150, "Heal", 30)]
+action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)]
 
 ##### Global Variables End ###########
 
