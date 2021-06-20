@@ -197,9 +197,9 @@ How many territories does Canada have?
 6
 3
 How big is Canada?
-95km^2
+95 km^2
 9.98 million km^2
-3
+3 km^2
 857 thousand km^2
 9.98 million km^2
 How many of the great lakes border Canada?
