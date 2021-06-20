@@ -175,7 +175,8 @@ weapons_list  = [["Pickaxe", [10, 10]],
                  ["Gold Scar", [18, 24]],
                  ["19 Dollar Fortnite Card", [2, 30]]]
 
-#functions
+
+############  functions  ###############
 
 # makes array of questions and answers in a formatted manner
 def read_file_to_list_questions(file_name):
@@ -191,7 +192,7 @@ def read_file_to_list_questions(file_name):
         questions_list.append(sub_list)
     return questions_list
 
-# 
+# Find next question to be displayed, and display corresponding possible answers
 def questions_ui():
     global need_question
     global current_question
@@ -213,6 +214,7 @@ def questions_ui():
     for x in range(0, 4):
         question_boxes.append(RectButton(20, 517 + (x*45), 1239, 40, questions_list[current_question][x+1], 15))
 
+#picks random number between min and max for the enemy
 def enemy_damage(input_tuple):
     damage = random.randrange(input_tuple[0] , input_tuple[1], 5) #min val (inclusive), max val (exclusive), step of 5
     return damage
@@ -242,10 +244,12 @@ round_tick = 0
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
 main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
-next_character_button = GalleryButton(50+140, 500, 1, 1)
-back_character_button = GalleryButton(25+140, 500, 1, -1)
-game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40)
-menu_button = RectButton(20, 20, 70, 30, "Menu", 20)
+### Buttons used ###
+next_character_button = GalleryButton(50+140, 500, 1, 1) # Goes to next player model selected in menu
+back_character_button = GalleryButton(25+140, 500, 1, -1) # Goes back one in player model selected in menu
+game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40) # Ready up button on menu screen
+menu_button = RectButton(20, 20, 70, 30, "Menu", 20) # Brings you back to starting screen - only availiable on win or lose screen
+action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)] # Attack and heal buttons
 
 #player circles
 circle_opp = PlayerCircle(1025, 350, 1.23) #Circle under opponent
@@ -272,8 +276,7 @@ damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage
 hit_noti = Notification(450, 280, False, 5, "You hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
 heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount), "")
 
-#attack and heal buttons
-action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)]
+
 
 ##### Global Variables End ###########
 
@@ -409,7 +412,6 @@ def draw():
         loser_ui()
     elif game_state == 4:
         win_ui()
-    
     if game_state > 2:
         menu_button.display()
 
