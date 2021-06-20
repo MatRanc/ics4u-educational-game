@@ -332,7 +332,7 @@ def battle_ui():
     rect(0, 720-226, 1279, 225)
     
     heal_noti.display()
-    #makes sure there are not notification overlap
+    #makes sure there is no notification overlap and hidden button press
     if heal_noti.show == False:
         hit_noti.display()
     
@@ -369,13 +369,15 @@ def battle_ui():
         if round_tick < 4.5:
             round_tick += 0.1
         else:
+            #Picks next character and sets round to 2
             current_opp = opp_list[1][random.randrange(0, len(opp_list[1]))]
             current_round = 2
             enemy_noti.input_text = " "*30 + "(Round " + str(current_round) + "/2)" + " "*30 + "You have encountered " + current_opp.name
             enemy_noti.show = True
             round_tick = 0
-    
-    if main_player.health_level <= 0: #wait a little before showing death screen
+            
+    #wait a little before showing death screen
+    if main_player.health_level <= 0: 
         if round_tick < 2:
             round_tick += 0.1
         else:
