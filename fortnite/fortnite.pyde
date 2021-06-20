@@ -257,12 +257,14 @@ opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
 damage = enemy_damage(current_opp.damage_range)
 
+#notification types
 weapon_noti = Notification(400,25, True, 3, "", "")
 enemy_noti = Notification(400, 25, True, 3, "You have encountered " + current_opp.name + " for round " + str(current_round) + " of 2", "")
 damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
 hit_noti = Notification(450, 280, False, 5, "You hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
 heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount), "")
 
+#attack and heal buttons
 action_buttons = [RectButton(470,550,150,150, "Attack", 30), RectButton(660,550,150,150, "Heal", 30)]
 
 ##### Global Variables End ###########
@@ -448,21 +450,21 @@ def mouseClicked():
                 for x in question_boxes:
                     if x.over_but() == True:
                         if x.words == questions_list[current_question][5]:
-                            print("BOX SELECTED")
                         else:
-                            print("wrong")
                             damaged_noti.show = True #resets damaged_noti to have show = True and counter restart
+                        
                         selected_answer = x
                         remaining_guesses -= 1
                         user_is_correct = False
+            
             if remaining_guesses == 0:
-                if selected_answer.words == questions_list[current_question][5]: #checks if answer selected is correct
-                    print("correct")
+                if selected_answer.words == questions_list[current_question][5]: #checks if the question box selected contains the correct answer
                     can_choose_action = True
                     user_is_correct = True
                 else:
                     if main_player.health_level - damage < 0:
                         damage = main_player.health_level
+                    
                     damaged_noti.damage = damage
                     main_player.health_level -= damage
                     damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
@@ -471,16 +473,18 @@ def mouseClicked():
 
             #if can choose attack or heal, do it
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
-                print("Attack")
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
+                
                 if current_opp.health_level - weapon_damage < 1:
                     weapon_damage = current_opp.health_level
+                
                 current_opp.health_level -= weapon_damage
                 print(weapon_found[0], weapon_damage)
                 hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
                 hit_noti.show = True
                 can_choose_action = False
                 need_question = True
+                
                 if (current_opp.health_level < 1) and current_round == 2:
                     game_state = 4 #go to win screen
                     win_gif.counter = 0
@@ -501,8 +505,6 @@ def mouseClicked():
                     heal_noti.show = True
                     can_choose_action = False
                     need_question = True
-        else:
-            print("35") #idk what the point of this is really...
     
     #only allow menu button to be pressed when game is won or lost
     if game_state > 2:
