@@ -1,7 +1,7 @@
 import os
 import random
 
-# during battle_ui, what png's "stand" on
+# In battle_ui, what player .png models "stand" on
 class PlayerCircle(object):
     def __init__(self, x_pos, y_pos, scale):
         self.x_pos = x_pos
@@ -14,7 +14,7 @@ class PlayerCircle(object):
         fill(182, 255, 252)
         ellipse(self.x_pos, self.y_pos, 300 * self.scale, 75 * self.scale)
 
-# used to create enemy objects and main player object
+# Class to create enemy and main player objects
 class Player(object):
     def __init__(self, x_pos, y_pos, name, health_level, damage_range, model, model_scale):
         self.x_pos = x_pos
@@ -33,7 +33,7 @@ class Player(object):
         
         HealthBar(self.x_pos - 350, self.y_pos - 200, self.health_level).display()
 
-# Used to create all rectangular buttons
+# Class to create and display rectangular buttons for various uses
 class RectButton(object):
     def __init__(self, x_pos, y_pos, x_size, y_size, words, txt_size):
         self.x_pos = x_pos
@@ -56,7 +56,7 @@ class RectButton(object):
          else:
              return False
 
-# Create health bars for player and enemy, displays health of person
+# Class to create and display heath bars for enemy and player
 class HealthBar(object):
     def __init__(self, x_pos, y_pos, health_level):
         self.x_pos = x_pos
@@ -76,7 +76,7 @@ class HealthBar(object):
         textSize(15)
         text(self.health_level, self.x_pos - 30, self.y_pos + 22)
 
-# Circle buttons - used in changing player model
+# Class to create and display circular buttons for changing player model in main menu
 class GalleryButton(object):
     def __init__(self, x_pos, y_pos, scale, x_dir):
         self.x_pos = x_pos
@@ -101,7 +101,7 @@ class GalleryButton(object):
         else:
             return False
 
-# Creates speach bubble with text above enemy
+# Class to create and display speech bubble with text above enemy
 class QuestionDisplay(object):
     def __init__(self, x_pos, y_pos, question):
         self.x_pos = x_pos
@@ -117,7 +117,7 @@ class QuestionDisplay(object):
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos -(500/2), self.y_pos - (60/2), 500, 60)
 
-# Notifications about; found gun, encountered enemy, damaged amount, attack amount, heal amount
+# Class to create and display various notifications (found gun, encountered enemy, damaged amount, attack amount, heal amount)
 class Notification(object):
     def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text, damage):
         self.x_pos = x_pos
@@ -142,7 +142,7 @@ class Notification(object):
         if self.show == False:
             self.counter = 0
 
-#displays victory royale gif (based??)
+# Class to load and display a folder containing gif frames
 class GifPlayer(object):
     def __init__(self, folder):
         self.folder = folder
@@ -164,35 +164,28 @@ class GifPlayer(object):
             
         if self.stop_counting != True:
             self.counter += 0.1
-        
-############### class templates end #######################
 
-weapons_list  = [["Pickaxe", [10, 10]],
-                 ["Pistol", [10, 16]],
-                 ["Tac Shotgun", [6, 20]],
-                 ["Supressed Pistol", [14, 20]],
-                 ["Tac SMG", [12,18]],
-                 ["Gold Scar", [18, 24]],
-                 ["19 Dollar Fortnite Card", [2, 30]]]
+############  FUNCTIONS START  ###############
 
-
-############  functions  ###############
-
-# makes array of questions and answers in a formatted manner
+# Function to take in text file of questions and turn into a list
 def read_file_to_list_questions(file_name):
     file = open(file_name, "r")
     file_list = file.read().splitlines()
     file.close()
+    
     questions_list = []
 
     for x in range(0, len(file_list), 6):
         sub_list = []
+        
         for y in range(0, 6):
             sub_list.append(file_list[x+y])
+        
         questions_list.append(sub_list)
+    
     return questions_list
 
-# Find next question to be displayed, and display corresponding possible answers
+# Function to determine and display next question along with corrosponding possible answers
 def questions_ui():
     global need_question
     global current_question
@@ -204,6 +197,7 @@ def questions_ui():
             current_question = random.randint(0,5)
         else:
             current_question = current_question + random.randrange(1, 3)
+        
         need_question = False
 
     question_asked = QuestionDisplay(700, 50, questions_list[current_question][0]) #displays question in ellipse
@@ -214,12 +208,20 @@ def questions_ui():
     for x in range(0, 4):
         question_boxes.append(RectButton(20, 517 + (x*45), 1239, 40, questions_list[current_question][x+1], 15))
 
-#picks random number between min and max for the enemy
+# Function to pick random damage value for enemy between set min and max ranges
 def enemy_damage(input_tuple):
     damage = random.randrange(input_tuple[0] , input_tuple[1], 5) #min val (inclusive), max val (exclusive), step of 5
     return damage
 
 ###### FUNCTIONS END #########
+
+weapons_list  = [["Pickaxe", [10, 10]],
+                 ["Pistol", [10, 16]],
+                 ["Tac Shotgun", [6, 20]],
+                 ["Supressed Pistol", [14, 20]],
+                 ["Tac SMG", [12,18]],
+                 ["Gold Scar", [18, 24]],
+                 ["19 Dollar Fortnite Card", [2, 30]]]
 
 ###### Global Variables ########
 
@@ -240,22 +242,22 @@ weapon_damage = 0
 heal_amount = 0
 round_tick = 0
 
-###for main menu###
+# For main menu
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
 main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
-### Buttons used ###
+# Buttons
 next_character_button = GalleryButton(50+140, 500, 1, 1) # Goes to next player model selected in menu
 back_character_button = GalleryButton(25+140, 500, 1, -1) # Goes back one in player model selected in menu
 game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40) # Ready up button on menu screen
 menu_button = RectButton(20, 20, 70, 30, "Menu", 20) # Brings you back to starting screen - only availiable on win or lose screen
 action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)] # Attack and heal buttons
 
-###player circles###
+# Player circles
 circle_opp = PlayerCircle(1025, 350, 1.23)
 circle_main_player = PlayerCircle(400, 500, 1.50)
 
-###player initializations###
+# Player initializations
 main_player = Player(400, 550, "You", 100, (20, 30), main_player_character_selection_fullpath, 0.8) #x_pos, y_pos, name, health_level, damage_range, model, model_scale
 
 opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 30), "assets/characters/opponents/ninjablevins.png", 0.6)
@@ -269,27 +271,27 @@ opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))] #set current opponent as variable so they can be changed out easier
 damage = enemy_damage(current_opp.damage_range)
 
-###notification types###
+# Notification types
 weapon_noti = Notification(400,25, True, 3, "", "")
 enemy_noti = Notification(400, 25, True, 3, " "*30 + "(Round " + str(current_round) + "/2)" + " "*30 + "You have encountered " + current_opp.name, "")
 damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
 hit_noti = Notification(450, 280, False, 5, "You hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
 heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount), "")
 
-
-
 ##### Global Variables End ###########
 
-def main_menu(): #Function that operates to display main_menu when game_state == 1 (called in draw function)
+#Function to display everything in the main menu/when game_state == 1 (called in draw function)
+def main_menu():
     main_menu_background = loadImage("assets/main_menu/menubg.png")
     image(main_menu_background, 640, 360)
 
+    # Character selection
     next_character_button.display()
     back_character_button.display()
     game_start_button.display()
     
-    #character selection
     full_counter = next_character_button.counter + back_character_button.counter
+    
     if full_counter < 0:
         full_counter = len(main_player_character_list) - 1
         back_character_button.counter = len(main_player_character_list) - 1
@@ -303,17 +305,21 @@ def main_menu(): #Function that operates to display main_menu when game_state ==
     main_player_character_selection = full_counter
     main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
-    #display currently selected character
+    # Display currently selected character
     img = loadImage(main_player_character_selection_fullpath)
     imageMode(CENTER)
     img.resize(0, 250)
     image(img, 180, 350)
 
+    # Set chosen player model
     main_player.model = main_player_character_selection_fullpath
-    #makes sure both enemy and player are at full health
+    
+    # Makes sure both enemy and player are at full health
     main_player.health_level = 100
     current_opp.health_level = 100
 
+
+# Function to display everything when battling an opponent/when game_state == 2 (called in draw_function)
 def battle_ui():
     global current_opp
     global remaining_guesses
@@ -324,15 +330,17 @@ def battle_ui():
     
     circle_opp.display()
     circle_main_player.display()
+    
     current_opp.display()
     main_player.display()
 
-    #bottom box
+    # Bottom blue box
     fill(100, 150, 200)
     rect(0, 720-226, 1279, 225)
     
     heal_noti.display()
-    #makes sure there is no notification overlap and hidden button press
+    
+    # Prevents notification overlap and buttons being pressed when not displayed
     if heal_noti.show == False:
         hit_noti.display()
     
@@ -344,9 +352,9 @@ def battle_ui():
     
     if enemy_noti.show == False and hit_noti.show == False and heal_noti.show == False and weapon_noti.show == False:
         if remaining_guesses > 0:
-            questions_ui() #displays question
+            questions_ui() # Display new question and possible answers
         
-        #display boxes when availible guesses
+        # Display boxes when availible guesses
         for x in question_boxes:
             if remaining_guesses > 0:
                 x.display()
@@ -397,8 +405,6 @@ def loser_ui():
     
     loser_bg = loadImage("assets/loser_screen/loserbg.png")
     image(loser_bg, 640, 360)
-
-
 
 def setup():
     size(1280, 720)
@@ -484,6 +490,7 @@ def mouseClicked():
             
             current_opp.health_level -= weapon_damage
             hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
+           
             hit_noti.show = True
             can_choose_action = False
             need_question = True
