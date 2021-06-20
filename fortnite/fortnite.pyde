@@ -8,12 +8,13 @@ class PlayerCircle(object):
         self.y_pos = y_pos
         self.scale = scale
 
-    def display(self):
+    def display(self): 
         fill(19, 43, 83, 220)
         ellipse(self.x_pos, self.y_pos, 330 * self.scale, 85 * self.scale)
         fill(182, 255, 252)
         ellipse(self.x_pos, self.y_pos, 300 * self.scale, 75 * self.scale)
 
+# used to create enemy objects and main player object
 class Player(object):
     def __init__(self, x_pos, y_pos, name, health_level, damage_range, model, model_scale):
         self.x_pos = x_pos
@@ -32,6 +33,7 @@ class Player(object):
         
         HealthBar(self.x_pos - 350, self.y_pos - 200, self.health_level).display()
 
+# Used to create all rectangular buttons
 class RectButton(object):
     def __init__(self, x_pos, y_pos, x_size, y_size, words, txt_size):
         self.x_pos = x_pos
@@ -54,6 +56,7 @@ class RectButton(object):
          else:
              return False
 
+# Create health bars for player and enemy, displays health of person
 class HealthBar(object):
     def __init__(self, x_pos, y_pos, health_level):
         self.x_pos = x_pos
@@ -73,6 +76,7 @@ class HealthBar(object):
         textSize(15)
         text(self.health_level, self.x_pos - 30, self.y_pos + 22)
 
+# Circle buttons - used in changing player model
 class GalleryButton(object):
     def __init__(self, x_pos, y_pos, scale, x_dir):
         self.x_pos = x_pos
@@ -97,6 +101,7 @@ class GalleryButton(object):
         else:
             return False
 
+# Creates speach bubble with text above enemy
 class QuestionDisplay(object):
     def __init__(self, x_pos, y_pos, question):
         self.x_pos = x_pos
@@ -112,6 +117,7 @@ class QuestionDisplay(object):
         textAlign(CENTER, CENTER)
         text(self.question, self.x_pos -(500/2), self.y_pos - (60/2), 500, 60)
 
+# Notifications about; found gun, encountered enemy, damaged amount, attack amount, heal amount
 class Notification(object):
     def __init__(self, x_pos, y_pos, show, show_time_seconds, input_text, damage):
         self.x_pos = x_pos
@@ -135,7 +141,8 @@ class Notification(object):
             self.show = False
         if self.show == False:
             self.counter = 0
-            
+
+#displays victory royale gif (based??)
 class GifPlayer(object):
     def __init__(self, folder):
         self.folder = folder
@@ -170,6 +177,7 @@ weapons_list  = [["Pickaxe", [10, 10]],
 
 #functions
 
+# makes array of questions and answers in a formatted manner
 def read_file_to_list_questions(file_name):
     file = open(file_name, "r")
     file_list = file.read().splitlines()
@@ -183,7 +191,7 @@ def read_file_to_list_questions(file_name):
         questions_list.append(sub_list)
     return questions_list
 
-
+# 
 def questions_ui():
     global need_question
     global current_question
