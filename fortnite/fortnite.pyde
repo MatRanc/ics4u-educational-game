@@ -374,6 +374,14 @@ win_gif = GifPlayer("assets/win_screen/vic_roy_folder/")
 def win_ui():
     win_gif.display()
     
+def loser_ui():
+    background(0, 0, 0)
+    
+    loser_bg = loadImage("assets/loser_screen/loserbg.png")
+    image(loser_bg, 640, 360)
+
+
+
 def setup():
     size(1280, 720)
     
@@ -384,9 +392,7 @@ def draw():
     elif game_state == 2:
         battle_ui()
     elif game_state == 3:
-        background(10, 0, 0)
-        fill(255)
-        text("You died hahaahhaha L", 720/2, 1280/2)
+        loser_ui()
     elif game_state == 4:
         win_ui()
     
