@@ -58,6 +58,12 @@ Quebec City
 Levis
 Val-d'Or
 Quebec City
+What is/are Canada's national sport/sports?
+Hockey
+Hockey and Soccer
+Hockey and Lacrossee
+Lawn Bowling
+Hockey and Lacrossee
 In which city is the CN Tower located?
 Windsor
 Vancouver
@@ -88,6 +94,12 @@ Baker Lake
 Cambrige Bay
 Iqaluit
 Iqaluit
+Which animal is featured in the Canadian Coat of Arms?
+An eagle
+A beaver
+A unicorn
+A black bear
+A unicorn
 What is the official tree of Canada?
 Maple Tree
 Birch Tree
@@ -280,18 +292,6 @@ Montreal
 Toronto
 Regina
 Montreal
-What is/are Canada's national sport/sports?
-Hockey
-Hockey and Soccer
-Hockey and Lacrossee
-Lawn Bowling
-Hockey and Lacrossee
-Which animal is featured in the Canadian Coat of Arms?
-An eagle
-A beaver
-A unicorn
-A black bear
-A unicorn
 What is the official horse breed of Canada?
 The Canadian horse
 The Morgan horse
@@ -323,8 +323,8 @@ Quebec
 Alberta
 Ontario
 In which province are the Hopewell Rocks located?
-Prince Edward Island
+New Brunswick
 Ontario
 British Columbia
 Northwest Territories
-Prince Edward Island
+New Brunswick
