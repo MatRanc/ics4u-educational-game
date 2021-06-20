@@ -216,12 +216,12 @@ def enemy_damage(input_tuple):
 ###### FUNCTIONS END #########
 
 weapons_list  = [["Pickaxe", [10, 10]],
-                 ["Pistol", [10, 16]],
-                 ["Tac Shotgun", [6, 20]],
-                 ["Supressed Pistol", [14, 20]],
-                 ["Tac SMG", [12,18]],
-                 ["Gold Scar", [18, 24]],
-                 ["19 Dollar Fortnite Card", [2, 30]]]
+                 ["Pistol", [8, 14]],
+                 ["Tac Shotgun", [6, 18]],
+                 ["Supressed Pistol", [12, 16]],
+                 ["Tac SMG", [10,14]],
+                 ["Gold Scar", [16, 20]],
+                 ["19 Dollar Fortnite Card", [4, 26]]]
 
 ###### Global Variables ########
 
