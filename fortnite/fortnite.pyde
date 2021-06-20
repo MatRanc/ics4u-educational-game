@@ -267,7 +267,6 @@ opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos + 20, "The Reddit Ma
 
 opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 
-
 current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))] #set current opponent as variable so they can be changed out easier
 damage = enemy_damage(current_opp.damage_range)
 
@@ -280,7 +279,7 @@ heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount
 
 ##### Global Variables End ###########
 
-#Function to display everything in the main menu/when game_state == 1 (called in draw function)
+#Function to display everything in the main menu/when game_state == 1 (called in draw())
 def main_menu():
     main_menu_background = loadImage("assets/main_menu/menubg.png")
     image(main_menu_background, 640, 360)
@@ -314,12 +313,15 @@ def main_menu():
     # Set chosen player model
     main_player.model = main_player_character_selection_fullpath
     
-    # Makes sure both enemy and player are at full health
+    # Reset player health levels
     main_player.health_level = 100
-    current_opp.health_level = 100
+    
+    for x in opp_list:
+        x[0].health_level = 100
+        x[1].health_level = 100
 
 
-# Function to display everything when battling an opponent/when game_state == 2 (called in draw_function)
+# Function to display everything when battling an opponent/when game_state == 2 (called in draw())
 def battle_ui():
     global current_opp
     global remaining_guesses
@@ -392,19 +394,21 @@ def battle_ui():
             game_state = 3 # "died" screen
             round_tick = 0
 
-win_gif = GifPlayer("assets/win_screen/vic_roy_folder/") #Victory Royale
-
-def win_ui():
-    winner_bg = loadImage("assets/win_screen/winbg.png")
-    image(winner_bg, 640, 360)
-    
-    win_gif.display()
-    
+# Function to display everything when game is won/game_state = 3 (called in draw())
 def loser_ui():
     background(0, 0, 0)
     
     loser_bg = loadImage("assets/loser_screen/loserbg.png")
     image(loser_bg, 640, 360)
+
+win_gif = GifPlayer("assets/win_screen/vic_roy_folder/")  # Victory Royale gif
+
+# Function to display everything when game is won/game_state = 4 (called in draw())
+def win_ui():
+    winner_bg = loadImage("assets/win_screen/winbg.png")
+    image(winner_bg, 640, 360)
+    
+    win_gif.display()
 
 def setup():
     size(1280, 720)
@@ -436,7 +440,7 @@ def mouseClicked():
     global weapon_found
     global opp_list
 
-    #main menu
+    # Main menu
     if game_state == 1:
         if next_character_button.over_circle() == True:
             next_character_button.counter += 1
@@ -457,7 +461,7 @@ def mouseClicked():
             remaining_guesses = 1
             need_question = True
     
-    #battle ui
+    # Battle ui
     if game_state == 2:
         if remaining_guesses > 0 and heal_noti.show == False and hit_noti.show == False:
             for x in question_boxes:
@@ -515,13 +519,9 @@ def mouseClicked():
                 can_choose_action = False
                 need_question = True
 
-    #only allow menu button to be pressed when game is won or lost
+    # Only allow menu button to be pressed when game is won or lost
     if game_state > 2:
         if menu_button.over_but() == True:
             game_state = 1
-            
-            for x in opp_list:
-                x[0].health_level = 100
-                x[1].health_level = 100
                 
                 
