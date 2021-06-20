@@ -371,14 +371,6 @@ def battle_ui():
         else:
             game_state = 3 # "died" screen
             round_tick = 0
-                                                        
-def user_is_right():
-    is_right = False
-    
-    if selected_answer.words == questions_list[current_question][5]:
-        is_right = True
-        
-    return is_right
 
 win_gif = GifPlayer("assets/win_screen/vic_roy_folder/")
 
@@ -464,7 +456,7 @@ def mouseClicked():
                         remaining_guesses -= 1
                         user_is_correct = False
             if remaining_guesses == 0:
-                if user_is_right() == True:
+                if selected_answer.words == questions_list[current_question][5]: #checks if answer selected is correct
                     print("correct")
                     can_choose_action = True
                     user_is_correct = True
