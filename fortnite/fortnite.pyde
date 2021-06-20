@@ -470,6 +470,8 @@ def mouseClicked():
             if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
                 print("Attack")
                 weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
+                if current_opp.health_level - weapon_damage < 1:
+                    weapon_damage = current_opp.health_level
                 current_opp.health_level -= weapon_damage
                 print(weapon_found[0], weapon_damage)
                 hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
