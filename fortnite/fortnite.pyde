@@ -469,6 +469,8 @@ def mouseClicked():
                     can_choose_action = True
                     user_is_correct = True
                 else:
+                    if main_player.health_level - damage < 0:
+                        damage = main_player.health_level
                     damaged_noti.damage = damage
                     main_player.health_level -= damage
                     damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
