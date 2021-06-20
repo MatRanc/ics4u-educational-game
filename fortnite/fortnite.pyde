@@ -240,7 +240,7 @@ weapon_damage = 0
 heal_amount = 0
 round_tick = 0
 
-#for main menu
+###for main menu###
 main_player_character_list = os.listdir("assets/characters/playable/")  #gets all pngs for playable characters
 main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
@@ -251,11 +251,11 @@ game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40) # Ready up bu
 menu_button = RectButton(20, 20, 70, 30, "Menu", 20) # Brings you back to starting screen - only availiable on win or lose screen
 action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)] # Attack and heal buttons
 
-#player circles
-circle_opp = PlayerCircle(1025, 350, 1.23) #Circle under opponent
-circle_main_player = PlayerCircle(400, 500, 1.50) #Circle under main player
+###player circles###
+circle_opp = PlayerCircle(1025, 350, 1.23)
+circle_main_player = PlayerCircle(400, 500, 1.50)
 
-#player initializations
+###player initializations###
 main_player = Player(400, 550, "You", 100, (20, 30), main_player_character_selection_fullpath, 0.8) #x_pos, y_pos, name, health_level, damage_range, model, model_scale
 
 opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 30), "assets/characters/opponents/ninjablevins.png", 0.6)
@@ -265,11 +265,11 @@ opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos + 20, "The Reddit Ma
 
 opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 
-#set current opponent so they can be changed out easier
-current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
+
+current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))] #set current opponent as variable so they can be changed out easier
 damage = enemy_damage(current_opp.damage_range)
 
-#notification types
+###notification types###
 weapon_noti = Notification(400,25, True, 3, "", "")
 enemy_noti = Notification(400, 25, True, 3, " "*30 + "(Round " + str(current_round) + "/2)" + " "*30 + "You have encountered " + current_opp.name, "")
 damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
@@ -280,27 +280,26 @@ heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount
 
 ##### Global Variables End ###########
 
-def main_menu():
-    game_state = 1
+def main_menu(): #Function that operates to display main_menu when game_state == 1 (called in draw function)
     main_menu_background = loadImage("assets/main_menu/menubg.png")
     image(main_menu_background, 640, 360)
 
     next_character_button.display()
     back_character_button.display()
     game_start_button.display()
+    
     #character selection
     full_counter = next_character_button.counter + back_character_button.counter
-
     if full_counter < 0:
         full_counter = len(main_player_character_list) - 1
         back_character_button.counter = len(main_player_character_list) - 1
         next_character_button.counter = 0
-
+        
     if full_counter > len(main_player_character_list) - 1:
         full_counter = 0
         next_character_button.counter = 0
         back_character_button.counter = 0
-
+        
     main_player_character_selection = full_counter
     main_player_character_selection_fullpath = "assets/characters/playable/" + main_player_character_list[main_player_character_selection]
 
@@ -311,6 +310,7 @@ def main_menu():
     image(img, 180, 350)
 
     main_player.model = main_player_character_selection_fullpath
+    #makes sure both enemy and player are at full health
     main_player.health_level = 100
     current_opp.health_level = 100
 
@@ -324,7 +324,6 @@ def battle_ui():
     
     circle_opp.display()
     circle_main_player.display()
-
     current_opp.display()
     main_player.display()
 
@@ -333,7 +332,7 @@ def battle_ui():
     rect(0, 720-226, 1279, 225)
     
     heal_noti.display()
-    
+    #makes sure there are not notification overlap
     if heal_noti.show == False:
         hit_noti.display()
     
@@ -365,7 +364,7 @@ def battle_ui():
     if hit_noti.show == False and remaining_guesses < 1 and user_is_correct == True and can_choose_action == False:
         remaining_guesses = 1
         
-    if (current_opp.health_level < 1) and current_round == 1:
+    if (current_opp.health_level < 1) and current_round == 1: #waits a little before introducing next opponent
         current_opp.health_level = 0
         if round_tick < 4.5:
             round_tick += 0.1
@@ -376,18 +375,18 @@ def battle_ui():
             enemy_noti.show = True
             round_tick = 0
     
-    if main_player.health_level <= 0:
+    if main_player.health_level <= 0: #wait a little before showing death screen
         if round_tick < 2:
             round_tick += 0.1
         else:
             game_state = 3 # "died" screen
             round_tick = 0
 
-win_gif = GifPlayer("assets/win_screen/vic_roy_folder/")
+win_gif = GifPlayer("assets/win_screen/vic_roy_folder/") #Victory Royale
 
 def win_ui():
-    loser_bg = loadImage("assets/win_screen/winbg.png")
-    image(loser_bg, 640, 360)
+    winner_bg = loadImage("assets/win_screen/winbg.png")
+    image(winner_bg, 640, 360)
     
     win_gif.display()
     
@@ -438,8 +437,7 @@ def mouseClicked():
         if game_start_button.over_but() == True:
             current_round = 1
             game_state = 2
-            weapon_number = random.randint(0,len(weapons_list) - 1)
-            weapon_found = weapons_list[weapon_number]
+            weapon_found = weapons_list[random.randint(0,len(weapons_list) - 1)] #picks weapon from weapons_list
             weapon_noti.input_text = "You found a " + str(weapon_found[0])
             weapon_noti.show = True
             enemy_noti.show = True
