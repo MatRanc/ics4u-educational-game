@@ -444,71 +444,68 @@ def mouseClicked():
             damaged_noti.show = False
             hit_noti.show = False
             heal_noti.show = False
-            current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))]
+            current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))] #sets current opponent to one of the first 2 choices
             enemy_noti.input_text = " "*30 + "(Round " + str(current_round) + "/2)" + " "*30 + "You have encountered " + current_opp.name
             remaining_guesses = 1
             need_question = True
     
     #battle ui
     if game_state == 2:
-        if main_player.health_level > 0:
-            if remaining_guesses > 0:
-                for x in question_boxes:
-                    if x.over_but() == True:
-                        if x.words != questions_list[current_question][5]:
-                            damaged_noti.show = True #resets damaged_noti to have show = True and counter restart
-                        
-                        selected_answer = x
-                        remaining_guesses -= 1
-                        user_is_correct = False
-            
-            if remaining_guesses == 0:
-                if selected_answer.words == questions_list[current_question][5]: #checks if the question box selected contains the correct answer
-                    can_choose_action = True
-                    user_is_correct = True
-                else:
-                    if main_player.health_level - damage < 0:
-                        damage = main_player.health_level
-                    
-                    damaged_noti.damage = damage
-                    main_player.health_level -= damage
-                    damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
-                    
-                remaining_guesses -= 1 #stops from allowing any click to take away health
+        if remaining_guesses > 0:
+            for x in question_boxes:
+                if x.over_but() == True:
+                    selected_answer = x
+                    remaining_guesses -= 1
+                    user_is_correct = False
+        
+        if remaining_guesses == 0:
+            if selected_answer.words == questions_list[current_question][5]: #checks if the question box selected contains the correct answer
+                can_choose_action = True
+                user_is_correct = True
+            else:
+                if main_player.health_level - damage < 0:
+                    damage = main_player.health_level
+                
+                damaged_noti.show = True
+                damaged_noti.damage = damage
+                main_player.health_level -= damage
+                damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
+                
+            remaining_guesses -= 1 #stops from allowing any click to take away health
 
-            #if can choose attack or heal, do it
-            if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
-                weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
+        #if can choose attack or heal, do it
+        if action_buttons[0].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
+            weapon_damage = random.randrange(weapon_found[1][0],weapon_found[1][1] + 1, 2)
+            
+            if current_opp.health_level - weapon_damage < 1:
+                weapon_damage = current_opp.health_level
+            
+            current_opp.health_level -= weapon_damage
+            hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
+            hit_noti.show = True
+            can_choose_action = False
+            need_question = True
+            
+            if (current_opp.health_level < 1) and current_round == 2:
+                game_state = 4 #go to win screen
+                win_gif.counter = 0
+        elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
+            heal_amount = random.randrange(10, 31, 5)
+            
+            if main_player.health_level == 100:
+                heal_noti.input_text = "You are already max health"
+                heal_noti.show = True
+            else:
+                if main_player.health_level + heal_amount > 100:
+                    heal_amount = 100 - main_player.health_level #if heal would've brought player health over 100, change heal value to heal to 100
                 
-                if current_opp.health_level - weapon_damage < 1:
-                    weapon_damage = current_opp.health_level
+                main_player.health_level += heal_amount
+                heal_noti.input_text = "You healed for " + str(heal_amount) + " points"
                 
-                current_opp.health_level -= weapon_damage
-                hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
-                hit_noti.show = True
+                heal_noti.show = True
                 can_choose_action = False
                 need_question = True
-                
-                if (current_opp.health_level < 1) and current_round == 2:
-                    game_state = 4 #go to win screen
-                    win_gif.counter = 0
-            elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
-                heal_amount = random.randrange(10, 31, 5)
-                
-                if main_player.health_level == 100:
-                    heal_noti.input_text = "You are already max health"
-                    heal_noti.show = True
-                else:
-                    if main_player.health_level + heal_amount > 100:
-                        heal_amount = 100 - main_player.health_level #if heal would've brought player health over 100, change heal value to heal to 100
-                    
-                    main_player.health_level += heal_amount
-                    heal_noti.input_text = "You healed for " + str(heal_amount) + " points"
-                    
-                    heal_noti.show = True
-                    can_choose_action = False
-                    need_question = True
-    
+
     #only allow menu button to be pressed when game is won or lost
     if game_state > 2:
         if menu_button.over_but() == True:
