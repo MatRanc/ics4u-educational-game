@@ -216,12 +216,12 @@ def enemy_damage(input_tuple):
 ###### FUNCTIONS END #########
 
 weapons_list  = [["Pickaxe", [10, 10]],
-                 ["Pistol", [10, 16]],
-                 ["Tac Shotgun", [6, 20]],
-                 ["Supressed Pistol", [14, 20]],
-                 ["Tac SMG", [12,18]],
-                 ["Gold Scar", [18, 24]],
-                 ["19 Dollar Fortnite Card", [2, 30]]]
+                 ["Pistol", [8, 14]],
+                 ["Tac Shotgun", [6, 18]],
+                 ["Supressed Pistol", [12, 16]],
+                 ["Tac SMG", [10,14]],
+                 ["Gold Scar", [16, 20]],
+                 ["19 Dollar Fortnite Card", [4, 26]]]
 
 ###### Global Variables ########
 
@@ -316,7 +316,9 @@ def main_menu():
     
     # Makes sure both enemy and player are at full health
     main_player.health_level = 100
-    current_opp.health_level = 100
+    for x in opp_list:
+        x[0].health_level = 100
+        x[1].health_level = 100
 
 
 # Function to display everything when battling an opponent/when game_state == 2 (called in draw_function)
@@ -519,9 +521,5 @@ def mouseClicked():
     if game_state > 2:
         if menu_button.over_but() == True:
             game_state = 1
-            
-            for x in opp_list:
-                x[0].health_level = 100
-                x[1].health_level = 100
                 
                 
