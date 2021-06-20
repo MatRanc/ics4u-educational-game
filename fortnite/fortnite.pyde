@@ -388,10 +388,18 @@ def battle_ui():
             
     #wait a little before showing death screen
     if main_player.health_level <= 0: 
-        if round_tick < 2:
+        if round_tick < 5.5:
             round_tick += 0.1
         else:
             game_state = 3 # "died" screen
+            round_tick = 0
+            
+    if (current_opp.health_level < 1) and current_round == 2:
+        if round_tick < 5.5:
+            round_tick += 0.1
+        else:
+            game_state = 4 #go to win screen
+            win_gif.counter = 0
             round_tick = 0
 
 # Function to display everything when game is won/game_state = 3 (called in draw())
@@ -499,9 +507,6 @@ def mouseClicked():
                 can_choose_action = False
                 need_question = True
                 
-                if (current_opp.health_level < 1) and current_round == 2:
-                    game_state = 4 #go to win screen
-                    win_gif.counter = 0
             elif action_buttons[1].over_but() == True:
                 heal_amount = random.randrange(10, 31, 5)
                 
