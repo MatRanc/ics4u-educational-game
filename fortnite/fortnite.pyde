@@ -271,11 +271,11 @@ current_opp = opp_list[0][random.randrange(0, len(opp_list[0]))] #set current op
 damage = enemy_damage(current_opp.damage_range)
 
 # Notification types
-weapon_noti = Notification(400,25, True, 3, "", "")
-enemy_noti = Notification(400, 25, True, 3, " "*30 + "(Round " + str(current_round) + "/2)" + " "*30 + "You have encountered " + current_opp.name, "")
-damaged_noti = Notification(450, 280, True, 10, "You have been hit for ", damage)
-hit_noti = Notification(450, 280, False, 5, "You hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
-heal_noti = Notification(450, 280, False, 5, "You healed for " + str(heal_amount), "")
+weapon_noti = Notification(400,25, True, 7, "", "")
+enemy_noti = Notification(400, 25, True, 8, " "*30 + "(Round " + str(current_round) + "/2)" + " "*30 + "You have encountered " + current_opp.name, "")
+damaged_noti = Notification(450, 280, True, 30, "You have been hit for ", damage)
+hit_noti = Notification(450, 280, False, 6, "You hit " + str(current_opp.name) + " for " + str(weapon_damage), "")
+heal_noti = Notification(450, 280, False, 6, "You healed for " + str(heal_amount), "")
 
 ##### Global Variables End ###########
 
