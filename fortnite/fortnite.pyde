@@ -459,7 +459,7 @@ def mouseClicked():
     
     #battle ui
     if game_state == 2:
-        if remaining_guesses > 0:
+        if remaining_guesses > 0 and heal_noti.show == False and hit_noti.show == False:
             for x in question_boxes:
                 if x.over_but() == True:
                     selected_answer = x

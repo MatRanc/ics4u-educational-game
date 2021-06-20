@@ -4,72 +4,84 @@ Toronto
 Victoria
 Montreal
 Ottawa
-What is the capital of Ontario?
-Ottawa
-Toronto
-Niagra
-Kingston
-Toronto
-What is the capital of Manitoba?
-Brandon
-Neepawa
-Winnipeg
-Moosehorn
-Winnipeg
-What is the capital of Saskatchewan?
-Prince Albert
-Moose Jaw
-Regina
-Saskatoon
-Regina
-What is the capital of Alberta?
-Edmonton
-Calgary
-Banff
-Medicine Hat
-Edmonton
-What is the capital of British Columbia?
-Vancouver
-Kamloops
-Victoria
-Prince George
-Victoria
-What is the capital of Newfoundland?
-St. John's
-Eastport
-Grand le Pierre
-Saint Lawrence
-St. John's
-What is the capital of Nova Scotia?
-Sydney
-Yarmouth
-Halifax
-Truro
-Halifax
+Which province is known for its red dirt?
+Manitoba
+Prince Edward Island
+Alberta
+Nova Scotia
+Prince Edward Island
+How many territories does Canada have?
+3
+4
+5
+6
+3
 What is the capital of Prince Edward Island?
 Kensington
 Charlottetown
 Stratford
 Cavendish
 Charlottetown
+In which city is Fort Henry located?
+Lloydminster
+Kingston
+Regina
+Saskatoon
+Kingston
+What is Canada's national animal?
+A moose
+A beaver
+A goose
+A raccoon
+A beaver
 What is the capital of New Brunswick?
 Moncton
 Fredricton
 Red Bank
 Saint John
 Fredricton
+What is the name of the largest waterfall in Canada?
+Niagara Falls
+Tews Falls
+Helmcken Falls
+Troll Falls
+Niagara Falls
+Which set of provinces are most known for their fishing industry?
+The eastern provinces
+Ontario and Manitoba
+The arctic provinces
+Quebec and New Brunswick
+The eastern provinces
 What is the capital of Quebec?
 Montreal
 Quebec City
 Levis
 Val-d'Or
 Quebec City
+What is/are Canada's national sport/sports?
+Hockey
+Hockey and Soccer
+Hockey and Lacrossee
+Lawn Bowling
+Hockey and Lacrossee
+In which city is the CN Tower located?
+Windsor
+Vancouver
+Banff
+Toronto
+Toronto
 What is the capital of Yukon Territories?
 Dawson City
 Whitehorse
 Carcross
 Beaver Creek
 Whitehorse
+What is the official flower of Ontario?
+The Rose
+The White Trillium
+The Orchid
+The Iris
+The White Trillium
 What is the capital of Northwest Territories?
 Paulatuk
 Fort McPherson
@@ -82,6 +94,18 @@ Baker Lake
 Cambrige Bay
 Iqaluit
 Iqaluit
+Which animal is featured in the Canadian Coat of Arms?
+An eagle
+A beaver
+A unicorn
+A black bear
+A unicorn
+What is the official tree of Canada?
+Maple Tree
+Birch Tree
+Oak Tree
+Pine Tree
+Maple Tree
 Which city has the highest population in Canada?
 Regina
 Toronto
@@ -100,6 +124,12 @@ Northwest Territories
 Quebec
 British Columbia
 Nunavut
+What is the capital of Ontario?
+Ottawa
+Toronto
+Niagra
+Kingston
+Toronto
 Which province/territory has the smallest landmass?
 Nova Scotia
 Prince Edward Island
@@ -124,6 +154,12 @@ Ontario
 Quebec
 Mongolia
 Ontario
+What is the capital of British Columbia?
+Vancouver
+Kamloops
+Victoria
+Prince George
+Victoria
 Which province/territory has the 2nd highest population?
 Ontario
 British Columbia
@@ -136,6 +172,12 @@ Northwest Territories
 Saskatchewan
 Manitoba
 Saskatchewan
+What is the capital of Manitoba?
+Brandon
+Neepawa
+Winnipeg
+Moosehorn
+Winnipeg
 What is the name of the longest river in Canada?
 Makenzie River
 Mississipi River
@@ -160,6 +202,12 @@ Great Slave Lake
 Lake Ontario
 Great Bear Lake
 Great Bear Lake
+What is the capital of Newfoundland?
+St. John's
+Eastport
+Grand le Pierre
+Saint Lawrence
+St. John's
 Which Ocean is located on the eastern borders of Canada?
 Indian Ocean
 Arctic Ocean
@@ -172,36 +220,36 @@ Arctic Ocean
 Atlantic Ocean
 Indian Ocean
 Pacific Ocean
-What is the name of the largest waterfall in Canada?
-Niagara Falls
-Tews Falls
-Helmcken Falls
-Troll Falls
-Niagara Falls
 What is the name of the deepest lake in Canada?
 Great Slave Lake
 Great Bear Lake
 Great Deep Lake
 Lake Ontario
 Great Slave Lake
+What is the capital of Saskatchewan?
+Prince Albert
+Moose Jaw
+Regina
+Saskatoon
+Regina
 How many provinces does Canada have?
 8
 9
 10
 11
 10
-How many territories does Canada have?
-3
-4
-5
-6
-3
 How big is Canada?
 95 km^2
 9.98 million km^2
 3 km^2
 857 thousand km^2
 9.98 million km^2
+What is the capital of Alberta?
+Edmonton
+Calgary
+Banff
+Medicine Hat
+Edmonton
 How many of the great lakes border Canada?
 4
 5
@@ -244,78 +292,30 @@ Montreal
 Toronto
 Regina
 Montreal
-What is Canada's national animal?
-A moose
-A beaver
-A goose
-A raccoon
-A beaver
-What is/are Canada's national sport/sports?
-Hockey
-Hockey and Soccer
-Hockey and Lacrossee
-Lawn Bowling
-Hockey and Lacrossee
-What is the official flower of Ontario?
-The Rose
-The White Trillium
-The Orchid
-The Iris
-The White Trillium
-Which animal is featured in the Canadian Coat of Arms?
-An eagle
-A beaver
-A unicorn
-A black bear
-A unicorn
 What is the official horse breed of Canada?
 The Canadian horse
 The Morgan horse
 The New Forset pony
 The Rockey Mountain horse
 The Canadian horse
-What is the official tree of Canada?
-Maple Tree
-Birch Tree
-Oak Tree
-Pine Tree
-Maple Tree
-In which city is the CN Tower located?
-Windsor
-Vancouver
-Banff
-Toronto
-Toronto
 In which city is the Casa Loma located?
 Toronto
 Ottawa
 Quebec City
 Kingston
 Toronto
-In which city is Fort Henry located?
-Lloydminster
-Kingston
-Regina
-Saskatoon
-Kingston
-Which set of provinces are most known for their fishing industry?
-The eastern provinces
-Ontario and Manitoba
-The arctic provinces
-Quebec and New Brunswick
-The eastern provinces
-Which province is known for its red dirt?
-Manitoba
-Prince Edward Island
-Alberta
-Nova Scotia
-Prince Edward Island
 Which province is most known for its lobster industry?
 Quebec
 British Columbia
 Yukon
 Nova Scotia
 Nova Scotia
+What is the capital of Nova Scotia?
+Sydney
+Yarmouth
+Halifax
+Truro
+Halifax
 Which province attracts the most tourists anually?
 Ontario
 British Columbia
@@ -323,8 +323,8 @@ Quebec
 Alberta
 Ontario
 In which province are the Hopewell Rocks located?
-Prince Edward Island
+New Brunswick
 Ontario
 British Columbia
 Northwest Territories
-Prince Edward Island
+New Brunswick
