@@ -246,10 +246,10 @@ circle_main_player = PlayerCircle(400, 500, 1.50) #Circle under main player
 #player initializations
 main_player = Player(400, 550, "You", 100, (20, 30), main_player_character_selection_fullpath, 0.8) #x_pos, y_pos, name, health_level, damage_range, model, model_scale
 
-opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 40), "assets/characters/opponents/ninjablevins.png", 0.6)
-opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (20, 30), "assets/characters/opponents/souljaboy.png", 0.6)
-opp_steveharvey = Player(circle_opp.x_pos, circle_opp.y_pos + 10, "Steve Harvey", 100, (20, 30), "assets/characters/opponents/steveharvey.png", 0.65)
-opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos + 20, "The Reddit Mafia", 100, (20, 30), "assets/characters/opponents/redditmafia.png", 0.4)
+opp_ninja = Player(circle_opp.x_pos, circle_opp.y_pos, "Tyler \"Ninja\" Blevins", 100, (20, 30), "assets/characters/opponents/ninjablevins.png", 0.6)
+opp_souljaboy = Player(circle_opp.x_pos, circle_opp.y_pos, "Soulja Boy", 100, (15, 35), "assets/characters/opponents/souljaboy.png", 0.6)
+opp_steveharvey = Player(circle_opp.x_pos, circle_opp.y_pos + 10, "Steve Harvey", 100, (25, 45), "assets/characters/opponents/steveharvey.png", 0.65)
+opp_redditmafia = Player(circle_opp.x_pos, circle_opp.y_pos + 20, "The Reddit Mafia", 100, (5, 50), "assets/characters/opponents/redditmafia.png", 0.4)
 
 opp_list  = [[opp_ninja, opp_souljaboy], [opp_steveharvey, opp_redditmafia]]
 
@@ -307,6 +307,7 @@ def battle_ui():
     global need_question
     global current_round
     global round_tick
+    global game_state
     
     circle_opp.display()
     circle_main_player.display()
@@ -362,6 +363,13 @@ def battle_ui():
             current_round = 2
             enemy_noti.input_text = "You have encountered " + current_opp.name + " for round " + str(current_round) + " of 2"
             enemy_noti.show = True
+            round_tick = 0
+    
+    if main_player.health_level <= 0:
+        if round_tick < 2:
+            round_tick += 0.1
+        else:
+            game_state = 3 # "died" screen
             round_tick = 0
                                                         
 def user_is_right():
@@ -464,9 +472,6 @@ def mouseClicked():
                     damaged_noti.damage = damage
                     main_player.health_level -= damage
                     damage = enemy_damage(current_opp.damage_range) #assign new damage for next time
-                    
-                    if main_player.health_level <= 0:
-                        game_state = 3 # "died" screen
                     
                 remaining_guesses -= 1 #stops from allowing any click to take away health
 
