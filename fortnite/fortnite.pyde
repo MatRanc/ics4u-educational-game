@@ -372,6 +372,9 @@ def user_is_right():
 win_gif = GifPlayer("assets/win_screen/vic_roy_folder/")
 
 def win_ui():
+    loser_bg = loadImage("assets/win_screen/winbg.png")
+    image(loser_bg, 640, 360)
+    
     win_gif.display()
     
 def loser_ui():
