@@ -191,7 +191,7 @@ def questions_ui():
     global question_boxes
 
     if need_question == True:
-        current_question = current_question + random.randrange(0, 3)
+        current_question = current_question + random.randrange(1, 3)
         need_question = False
 
     question_asked = QuestionDisplay(700, 50, questions_list[current_question][0]) #displays question in ellipse
