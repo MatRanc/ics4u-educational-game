@@ -191,7 +191,7 @@ def questions_ui():
     global question_boxes
 
     if need_question == True:
-        current_question = random.randrange(0, len(questions_list))
+        current_question = current_question + random.randrange(0, 3)
         need_question = False
 
     question_asked = QuestionDisplay(700, 50, questions_list[current_question][0]) #displays question in ellipse
@@ -212,7 +212,6 @@ def enemy_damage(input_tuple):
 
 question_boxes = []
 need_question = True
-current_question = 0
 remaining_guesses = 1
 chosen_button = 0
 game_state = 1
@@ -222,6 +221,7 @@ current_round = 0
 user_is_correct = False
 can_choose_action = False
 questions_list = read_file_to_list_questions("questions.txt")
+current_question = random.randrange(0, len(questions_list))
 weapon_found = 0
 weapon_damage = 0
 heal_amount = 0
