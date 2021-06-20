@@ -42,12 +42,14 @@ class RectButton(object):
         self.y_size = y_size
         self.words = words
         self.txt_size = txt_size
+    
     def display(self):
         fill(255,255,10)
         rect(self.x_pos, self.y_pos, self.x_size,self.y_size)
+        
         fill(0)
         textSize(self.txt_size)
-        textAlign(CENTER,CENTER)
+        textAlign(CENTER, CENTER)
         text(self.words, self.x_pos, self.y_pos, self.x_size, self.y_size)
 
     def over_but(self):
@@ -206,7 +208,7 @@ def questions_ui():
     question_boxes = []
     
     for x in range(0, 4):
-        question_boxes.append(RectButton(20, 517 + (x*45), 1239, 40, questions_list[current_question][x+1], 15))
+        question_boxes.append(RectButton(20, 517 + (x*45), 1239, 40, questions_list[current_question][x+1], 17))
 
 # Function to pick random damage value for enemy between set min and max ranges
 def enemy_damage(input_tuple):
@@ -249,8 +251,8 @@ main_player_character_selection_fullpath = "assets/characters/playable/" + main_
 # Buttons
 next_character_button = GalleryButton(50+140, 500, 1, 1)  # Goes to next player model selected in menu
 back_character_button = GalleryButton(25+140, 500, 1, -1)  # Goes back one in player model selected in menu
-game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 40)  # Ready up button on menu screen
-menu_button = RectButton(20, 20, 70, 30, "Menu", 20)  # Brings you back to starting screen - only availiable on win or lose screen
+game_start_button = RectButton(540, 340, 200, 100, "Ready Up", 35)  # Ready up button on menu screen
+menu_button = RectButton(20, 20, 70, 30, "Menu", 15)  # Brings you back to starting screen - only availiable on win or lose screen
 action_buttons = [RectButton(470, 530, 150, 150, "Attack", 30), RectButton(660, 530, 150, 150, "Heal", 30)]  # Attack and heal buttons
 
 # Player circles
