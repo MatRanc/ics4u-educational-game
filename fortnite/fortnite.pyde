@@ -449,8 +449,7 @@ def mouseClicked():
             if remaining_guesses > 0:
                 for x in question_boxes:
                     if x.over_but() == True:
-                        if x.words == questions_list[current_question][5]:
-                        else:
+                        if x.words != questions_list[current_question][5]:
                             damaged_noti.show = True #resets damaged_noti to have show = True and counter restart
                         
                         selected_answer = x
@@ -479,7 +478,6 @@ def mouseClicked():
                     weapon_damage = current_opp.health_level
                 
                 current_opp.health_level -= weapon_damage
-                print(weapon_found[0], weapon_damage)
                 hit_noti.input_text = "You hit " + str(current_opp.name) + " for " + str(weapon_damage) + " damage"
                 hit_noti.show = True
                 can_choose_action = False
@@ -489,7 +487,6 @@ def mouseClicked():
                     game_state = 4 #go to win screen
                     win_gif.counter = 0
             elif action_buttons[1].over_but() == True and can_choose_action == True and remaining_guesses < -1 and heal_noti.show == False:
-                print ("Heal")
                 heal_amount = random.randrange(10, 31, 5)
                 
                 if main_player.health_level == 100:
