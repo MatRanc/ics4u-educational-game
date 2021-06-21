@@ -205,7 +205,7 @@ def questions_ui():
         question_boxes = []
         
         answer_locations = [1,2,3,4]
-        random.shuffle(answer_locations)
+        random.shuffle(answer_locations)  # Shuffles the order for which possible answers are displayed
         
         y_pos_counter = 0
         
