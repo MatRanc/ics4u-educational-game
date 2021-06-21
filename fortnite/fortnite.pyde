@@ -388,19 +388,19 @@ def battle_ui():
             enemy_noti.show = True
             round_tick = 0
             
-    #wait a little before showing death screen
+    # Wait a little before showing death screen
     if main_player.health_level <= 0: 
         if round_tick < 5.5:
             round_tick += 0.1
         else:
-            game_state = 3 # "died" screen
+            game_state = 3  # "died" screen
             round_tick = 0
             
     if (current_opp.health_level < 1) and current_round == 2:
         if round_tick < 5.5:
             round_tick += 0.1
         else:
-            game_state = 4 #go to win screen
+            game_state = 4  # Go to win screen
             win_gif.counter = 0
             round_tick = 0
 
