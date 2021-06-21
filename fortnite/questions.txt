@@ -70,7 +70,7 @@ Vancouver
 Banff
 Toronto
 Toronto
-What is the capital of the Yukon?
+What is the capital of Yukon Territories?
 Dawson City
 Whitehorse
 Carcross
@@ -328,3 +328,39 @@ Ontario
 British Columbia
 Northwest Territories
 New Brunswick
+Which latitude line is the Canadian/US border based on?
+12
+123
+49
+16
+49
+Which province does not use daylight savings time?
+Saskatchewan
+Manitoba
+Ontario
+New Brunswick
+Saskatchewan
+What is the largest island in Canada?
+Vancouver Island
+Baffin Island
+Prince Edward Island
+Newfoundland
+Baffin Island
+Which province is the St. Lawrence River located?
+Ontario
+Nova Scotia
+New Brunswick
+Quebec
+Quebec
+What is the tallest mountain in Canada?
+Mt. Columbia
+The Rocky Mountains
+Mt. Logan
+Mt. Steele
+Mt. Logan
+What is the correct spelling of this lake in Manitoba?
+Pekwachnamaykoskwaskwaypinwanik Lake
+Pekwachnamaykoskwaskwaypiknik Lake
+Pechywaknakosantsiwaksywakypinwanik Lake
+Chad Lake
+Pekwachnamaykoskwaskwaypinwanik Lake
