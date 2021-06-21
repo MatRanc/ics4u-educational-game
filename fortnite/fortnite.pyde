@@ -182,8 +182,10 @@ def read_file_to_list_questions(file_name):
         
         for y in range(0, 6):
             sub_list.append(file_list[x+y])
-        
+            
         questions_list.append(sub_list)
+    
+    random.shuffle(questions_list)  # Shuffles order of questions on startup to avoid repetitiveness
     
     return questions_list
 
@@ -199,16 +201,22 @@ def questions_ui():
             current_question = random.randint(0,5)
         else:
             current_question = current_question + random.randrange(1, 3)
+            
+        question_boxes = []
+        
+        answer_locations = [1,2,3,4]
+        random.shuffle(answer_locations)
+        
+        y_pos_counter = 0
+        
+        for x in answer_locations:
+            question_boxes.append(RectButton(20, 517 + (y_pos_counter*45), 1239, 40, questions_list[current_question][x], 17))
+            y_pos_counter += 1
         
         need_question = False
 
     question_asked = QuestionDisplay(700, 50, questions_list[current_question][0])  # Displays question in ellipse
     question_asked.display()
-
-    question_boxes = []
-    
-    for x in range(0, 4):
-        question_boxes.append(RectButton(20, 517 + (x*45), 1239, 40, questions_list[current_question][x+1], 17))
 
 # Function to pick random damage value for enemy between set min and max ranges
 def enemy_damage(input_tuple):
